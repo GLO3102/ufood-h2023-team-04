@@ -20,7 +20,6 @@
             </button>
           </div>
         </div>
-        
 
         <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
         <ul
@@ -33,23 +32,22 @@
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <router-link to="/restaurant">Restaurant</router-link>
           </li>
-          <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <li v-if="logged" class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <router-link to="/user">User Profile</router-link>
           </li>
-          <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <li v-if="!!logged" class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <router-link to="/">Register</router-link>
           </li>
-          <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <li v-if="!!logged" class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <router-link to="/">Sign in</router-link>
           </li>
-          <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <li v-if="!!logged" class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <router-link to="/">Deconnexion</router-link>
           </li>
         </ul>
       </nav>
-      <div class="flex flex-row justify-end pb-2">
-          <input class="border-2 border-gray-300 bg-white h-10 px-2  rounded-lg text-sm focus:outline-none"
-          type="search">
+      <div class="container py-4 mx-auto md:flex md:justify-end md:items-center">
+          <input class="border-2 border-gray-300 bg-white h-10 px-2  rounded-lg text-sm focus:outline-none" type="search">
         <button type="submit" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg text-sm focus:outline-none bg-blue-400 hover:bg-blue-800">search</button>
         </div>
     </div>
@@ -63,6 +61,8 @@ export default {
     };
   },
 };
+
+var logged = true;
 </script>
 
 <style></style>

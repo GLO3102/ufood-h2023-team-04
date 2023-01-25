@@ -50,8 +50,11 @@
               </div>
             </div>
             <div>
-              <li v-if="!visit">
+              <li>
                 <router-link to="/">Home</router-link>
+                <div v-for="user in users" :key="user.id">
+                  {{ user.score }}
+                </div>
               </li>
             </div>
           </div>
@@ -62,10 +65,12 @@
 </template>
 
 <script>
+import MY_JSON from "@/data/users.json";
 export default {
   data() {
     return {
-      visit: true,
+      visit: false,
+      users: MY_JSON,
     };
   },
 };

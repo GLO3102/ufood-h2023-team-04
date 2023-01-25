@@ -1,24 +1,26 @@
-{
-  "users": [
+[
     {
+      "id": 1,
       "fullname": "Shrek Potvin",
       "score": "69",
       "visit": ["Mcdo", "Ashton"]
     },
     {
+      "id": 2,
       "fullname": "Jean-Guy Lamothe",
       "score": "32",
       "visit": ["Mcdo", "Barbies"]
     },
     {
+      "id": 3,
       "fullname": "Paul Plamondon",
       "score": "12",
       "visit": ["Mcdo"]
     },
     {
+      "id": 4,
       "fullname": "Michael NotJackson",
       "score": "132",
       "visit": []
     }
   ]
-}

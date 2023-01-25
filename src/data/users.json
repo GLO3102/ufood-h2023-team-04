@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "fullname": "Shrek Potvin",
+      "score": "69",
+      "visit": ["Mcdo", "Ashton"]
+    },
+    {
+      "fullname": "Jean-Guy Lamothe",
+      "score": "32",
+      "visit": ["Mcdo", "Barbies"]
+    },
+    {
+      "fullname": "Paul Plamondon",
+      "score": "12",
+      "visit": ["Mcdo"]
+    },
+    {
+      "fullname": "Michael NotJackson",
+      "score": "132",
+      "visit": ["Mcdo", "Ashton", "Thaizone", "Pacini"]
+    }
+  ]
+}

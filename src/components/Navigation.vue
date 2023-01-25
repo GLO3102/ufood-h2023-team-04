@@ -2,7 +2,7 @@
   <div>
     <div class="bg-gray-100">
       <nav
-        class="container  py-4 mx-auto md:flex md:justify-between md:items-center"
+        class="container py-4 mx-auto md:flex md:justify-between md:items-center"
       >
         <div class="flex items-center justify-between">
           <h3 class="text-xl font-bold text-gray-800 md:text-2xl">
@@ -20,7 +20,6 @@
             </button>
           </div>
         </div>
-        
 
         <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
         <ul
@@ -48,10 +47,17 @@
         </ul>
       </nav>
       <div class="flex flex-row justify-end pb-2">
-          <input class="border-2 border-gray-300 bg-white h-10 px-2  rounded-lg text-sm focus:outline-none"
-          type="search">
-        <button type="submit" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg text-sm focus:outline-none bg-blue-400 hover:bg-blue-800">search</button>
-        </div>
+        <input
+          class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg text-sm focus:outline-none"
+          type="search"
+        />
+        <button
+          type="submit"
+          class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg text-sm focus:outline-none bg-blue-400 hover:bg-blue-800"
+        >
+          search
+        </button>
+      </div>
     </div>
   </div>
 </template>

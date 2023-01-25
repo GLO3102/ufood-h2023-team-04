@@ -8,6 +8,7 @@
     <div>Restaurant Directory</div>
   </head>
   <body>
+    <div class= "flex items-center flex-col justify-between bg-green-50 mx-auto">
     <label
       for="Restaurant"
       class="flex items-center max-w-md mx-auto text-sm font-medium text-gray-700"
@@ -44,9 +45,11 @@
         </li>
       </ul>
     </div>
+    <div></div>
+    </div>
   </body>
   <footer>
-    <p>Copyright © 2023 Restaurant Directory</p>
+    <p>Copyright © 2023 RestauCheker</p>
   </footer>
 </template>
 

@@ -52,8 +52,8 @@
             <div>
               <li>
                 <router-link to="/">Home</router-link>
-                <div v-for="user in users" :key="user.id">
-                  {{ user.score }}
+                <div v-for="user in users.slice(0, 1)" :key="user.id">
+                  {{ user.id }} {{ user.fullname }} {{ user.score }}
                 </div>
               </li>
             </div>

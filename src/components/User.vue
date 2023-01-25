@@ -25,27 +25,10 @@
             </p>
             <div class="flex justify-between items-center my-5 px-6">
               <a
-                href=""
-                class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
+                class="text-gray-500 bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
                 >69 points</a
               >
-              <a
-                href=""
-                class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
-                >Twitter</a
-              >
-              <a
-                href=""
-                class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
-                >Instagram</a
-              >
-              <a
-                href=""
-                class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
-                >Email</a
-              >
             </div>
-
             <div v-if="visit" class="w-full">
               <h3 class="font-medium text-gray-900 text-left px-6">
                 Recent visit
@@ -63,59 +46,6 @@
                     class="rounded-full h-6 shadow-md inline-block mr-2"
                   />
                   La belle et la boeuf
-                  <span class="text-gray-500 text-xs">24 min ago</span>
-                </a>
-
-                <a
-                  href="#"
-                  class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150"
-                >
-                  <img
-                    src="https://avatars0.githubusercontent.com/u/35900628?v=4"
-                    alt=""
-                    class="rounded-full h-6 shadow-md inline-block mr-2"
-                  />
-                  Le roi du spaghetti
-                  <span class="text-gray-500 text-xs">42 min ago</span>
-                </a>
-
-                <a
-                  href="#"
-                  class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150"
-                >
-                  <img
-                    src="https://avatars0.githubusercontent.com/u/35900628?v=4"
-                    alt=""
-                    class="rounded-full h-6 shadow-md inline-block mr-2"
-                  />
-                  Le Drague
-                  <span class="text-gray-500 text-xs">49 min ago</span>
-                </a>
-
-                <a
-                  href="#"
-                  class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150"
-                >
-                  <img
-                    src="https://avatars0.githubusercontent.com/u/35900628?v=4"
-                    alt=""
-                    class="rounded-full h-6 shadow-md inline-block mr-2"
-                  />
-                  Institut de psychiatrie légale Philippe-Pinel
-                  <span class="text-gray-500 text-xs">1 day ago</span>
-                </a>
-
-                <a
-                  href="#"
-                  class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150 overflow-hidden"
-                >
-                  <img
-                    src="https://avatars0.githubusercontent.com/u/35900628?v=4"
-                    alt=""
-                    class="rounded-full h-6 shadow-md inline-block mr-2"
-                  />
-                  La petite poutine
-                  <span class="text-gray-500 text-xs">5 days ago</span>
                 </a>
               </div>
             </div>
@@ -142,10 +72,3 @@ export default {
 </script>
 
 <style></style>
-
-<!-- 
-  Afficher la page du profil utilisateur
-Nom de l'utilisateur
-Score de l'utilisateur
-Une liste des restaurants visités récemment, incluant le nombre de visite(s) à chaque restaurant
-Dans le cas d'aucune visite(s), un lien vers la page d'accueil -->

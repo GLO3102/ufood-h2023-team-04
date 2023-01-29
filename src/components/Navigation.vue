@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="bg-gray-100 border-gray-300 border-b-2">
+    <div class="bg-gray-100 border-gray-300 border-b-2 shadow-md">
       <nav
-        class="container  py-4 mx-auto md:flex md:justify-between md:items-center"
+        class="container py-4 mx-auto md:flex md:justify-between md:items-center h-1"
       >
         <div class="flex items-center justify-between">
           <h3 class="text-xl font-bold text-gray-800 md:text-2xl">
@@ -32,24 +32,49 @@
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <router-link to="/restaurant">Restaurant</router-link>
           </li>
-          <li :class="{ 'hidden': !loggedIn }" class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <li
+            :class="{ hidden: !loggedIn }"
+            class="text-sm font-bold text-gray-800 hover:text-blue-400"
+          >
             <router-link to="/user">User Profile</router-link>
           </li>
-          <li :class="{ 'hidden': loggedIn }" @click="logIn" class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <li
+            :class="{ hidden: loggedIn }"
+            @click="logIn"
+            class="text-sm font-bold text-gray-800 hover:text-blue-400"
+          >
             <router-link to="/">Register</router-link>
           </li>
-          <li :class="{ 'hidden': loggedIn }" @click="logIn" class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <li
+            :class="{ hidden: loggedIn }"
+            @click="logIn"
+            class="text-sm font-bold text-gray-800 hover:text-blue-400"
+          >
             <router-link to="/">Sign in</router-link>
           </li>
-          <li :class="{ 'hidden': !loggedIn }" @click="logOut" class="text-sm font-bold text-gray-800 hover:text-blue-400">
-            <router-link to="/">Deconnexion</router-link>
+          <li
+            :class="{ hidden: !loggedIn }"
+            @click="logOut"
+            class="text-sm font-bold text-gray-800 hover:text-blue-400"
+          >
+            <router-link to="/">Logout</router-link>
           </li>
         </ul>
       </nav>
-      <div class="container py-4 mx-auto md:flex md:justify-end md:items-center">
-          <input class="border-2 border-gray-300 bg-white h-10 px-2  rounded-lg text-sm focus:outline-none" type="search">
-        <button type="submit" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg text-sm focus:outline-none bg-gray-200 hover:bg-blue-400 ml-1">search</button>
-        </div>
+      <div
+        class="container py-4 mx-auto md:flex md:justify-end md:items-center"
+      >
+        <input
+          class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg text-sm focus:outline-none"
+          type="search"
+        />
+        <button
+          type="submit"
+          class="border-2 border-gray-300 h-10 px-2 rounded-lg text-sm focus:outline-none bg-gray-200 hover:bg-blue-400 ml-1"
+        >
+          search
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -70,9 +95,6 @@ export default {
     },
   },
 };
-
-
-var logged = true;
 </script>
 
 <style></style>

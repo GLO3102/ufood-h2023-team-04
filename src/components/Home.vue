@@ -30,25 +30,40 @@
           name="categorie"
           class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
-          <option>American</option>
-          <option>Italian</option>
-          <option>Seafood</option>
-          <option>Japanese</option>
+          <option value="ame">American</option>
+          <option value="ita">Italian</option>
+          <option value="sea">Seafood</option>
+          <option value="jap">Japanese</option>
         </select>
       </div>
     </div>
-    <div class="flex items-center max-w-md mx-auto mt-1 rounded-md shadow-sm">
-      
+    <div class="flex items-center max-w-md mx-auto mt-1 rounded-md shadow-sm bg-green-50">      
       <ul
         class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400"
       >
         <li v-for="restaurant in restaurant" :key="restaurant.name">
           {{ restaurant.name }}
         </li>
-      </ul>
-      
+      </ul>      
     </div>
-    <div></div>
+    <div class= "flex items-center flex-col justify-between">
+      <div class="values text-black text-bold">
+        <span id="range1">(0$</span>
+        <span> - </span>
+        <span id="range2">49$)</span>
+      </div>
+      <label for="minRange" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Minimum</label>
+      <input id="minRange" type="range" min = "0" max = "49" value = "0" oninput = "this.nextElementSibling.value = this.value + '$'" class="w-1/2 h-4 bg-sky-100 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+      <output>0$</output>
+      <div class="values">
+        <span id="range1">(50$</span>
+        <span> - </span>
+        <span id="range2">100$)</span>
+      </div>
+      <label for="maxRange" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Maximum</label>
+      <input id="maxRange" type="range" min = "50" max = "100" value = "0" oninput = "this.nextElementSibling.value = this.value  + '$'" class="w-1/2 h-4 bg-sky-100 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+      <output>50$</output>
+      <button type = "submit" class = "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Filter</button>
     </div>
   </body>
   <footer>
@@ -67,7 +82,7 @@
                   d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
                 ></path>
               </svg>
-            </button>
+            </button>           
           </div>
         </div>
 
@@ -88,15 +103,16 @@
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <router-link to="/">Register</router-link>
           </li>
-
         </ul>
-      </nav>      
+      </nav>
+         
     </div>
   </footer>
 </template>
 
 <script>
 import MY_JSON from "@/data/restaurant.json";
+
 export default {
   data() {
     return {
@@ -106,4 +122,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>

@@ -9,26 +9,26 @@
     <div>Restaurant Directory</div>
   </head>
   <body>
-    <div class= "flex items-center flex-col justify-between bg-green-50 mx-auto w-screen">
-    <label
-      for="Restaurant"
-      class="flex items-center max-w-md mx-auto text-sm font-medium text-gray-700"
-      >Looking for a restaurant?</label
-    >
-    <div class="flex items-center mx-auto mt-1 rounded-md shadow-sm w-1/4">
-      <input
-        type="text"
-        name="name"
-        id="name"
-        class="block w-full rounded-md border-red-300 pl-7 pr-12 focus:border-green-500 focus:ring-indigo-500 sm:text-sm"
-        placeholder="Enter the name of a restaurant"
-      />
-      <div class="flex items-center max-w-md mx-auto inset-y-0 right-0 w-fit bg-white rounded-md">
+    <div class="flex items-center flex-col justify-between bg-green-50 mx-auto">
+      <label
+        for="Restaurant"
+        class="flex items-center max-w-md mx-auto text-sm font-medium text-gray-700"
+        >Looking for a restaurant?</label
+      >
+      <div class="flex w-1/2 bg-white">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="block w-full rounded-md border border-black pl-7 pr-12 focus:border-green-500 focus:ring-indigo-500 sm:text-sm placeholder:text-center"
+          placeholder="Enter the name of a restaurant"
+        />
+
         <label for="categorie" class="srOnly"></label>
         <select
           id="categorie"
           name="categorie"
-          class="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
           <option>American</option>
           <option>Italian</option>
@@ -52,10 +52,8 @@
     </div>
   </body>
   <footer>
-    <div class="bg-gray-100 absolute bottom-0 w-screen">
-      <nav
-        class="container py-4 mx-auto md:flex md:justify-between md:items-center"
-      >
+    <div class="bg-gray-100 absolute bottom-0 w-full h-12 mx-auto">
+      <nav class="container mx-auto md:flex md:justify-between md:items-center">
         <div class="flex items-center justify-between">
           <h3 class="text-xl font-bold text-gray-800 md:text-2xl">
             RestoChecker

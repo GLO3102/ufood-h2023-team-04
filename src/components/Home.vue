@@ -15,7 +15,7 @@
         class="flex items-center max-w-md mx-auto text-sm font-medium text-gray-700"
         >Looking for a restaurant?</label
       >
-      <div class="flex w-100px bg-white">
+      <div class="grid sm:flex w-100px bg-white">
         <input
           type="text"
           name="name"
@@ -56,9 +56,7 @@
         </button>
       </div>
     </div>
-    <div
-      class="flex items-center max-w-md mx-auto mt-1 rounded-md shadow-sm bg-green-50"
-    >
+    <div class="flex justify-center mt-1 rounded-md shadow-sm bg-green-50">
       <ul
         class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400"
       >

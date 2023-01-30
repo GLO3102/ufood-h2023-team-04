@@ -2,7 +2,7 @@
   <div>
     <div class="bg-gray-100 border-gray-300 border-b-2 shadow-md">
       <nav
-        class="container py-4 mx-auto md:flex md:justify-between md:items-center h-1"
+        class="container py-4 mx-auto md:flex md:justify-between md:items-center"
       >
         <div class="flex items-center justify-between">
           <h3 class="text-xl font-bold text-gray-800 md:text-2xl">
@@ -62,15 +62,15 @@
         </ul>
       </nav>
       <div
-        class="container py-4 mx-auto md:flex md:justify-end md:items-center"
+        class="container pb-2 mx-auto md:flex md:justify-end md:items-center h-8"
       >
         <input
-          class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg text-sm focus:outline-none"
+          class="border-2 border-gray-300 bg-white h-7 px-2 rounded-lg text-sm focus:outline-none"
           type="search"
         />
         <button
           type="submit"
-          class="border-2 border-gray-300 h-10 px-2 rounded-lg text-sm focus:outline-none bg-gray-200 hover:bg-blue-400 ml-1"
+          class="border-2 border-gray-300 h-7 px-2 rounded-lg text-sm focus:outline-none bg-gray-200 hover:bg-blue-400 ml-1"
         >
           search
         </button>

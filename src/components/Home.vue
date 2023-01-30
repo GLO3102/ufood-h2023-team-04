@@ -53,7 +53,7 @@
         <span id="range2">49$)</span>
       </div>
       <label for="minRange" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Minimum</label>
-      <input id="minRange" type="range" min = "0" max = "49" value = "0" oninput = "this.nextElementSibling.value = this.value + '$'" class="w-1/2 h-4 bg-sky-100 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+      <input id="minRange" type="range" min = "0" max = "49" value = "0" oninput = "this.nextElementSibling.value = this.value + '$'" class="w-1/2 h-4 bg-sky-100 rounded-lg appearance-none cursor-pointer">
       <output>0$</output>
       <div class="values">
         <span id="range1">(50$</span>
@@ -63,7 +63,10 @@
       <label for="maxRange" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Maximum</label>
       <input id="maxRange" type="range" min = "50" max = "100" value = "0" oninput = "this.nextElementSibling.value = this.value  + '$'" class="w-1/2 h-4 bg-sky-100 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
       <output>50$</output>
+      <div id="buttons" class = "flex row-auto justify-around">
+      <button type = "submit" class = "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Search</button>
       <button type = "submit" class = "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Filter</button>
+      </div>
     </div>
   </body>
   <footer>
@@ -122,11 +125,4 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>

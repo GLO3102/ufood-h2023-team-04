@@ -6,7 +6,14 @@
         "phone": 4186860808,
         "longitude": null,
         "latitude": null,
-        "hours": "",
+        "hours": {"Samedi":  "",
+          "Dimanche":  "",
+          "Lundi":  "",
+          "Mardi":  "",
+          "Mercredi":  "",
+          "Jeudi":  "",
+          "Vendredi":  ""
+        },
         "pictures": "",
         "type": "American",
         "minPrice": 8.00,
@@ -19,7 +26,15 @@
         "phone": 5817425444,
         "longitude": null,
         "latitude": null,
-        "hours": "",
+        "hours": {"Samedi":  "",
+          "Dimanche":  "",
+          "Lundi":  "",
+          "Mardi":  "",
+          "Mercredi":  "",
+          "Jeudi":  "",
+          "Vendredi":  ""
+        },
+
         "pictures": "",
         "type": "American",
         "minPrice": 10.00,
@@ -32,7 +47,14 @@
         "phone": 4187801903,
         "longitude": null,
         "latitude": null,
-        "hours": "",
+        "hours": {"Samedi":  "",
+          "Dimanche":  "",
+          "Lundi":  "",
+          "Mardi":  "",
+          "Mercredi":  "",
+          "Jeudi":  "",
+          "Vendredi":  ""
+        },
         "pictures": "",
         "type": "Japanese",
         "minPrice": 5.00,
@@ -45,7 +67,14 @@
         "phone": 4189146441,
         "longitude": null,
         "latitude": null,
-        "hours": "",
+        "hours": {"Samedi":  "",
+          "Dimanche":  "",
+          "Lundi":  "",
+          "Mardi":  "",
+          "Mercredi":  "",
+          "Jeudi":  "",
+          "Vendredi":  ""
+        },
         "pictures": "",
         "type": "Seafood",
         "minPrice": 15.00,
@@ -58,7 +87,14 @@
         "phone": 4186578888,
         "longitude": null,
         "latitude": null,
-        "hours": "",
+        "hours": {"Samedi":  "",
+          "Dimanche":  "",
+          "Lundi":  "",
+          "Mardi":  "",
+          "Mercredi":  "",
+          "Jeudi":  "",
+          "Vendredi":  ""
+        },
         "pictures": "",
         "type": "Italian",
         "minPrice": 9.00,
@@ -66,4 +102,4 @@
         "rating": "4.1"
       }
     ]
-  
+

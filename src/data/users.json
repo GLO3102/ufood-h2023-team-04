@@ -1,26 +1,49 @@
-[
-    {
-      "id": 1,
-      "fullname": "Shrek Potvin",
-      "score": "69",
-      "visit": ["Mcdo", "Ashton"]
+{
+    "1": {
+        "id": 1,
+        "fullname": "Shrek Potvin",
+        "score": "69",
+        "visits": {
+            "1": {
+                "name": "Mcdo",
+                "amount": 1
+            },
+            "2": {
+                "name": "Ashton",
+                "amount": 2
+            }
+        }
     },
-    {
-      "id": 2,
-      "fullname": "Jean-Guy Lamothe",
-      "score": "32",
-      "visit": ["Mcdo", "Barbies"]
+    "2": {
+        "id": 2,
+        "fullname": "Jean Gi",
+        "score": "24",
+        "visits": {
+            "1": {
+                "name": "Mcdo",
+                "amount": 1
+            }
+        }
     },
-    {
-      "id": 3,
-      "fullname": "Paul Plamondon",
-      "score": "12",
-      "visit": ["Mcdo"]
+    "3": {
+        "id": 3,
+        "fullname": "Paul Plamondon",
+        "score": "12",
+        "visits": {
+            "1": {
+                "name": "Subway",
+                "amount": 4
+            },
+            "2": {
+                "name": "Ashton",
+                "amount": 2
+            }
+        }
     },
-    {
-      "id": 4,
-      "fullname": "Michael NotJackson",
-      "score": "132",
-      "visit": []
+    "4": {
+        "id": 4,
+        "fullname": "Michael NotJackson",
+        "score": "132",
+        "visits": {}
     }
-  ]
+}

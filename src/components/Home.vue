@@ -8,20 +8,20 @@
     <h1>Home</h1>
     <div>Restaurant Directory</div>
   </head>
-  <body>
+  <body class="bg-green-50">
     <div class="flex items-center flex-col justify-between bg-green-50 mx-auto">
       <label
         for="Restaurant"
         class="flex items-center max-w-md mx-auto text-sm font-medium text-gray-700"
         >Looking for a restaurant?</label
       >
-      <div class="flex w-1/2 bg-white">
+      <div class="flex w-100px bg-white">
         <input
           type="text"
           name="name"
           id="name"
-          class="block w-full rounded-md border border-black pl-7 pr-12 focus:border-green-500 focus:ring-indigo-500 sm:text-sm placeholder:text-center"
-          placeholder="Enter the name of a restaurant"
+          class="block w-full rounded-md border border-black pl-7 pr-12 focus:border-green-500 focus:ring-indigo-500 sm:text-sm placeholder:text-left"
+          placeholder="Restaurant's name"
         />
 
         <label for="categorie" class="srOnly"></label>
@@ -30,43 +30,47 @@
           name="categorie"
           class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
+          <option value="any">Any type</option>
           <option value="ame">American</option>
           <option value="ita">Italian</option>
           <option value="sea">Seafood</option>
           <option value="jap">Japanese</option>
         </select>
+        <select
+          name="price"
+          id="price"
+          class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        >
+          <option value="billGates">Any price</option>
+          <option value="poor">$</option>
+          <option value="lessPoor">$$</option>
+          <option value="notPoor">$$$</option>
+          <option value="rich">$$$$</option>
+        </select>
+        <button
+          id="search"
+          type="submit"
+          class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        >
+          Search
+        </button>
       </div>
     </div>
-    <div class="flex items-center max-w-md mx-auto mt-1 rounded-md shadow-sm bg-green-50">      
+    <div
+      class="flex items-center max-w-md mx-auto mt-1 rounded-md shadow-sm bg-green-50"
+    >
       <ul
         class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400"
       >
         <li v-for="restaurant in restaurant" :key="restaurant.name">
           {{ restaurant.name }}
+          <div class="flex items-left flex-col">
+            <span>Price {{ restaurant.price }} </span>
+            <span>Ratings {{ restaurant.rating }}</span>
+            <span>Type {{ restaurant.type }}</span>
+          </div>
         </li>
-      </ul>      
-    </div>
-    <div class= "flex items-center flex-col justify-between">
-      <div class="values text-black text-bold">
-        <span id="range1">(0$</span>
-        <span> - </span>
-        <span id="range2">49$)</span>
-      </div>
-      <label for="minRange" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Minimum</label>
-      <input id="minRange" type="range" min = "0" max = "49" value = "0" oninput = "this.nextElementSibling.value = this.value + '$'" class="w-1/2 h-4 bg-sky-100 rounded-lg appearance-none cursor-pointer">
-      <output>0$</output>
-      <div class="values">
-        <span id="range1">(50$</span>
-        <span> - </span>
-        <span id="range2">100$)</span>
-      </div>
-      <label for="maxRange" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Maximum</label>
-      <input id="maxRange" type="range" min = "50" max = "100" value = "0" oninput = "this.nextElementSibling.value = this.value  + '$'" class="w-1/2 h-4 bg-sky-100 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-      <output>50$</output>
-      <div id="buttons" class = "flex row-auto justify-around">
-      <button type = "submit" class = "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Search</button>
-      <button type = "submit" class = "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Filter</button>
-      </div>
+      </ul>
     </div>
   </body>
   <footer>
@@ -85,7 +89,7 @@
                   d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
                 ></path>
               </svg>
-            </button>           
+            </button>
           </div>
         </div>
 
@@ -108,7 +112,6 @@
           </li>
         </ul>
       </nav>
-         
     </div>
   </footer>
 </template>

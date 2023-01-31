@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col h-screen sm: flex-row lg:flex-row">
     <div
-      class="h-24 text-5xl py-2 flex flex-col justify-center items-center bg-blue-500"
+      class="h-24 w-full text-5xl py-2 flex flex-col justify-center items-center bg-blue-500"
     >
       <p class="text-3xl sm: lg :text-5xl font-serif">La belle et la boeuf</p>
     </div>
-    <div class="h-1/2 w-full sm: lg:flex-col w-1/2">
+    <div class="h-1/2 w-screen sm: lg:flex-col w-1/2">
       <div
         class="bg-blue-500 h-1/2 flex flex-col justify-center items-center box-border lg:"
       >
@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="h-1/2 w-full sm: lg :flex-col w-1/2 h-screen">
+    <div class="h-1/2 w-screen sm: lg :flex-col w-1/2 h-screen">
       <div class="bg-red-900 h-1/2">
         <img
           class="w-full h-full"

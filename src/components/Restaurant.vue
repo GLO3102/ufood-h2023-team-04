@@ -1,11 +1,15 @@
 <template>
-  <div class="flex flex-row h-screen">
-    <div class="flex-col w-1/2">
-      <div class="bg-blue-500 h-1/2">
-        <div class="text-5xl px-8">
-          <p class="text-5xl font-serif">La belle et la boeuf</p>
-        </div>
-        <div class="h-1/2">
+  <div class="flex flex-col h-screen sm: flex-row lg:flex-row">
+    <div
+      class="h-24 text-5xl py-2 flex flex-col justify-center items-center bg-blue-500"
+    >
+      <p class="text-3xl sm: lg :text-5xl font-serif">La belle et la boeuf</p>
+    </div>
+    <div class="h-1/2 w-full sm: lg:flex-col w-1/2">
+      <div
+        class="bg-blue-500 h-1/2 flex flex-col justify-center items-center box-border lg:"
+      >
+        <div class="text-xs flex flex-col justify-center items-center">
           <p class="">Adresse : 2450 Bd Laurier, Québec, QC G1V 2L1</p>
           <p class="">Téléphone &nbsp; : (581) 742-5444</p>
           <p class="underline underline-offset-1">Horaire</p>
@@ -17,11 +21,13 @@
           <p class="">Jeudi : &emsp;11h30-0h00</p>
           <p class="">Vendredi :&emsp; 11h30-0h00</p>
         </div>
-        <button
-          class="bg-red-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-        >
-          Site du restaurant
-        </button>
+        <div class="justify-self-end py-5">
+          <button
+            class="bg-red-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          >
+            Site du restaurant
+          </button>
+        </div>
       </div>
       <div class="bg-blue-900 h-1/2">
         <div class="justify-center items-center h-full w-full">
@@ -38,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="flex-col w-1/2 h-screen">
+    <div class="h-1/2 w-full sm: lg :flex-col w-1/2 h-screen">
       <div class="bg-red-900 h-1/2">
         <img
           class="w-full h-full"

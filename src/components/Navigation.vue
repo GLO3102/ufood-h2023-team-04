@@ -27,37 +27,37 @@
           class="flex-col mt-8 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0"
         >
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-            <router-link to="/">Home</router-link>
+            <router-link :to="{name: 'Home'}">Home</router-link>
           </li>
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-            <router-link to="/restaurant">Restaurant</router-link>
+            <router-link :to="{name: 'Restaurant'}">Restaurant</router-link>
           </li>
           <li
             :class="{ hidden: !loggedIn }"
             class="text-sm font-bold text-gray-800 hover:text-blue-400"
           >
-            <router-link to="/user">User Profile</router-link>
+            <router-link :to="{name:'User', params: {currentUserID: '1'}}">User Profile</router-link>
           </li>
           <li
             :class="{ hidden: loggedIn }"
             @click="logIn"
             class="text-sm font-bold text-gray-800 hover:text-blue-400"
           >
-            <router-link to="/">Register</router-link>
+            <router-link :to="{name: 'Home'}">Register</router-link>
           </li>
           <li
             :class="{ hidden: loggedIn }"
             @click="logIn"
             class="text-sm font-bold text-gray-800 hover:text-blue-400"
           >
-            <router-link to="/">Sign in</router-link>
+            <router-link :to="{name: 'Home'}">Sign in</router-link>
           </li>
           <li
             :class="{ hidden: !loggedIn }"
             @click="logOut"
             class="text-sm font-bold text-gray-800 hover:text-blue-400"
           >
-            <router-link to="/">Logout</router-link>
+            <router-link :to="{name: 'Home'}">Logout</router-link>
           </li>
         </ul>
       </nav>

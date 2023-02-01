@@ -1,6 +1,6 @@
 <template>
   <div class="grid-cols-2 gap-4">
-    <div class="flex flex flex-row bg-green-100">
+    <div class="flex flex-row bg-green-100">
       <div class="w-1/2 self-center">
         <div class="text-5xl px-8">
           <p class="text-5xl font-serif">La belle et la boeuf</p>

@@ -1,15 +1,21 @@
 module.exports = {
-    root: true,
-    env: {
-        node: true,
-    },
-    extends: ["plugin:vue/essential"],
-    rules: {
-        "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-        "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-        "vue/multi-word-component-names": 0,
-    },
-    parserOptions: {
-        parser: "@babel/eslint-parser",
-    },
+  root: true,
+  env: {
+    node: true,
+  },
+  extends: ["plugin:vue/essential", "@vue/prettier"],
+  rules: {
+    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+    "vue/multi-word-component-names": 0,
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
+  },
+  parserOptions: {
+    parser: "@babel/eslint-parser",
+  },
 };

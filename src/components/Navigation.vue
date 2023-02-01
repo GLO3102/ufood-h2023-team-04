@@ -75,6 +75,11 @@
           search
         </button>
       </div>
+      <div
+        class="container pb-2 mx-auto md:flex md:justify-start md:items-center h-8"
+      >
+        <h6 :class="{ hidden: !loggedIn }">Bonjour {Nom}</h6>
+      </div>
     </div>
   </div>
 </template>

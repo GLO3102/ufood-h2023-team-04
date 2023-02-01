@@ -6,7 +6,7 @@
       <p class="text-3xl sm: lg :text-5xl font-serif">La belle et la boeuf</p>
     </div>
     <div class="flex flex-col sm:lg:flex-row h-screen">
-      <div class="h-1/2 w-screen sm: lg:flex-col lg:w-1/2 h-full">
+      <div class="h-1/2 w-screen sm: lg:flex-col lg:w-1/2 lg:h-full">
         <div
           class="bg-blue-500 h-1/2 flex flex-col justify-center items-center box-border lg:"
         >

@@ -47,6 +47,18 @@
           <option value="notPoor">$$$</option>
           <option value="rich">$$$$</option>
         </select>
+        <select
+          name="rating"
+          id="rating"
+          class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        >
+          <option value="any">Any rating</option>
+          <option value="1">*</option>
+          <option value="2">**</option>
+          <option value="3">***</option>
+          <option value="4">****</option>
+          <option value="5">*****</option>
+        </select>
         <button
           id="search"
           type="submit"
@@ -63,9 +75,9 @@
         <li v-for="restaurant in restaurant" :key="restaurant.name">
           {{ restaurant.name }}
           <div class="flex items-left flex-col">
-            <span>Price {{ restaurant.price }} </span>
-            <span>Ratings {{ restaurant.rating }}</span>
-            <span>Type {{ restaurant.type }}</span>
+            <span>Type: {{ restaurant.type }}</span>
+            <span>Price: {{ restaurant.price }} </span>
+            <span>Rating: {{ restaurant.rating }}</span>
           </div>
         </li>
       </ul>

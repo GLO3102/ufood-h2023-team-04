@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div class="bg-gray-100 border-gray-300 border-b-2 shadow-md">
+    <div class="bg-neutral-900">
       <nav
         class="container py-4 mx-auto md:flex md:justify-between md:items-center"
       >
         <div class="flex items-center justify-between">
-          <h3 class="text-xl font-bold text-gray-800 md:text-2xl">
+          <h3 class="text-xl font-bold text-neutral-100 md:text-2xl">
             RestoChecker
           </h3>
           <!-- Mobile menu button -->
           <div @click="showMenu = !showMenu" class="flex md:hidden">
-            <button type="button" class="text-gray-800 hover:text-gray-400">
+            <button type="button" class="text-neutral-100 hover:text-gray-400">
               <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
                 <path
                   fill-rule="evenodd"
@@ -26,15 +26,15 @@
           :class="showMenu ? 'flex' : 'hidden'"
           class="flex-col mt-8 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0"
         >
-          <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <li class="text-sm font-bold text-neutral-100 hover:text-blue-400">
             <router-link :to="{ name: 'Home' }">Home</router-link>
           </li>
-          <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <li class="text-sm font-bold text-neutral-100 hover:text-blue-400">
             <router-link :to="{ name: 'Restaurant' }">Restaurant</router-link>
           </li>
           <li
             :class="{ hidden: !loggedIn }"
-            class="text-sm font-bold text-gray-800 hover:text-blue-400"
+            class="text-sm font-bold text-neutral-100 hover:text-blue-400"
           >
             <router-link :to="{ name: 'User', params: { currentUserID: '1' } }"
               >User Profile</router-link
@@ -43,21 +43,21 @@
           <li
             :class="{ hidden: loggedIn }"
             @click="logIn"
-            class="text-sm font-bold text-gray-800 hover:text-blue-400"
+            class="text-sm font-bold text-neutral-100 hover:text-blue-400"
           >
             <router-link :to="{ name: 'Home' }">Register</router-link>
           </li>
           <li
             :class="{ hidden: loggedIn }"
             @click="logIn"
-            class="text-sm font-bold text-gray-800 hover:text-blue-400"
+            class="text-sm font-bold text-neutral-100 hover:text-blue-400"
           >
             <router-link :to="{ name: 'Home' }">Sign in</router-link>
           </li>
           <li
             :class="{ hidden: !loggedIn }"
             @click="logOut"
-            class="text-sm font-bold text-gray-800 hover:text-blue-400"
+            class="text-sm font-bold text-neutral-100 hover:text-blue-400"
           >
             <router-link :to="{ name: 'Home' }">Logout</router-link>
           </li>
@@ -67,20 +67,20 @@
         class="container pb-2 mx-auto md:flex md:justify-end md:items-center h-8"
       >
         <input
-          class="border-2 border-gray-300 bg-white h-7 px-2 rounded-lg text-sm focus:outline-none"
+          class="bg-neutral-200 text-neutral-800 h-7 px-2 rounded-lg text-sm focus:outline-none"
           type="search"
         />
         <button
           type="submit"
-          class="border-2 border-gray-300 h-7 px-2 rounded-lg text-sm focus:outline-none bg-gray-200 hover:bg-blue-400 ml-1"
+          class="bg-neutral-600 h-7 px-2 rounded-lg text-sm focus:outline-none text-neutral-100 hover:bg-blue-400 ml-1"
         >
           search
         </button>
       </div>
       <div
-        class="container pb-2 mx-auto md:flex md:justify-start md:items-center h-8"
+        class="container pb-2 mx-auto md:flex md:justify-start md:items-center h-8 text-neutral-100"
       >
-        <h6 :class="{ hidden: !loggedIn }">Bonjour {Nom}</h6>
+        <h6 :class="{ hidden: !loggedIn }">Bonjour Shrek Potvin</h6>
       </div>
     </div>
   </div>

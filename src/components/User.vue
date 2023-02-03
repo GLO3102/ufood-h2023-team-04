@@ -1,27 +1,32 @@
 <template>
   <body class="bg-gradient-to-r from-teal-600 to-teal-300 antialiased">
     <div class="h-screen">
+  <body
+    class="bg-gradient-to-r from-sky-500 to-indigo-500 antialiased shadow-2xl"
+  >
+    <div class="container mx-auto my-60">
       <div>
         <div
           class="bg-white relative shadow rounded-lg w-4/6 md:w-4/6 lg:w-3/6 xl:w-2/6 mx-auto top-12"
+          class="bg-neutral-800 relative shadow-2xl rounded-lg w-5/6 md:w-5/6 lg:w-4/6 xl:w-3/6 mx-auto"
         >
           <div class="flex justify-center">
             <img
               src="https://avatarfiles.alphacoders.com/231/231277.jpg"
               alt=""
-              class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110"
+              class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 bg-neutral-800 transition duration-200 transform hover:scale-110"
             />
           </div>
 
           <div class="mt-16">
-            <h1 class="font-bold text-center text-3xl text-gray-900"></h1>
-            <p class="text-center">
+            <h1 class="font-bold text-center text-3xl text-neutral-100"></h1>
+            <p class="text-center text-neutral-100">
               <span> {{ users[$route.params.currentUserID].fullname }} </span>
             </p>
 
             <div class="flex justify-between items-center my-5 px-6">
               <a
-                class="text-gray-500 bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
+                class="text-neutral-100 bg-neutral-500 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
                 >Score: {{ users[$route.params.currentUserID].score }}</a
               >
             </div>
@@ -32,7 +37,7 @@
               "
             >
               <div class="w-full">
-                <h3 class="font-medium text-gray-900 text-left px-6">
+                <h3 class="font-medium text-neutral-100 text-left px-6">
                   Recent visits
                 </h3>
                 <div
@@ -40,7 +45,7 @@
                 >
                   <a
                     href="#"
-                    class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
+                    class="w-full border-t border-neutral-300 text-neutral-100 py-4 pl-6 pr-3 block hover:bg-neutral-500 transition duration-150"
                     v-for="val in users[$route.params.currentUserID].visits"
                     :key="val.name"
                   >

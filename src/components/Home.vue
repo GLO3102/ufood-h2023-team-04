@@ -8,14 +8,14 @@
     <h1>Home</h1>
     <div>Restaurant Directory</div>
   </head>
-  <body class="bg-gray-500">
+  <body class="bg-gray-500 h-screen">
     <div class="flex items-center flex-col justify-between bg-gray-500 mx-auto">
       <label
         for="Restaurant"
-        class="flex items-center max-w-md mx-auto text-sm font-medium text-black"
+        class="flex items-center max-w-md mx-auto text-2xl text-black py-10 font-bold"
         >Looking for a restaurant?</label
       >
-      <div class="grid sm:flex w-100px bg-white">
+      <div class="grid sm:flex w-100px font-bold rounded-md">
         <input
           type="text"
           name="name"
@@ -28,7 +28,7 @@
         <select
           id="categorie"
           name="categorie"
-          class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          class="h-full rounded-md border border-black bg-white py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
           <option value="any">Any type</option>
           <option value="ame">American</option>
@@ -39,7 +39,7 @@
         <select
           name="price"
           id="price"
-          class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          class="h-full rounded-md border border-black py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
           <option value="billGates">Any price</option>
           <option value="poor">$</option>
@@ -50,7 +50,7 @@
         <select
           name="rating"
           id="rating"
-          class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          class="h-full rounded-md border border-black py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
           <option value="any">Any rating</option>
           <option value="1">*</option>
@@ -62,17 +62,21 @@
         <button
           id="search"
           type="submit"
-          class="h-full rounded-md border border-black bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          class="bg-white h-full rounded-md border border-black py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
           Search
         </button>
       </div>
     </div>
-    <div class="flex justify-center mt-1 rounded-md shadow-sm bg-black-500">
-      <ul
-        class="bg-black rounded-lg border border-black w-96 text-gray-900"
-      >
-        <li v-for="restaurant in restaurant" :key="restaurant.name" class="px-6 py-2 border-b border-black w-full rounded-t-lg bg-red-600 text-white">
+    <div
+      class="flex justify-center mt-1 rounded-md bg-black-500 font-bold pt-10"
+    >
+      <ul class="rounded-lg w-96 text-gray-900">
+        <li
+          v-for="restaurant in restaurant"
+          :key="restaurant.name"
+          class="px-6 py-2 border-b border-black w-full rounded-lg bg-red-600 text-white"
+        >
           {{ restaurant.name }}
           <div class="flex items-left flex-col">
             <span>Type: {{ restaurant.type }}</span>

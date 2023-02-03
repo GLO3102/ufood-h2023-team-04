@@ -8,11 +8,11 @@
     <h1>Home</h1>
     <div>Restaurant Directory</div>
   </head>
-  <body class="bg-green-50">
-    <div class="flex items-center flex-col justify-between bg-green-50 mx-auto">
+  <body class="bg-gray-500">
+    <div class="flex items-center flex-col justify-between bg-gray-500 mx-auto">
       <label
         for="Restaurant"
-        class="flex items-center max-w-md mx-auto text-sm font-medium text-gray-700"
+        class="flex items-center max-w-md mx-auto text-sm font-medium text-black"
         >Looking for a restaurant?</label
       >
       <div class="grid sm:flex w-100px bg-white">
@@ -68,11 +68,11 @@
         </button>
       </div>
     </div>
-    <div class="flex justify-center mt-1 rounded-md shadow-sm bg-green-50">
+    <div class="flex justify-center mt-1 rounded-md shadow-sm bg-black-500">
       <ul
-        class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400"
+        class="bg-black rounded-lg border border-black w-96 text-gray-900"
       >
-        <li v-for="restaurant in restaurant" :key="restaurant.name">
+        <li v-for="restaurant in restaurant" :key="restaurant.name" class="px-6 py-2 border-b border-black w-full rounded-t-lg bg-red-600 text-white">
           {{ restaurant.name }}
           <div class="flex items-left flex-col">
             <span>Type: {{ restaurant.type }}</span>

@@ -9,13 +9,15 @@
     <div>Restaurant Directory</div>
   </head>
   <body class="bg-gray-500 h-screen">
-    <div class="flex items-center flex-col justify-between bg-gray-500 mx-auto">
+    <div
+      class="flex items-center flex-col justify-between bg-neutral-800 mx-auto"
+    >
       <label
         for="Restaurant"
-        class="flex items-center max-w-md mx-auto text-2xl text-black py-10 font-bold"
+        class="flex items-center max-w-md mx-auto text-2xl text-white py-10 font-bold"
         >Looking for a restaurant?</label
       >
-      <div class="grid sm:flex w-100px font-bold rounded-md">
+      <div class="grid sm:flex w-100px font-bold rounded-md pb-10">
         <input
           type="text"
           name="name"

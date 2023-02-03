@@ -1,5 +1,5 @@
 <template>
-  <body class="bg-neutral-600">
+  <body class="bg-white">
     <div class="flex flex-col space-y-4 pt-3 mx-3 items-center">
       <div class="container w-full ms:w-60">
         <div class="container rounded bg-neutral-800 shadow-2xl">

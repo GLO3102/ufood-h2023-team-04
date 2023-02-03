@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="bg-neutral-900 shadow-md">
+  <div class="shadow-2xl">
+    <div class="bg-neutral-900 shadow-2xl">
       <nav
         class="container py-4 mx-auto md:flex md:justify-between md:items-center"
       >

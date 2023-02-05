@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-neutral-900 shadow-md">
+    <div class="bg-neutral-900">
       <nav
         class="container py-4 mx-auto md:flex md:justify-between md:items-center"
       >
@@ -78,9 +78,9 @@
         </button>
       </div>
       <div
-        class="container pb-2 mx-auto md:flex md:justify-start md:items-center h-8"
+        class="container pb-2 mx-auto md:flex md:justify-start md:items-center h-8 text-neutral-100"
       >
-        <h6 :class="{ hidden: !loggedIn }">Bonjour {Nom}</h6>
+        <h6 :class="{ hidden: !loggedIn }">Hi Shrek Potvin</h6>
       </div>
     </div>
   </div>

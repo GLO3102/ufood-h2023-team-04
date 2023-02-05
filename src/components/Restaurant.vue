@@ -1,5 +1,5 @@
 <template>
-  <body class="bg-neutral-600">
+  <body class="bg-white">
     <div class="flex flex-col space-y-4 pt-3 mx-3 items-center">
       <div class="container w-full ms:w-60">
         <div class="container rounded bg-neutral-800 shadow-2xl">
@@ -9,54 +9,54 @@
           <div class="text-center p-4">
             <div class="mb-4">
               <p class="text-neutral-100">
-                Adresse : 2450 Bd Laurier, Québec, QC G1V 2L1
+                Address : 2450 Bd Laurier, Québec, QC G1V 2L1
               </p>
-              <p class="text-neutral-100">Téléphone : (581) 742-5444</p>
+              <p class="text-neutral-100">Phone number : (581) 742-5444</p>
             </div>
             <div class="responsive-table">
               <table class="table-auto w-full text-center text-xs">
                 <thead>
                   <tr class="bg-gray-400">
-                    <th class="px-1 py-2">Jour</th>
-                    <th class="px-1 py-2">Ouverture</th>
-                    <th class="px-1 py-2">Fermeture</th>
+                    <th class="px-1 py-2">Day</th>
+                    <th class="px-1 py-2">Opening</th>
+                    <th class="px-1 py-2">Closing</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="bg-neutral-300">
-                    <td class="border px-1 py-2">Lundi</td>
+                    <td class="border px-1 py-2">Monday</td>
                     <td class="border px-1 py-2">9:00</td>
                     <td class="border px-1 py-2">17:00</td>
                   </tr>
                   <tr class="bg-neutral-100">
-                    <td class="border px-1 py-2">Mardi</td>
+                    <td class="border px-1 py-2">Tuesday</td>
                     <td class="border px-1 py-2">9:00</td>
                     <td class="border px-1 py-2">17:00</td>
                   </tr>
                   <tr class="bg-neutral-300">
-                    <td class="border px-1 py-2">Mercredi</td>
+                    <td class="border px-1 py-2">Wednsday</td>
                     <td class="border px-1 py-2">9:00</td>
                     <td class="border px-1 py-2">17:00</td>
                   </tr>
                   <tr class="bg-neutral-100">
-                    <td class="border px-1 py-2">Jeudi</td>
+                    <td class="border px-1 py-2">Thursday</td>
                     <td class="border px-1 py-2">9:00</td>
                     <td class="border px-1 py-2">17:00</td>
                   </tr>
                   <tr class="bg-neutral-300">
-                    <td class="border px-1 py-2">Vendredi</td>
+                    <td class="border px-1 py-2">Friday</td>
                     <td class="border px-1 py-2">9:00</td>
                     <td class="border px-1 py-2">17:00</td>
                   </tr>
                   <tr class="bg-neutral-100">
-                    <td class="border px-1 py-2">Samedi</td>
+                    <td class="border px-1 py-2">Saturday</td>
                     <td class="border px-1 py-2">9:00</td>
                     <td class="border px-1 py-2">17:00</td>
                   </tr>
                   <tr class="bg-neutral-300">
-                    <td class="border px-1 py-2">Dimanche</td>
-                    <td class="border px-1 py-2">Fermé</td>
-                    <td class="border px-1 py-2">Fermé</td>
+                    <td class="border px-1 py-2">Sunday</td>
+                    <td class="border px-1 py-2">Closed</td>
+                    <td class="border px-1 py-2">Closed</td>
                   </tr>
                 </tbody>
               </table>
@@ -79,8 +79,8 @@
           class="container flex flex-row rounded bg-neutral-800 shadow-2xl justify-center p-3 text-center"
         >
           <div>
-            <h3 class="font-bold text-neutral-100 text-lg p-4">Genre</h3>
-            <p class="text-neutral-100">Resto-Bar</p>
+            <h3 class="font-bold text-neutral-100 text-lg p-4">Type</h3>
+            <p class="text-neutral-100">Steak house</p>
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@
         >
           <div>
             <h3 class="font-bold text-neutral-100 text-center text-lg p-4">
-              Côte
+              Rating
             </h3>
             <p class="text-neutral-100 text-center">9/10</p>
           </div>

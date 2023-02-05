@@ -1,9 +1,9 @@
 <template>
-  <body class="bg-gradient-to-r from-sky-500 to-indigo-500 antialiased">
-    <div class="container mx-auto my-60">
+  <body class="bg-gradient-to-r from-teal-600 to-teal-300 antialiased">
+    <div class="h-screen">
       <div>
         <div
-          class="bg-white relative shadow rounded-lg w-5/6 md:w-5/6 lg:w-4/6 xl:w-3/6 mx-auto"
+          class="bg-white relative shadow rounded-lg w-4/6 md:w-4/6 lg:w-3/6 xl:w-2/6 mx-auto top-24"
         >
           <div class="flex justify-center">
             <img
@@ -54,15 +54,20 @@
                 </div>
               </div>
             </div>
-            <div class="grid justify-items-center">
-              <li
-                v-if="
-                  Object.keys(users[$route.params.currentUserID].visits)
-                    .length === 0
-                "
+            <div
+              class="grid justify-items-center"
+              v-if="
+                Object.keys(users[$route.params.currentUserID].visits)
+                  .length === 0
+              "
+            >
+              <router-link :to="{ name: 'Home' }">
+                <button
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                >
+                  Home
+                </button></router-link
               >
-                <router-link :to="{ name: 'Home' }">Home</router-link>
-              </li>
             </div>
           </div>
         </div>

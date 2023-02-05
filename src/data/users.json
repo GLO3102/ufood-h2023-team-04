@@ -1,49 +1,49 @@
 {
-    "1": {
-        "id": 1,
-        "fullname": "Shrek Potvin",
-        "score": "69",
-        "visits": {
-            "1": {
-                "name": "Mcdo",
-                "amount": 1
-            },
-            "2": {
-                "name": "Ashton",
-                "amount": 2
-            }
-        }
-    },
-    "2": {
-        "id": 2,
-        "fullname": "Jean Gi",
-        "score": "24",
-        "visits": {
-            "1": {
-                "name": "Mcdo",
-                "amount": 1
-            }
-        }
-    },
-    "3": {
-        "id": 3,
-        "fullname": "Paul Plamondon",
-        "score": "12",
-        "visits": {
-            "1": {
-                "name": "Subway",
-                "amount": 4
-            },
-            "2": {
-                "name": "Ashton",
-                "amount": 2
-            }
-        }
-    },
-    "4": {
-        "id": 4,
-        "fullname": "Michael NotJackson",
-        "score": "132",
-        "visits": {}
+  "1": {
+    "id": 1,
+    "fullname": "Shrek Potvin",
+    "score": "69",
+    "visits": {
+      "1": {
+        "name": "La Belle & La Boeuf",
+        "amount": 1
+      },
+      "2": {
+        "name": "Albacore",
+        "amount": 2
+      }
     }
+  },
+  "2": {
+    "id": 2,
+    "fullname": "Jean Gi",
+    "score": "24",
+    "visits": {
+      "1": {
+        "name": "La Belle & La Boeuf",
+        "amount": 1
+      }
+    }
+  },
+  "3": {
+    "id": 3,
+    "fullname": "Paul Plamondon",
+    "score": "12",
+    "visits": {
+      "1": {
+        "name": "Tora-Ya Ramen",
+        "amount": 4
+      },
+      "2": {
+        "name": "La Belle & La Boeuf",
+        "amount": 2
+      }
+    }
+  },
+  "4": {
+    "id": 4,
+    "fullname": "Michael NotJackson",
+    "score": "132",
+    "visits": {}
+  }
 }

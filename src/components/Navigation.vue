@@ -80,7 +80,7 @@
       <div
         class="container pb-2 mx-auto md:flex md:justify-start md:items-center h-8 text-neutral-100"
       >
-        <h6 :class="{ hidden: !loggedIn }">Bonjour Shrek Potvin</h6>
+        <h6 :class="{ hidden: !loggedIn }">Hi Shrek Potvin</h6>
       </div>
     </div>
   </div>

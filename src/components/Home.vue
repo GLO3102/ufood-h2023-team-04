@@ -1,8 +1,3 @@
-<!-- eslint-disable vue/no-parsing-error -->
-<!-- eslint-disable prettier/prettier -->
-<!-- eslint-disable vue/valid-v-for -->
-<!-- eslint-disable vue/require-v-for-key -->
-<!-- eslint-disable vue/no-multiple-template-root -->
 <template>
   <body class="bg-white">
     <div class="flex flex-col space-y-4 pt-3 mx-3 items-center">
@@ -46,6 +41,18 @@
               <option value="lessPoor">$$</option>
               <option value="notPoor">$$$</option>
               <option value="rich">$$$$</option>
+            </select>
+            <select
+              name="ratings"
+              id="ratings"
+              class="h-full rounded-md border py-0 pl-2 pr-7 text-neutral-800 focus:border-blue-400 focus:ring-blue-400 sm:text-sm"
+            >
+              <option value="any">Any rating</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </select>
             <button
               id="search"

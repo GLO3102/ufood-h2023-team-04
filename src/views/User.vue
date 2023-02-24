@@ -73,10 +73,15 @@
         </div>
       </div>
     </div>
+    <div>
+      //v-for="item in items" v-bind:key="items.user_id"
+      <UsersVisitedRestaurants></UsersVisitedRestaurants>
+    </div>
   </body>
 </template>
 
 <script>
+import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import MY_JSON from "@/data/users.json";
 export default {
   data() {

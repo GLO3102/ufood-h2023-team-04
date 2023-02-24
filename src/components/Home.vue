@@ -5,6 +5,7 @@
         <div
           class="flex items-center flex-col justify-between bg-neutral-800 rounded shadow-2xl"
         >
+          <v-color-picker></v-color-picker>
           <label
             for="Restaurant"
             class="flex items-center max-w-md mx-auto font-bold text-lg text-center text-neutral-100 mt-3"

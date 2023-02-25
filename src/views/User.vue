@@ -33,7 +33,7 @@
             >
               <div class="w-full">
                 <h3 class="font-medium text-gray-900 text-left px-6">
-                  Recent visits
+                  <ScaleButton>Test</ScaleButton> Recent visits
                 </h3>
                 <div
                   class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm"
@@ -83,11 +83,17 @@
 <script>
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import MY_JSON from "@/data/users.json";
+import { getUserInfo } from "../api/users.js";
+import ScaleButton from "../components/button/ScaleButton.vue";
 export default {
   data() {
     return {
       users: MY_JSON,
     };
+  },
+  components: {
+    UsersVisitedRestaurants: UsersVisitedRestaurants,
+    ScaleButton: ScaleButton,
   },
 };
 </script>

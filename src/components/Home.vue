@@ -20,6 +20,7 @@
           id="name"
           class="block w-full rounded-md border placeholder-neutral-800 bg-neutral-800pl-7 pr-12 focus:border-green-500 focus:ring-blue-400 sm:text-sm placeholder:text-left"
           placeholder="Restaurant's name"
+          v-model="filterText"
         />
 
         <label for="categorie" class="srOnly"></label>
@@ -71,8 +72,8 @@
     >
       <ul class="max-w-md space-y-1 text-neutral-100">
         <li
-          class="flex flex-col justify-center text-center border border-neutral-700 rounded bg-neutral-700"
-          v-for="(restaurant, index) in restaurants"
+          class="flex flex-col justify-center text-center border border-neutral-700 rounded bg-neutral-700 w-48 sm:w-96"
+          v-for="(restaurant, index) in filteredRestaurants"
           :key="index"
         >
           {{ restaurant.name }}
@@ -95,10 +96,22 @@ export default {
   data() {
     return {
       restaurants: [],
+      filterText: "",
     };
   },
   async created() {
     this.restaurants = await getRestoNames();
+  },
+  computed: {
+    filteredRestaurants() {
+      if (!this.filterText) {
+        return this.restaurants;
+      } else {
+        return this.restaurants.filter((restaurant) =>
+          restaurant.name.toLowerCase().includes(this.filterText.toLowerCase())
+        );
+      }
+    },
   },
 };
 </script>

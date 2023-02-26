@@ -72,14 +72,14 @@
       <ul class="max-w-md space-y-1 text-neutral-100">
         <li
           class="flex flex-col justify-center text-center border border-neutral-700 rounded bg-neutral-700"
-          v-for="restaurant in restaurant"
-          :key="restaurant.name"
+          v-for="(restaurant, index) in restaurants"
+          :key="index"
         >
           {{ restaurant.name }}
           <div class="flex items-left flex-col bg-neutral-600">
-            <span>Price {{ restaurant.price }} </span>
-            <span>Ratings {{ restaurant.rating }}</span>
-            <span>Type {{ restaurant.type }}</span>
+           <span>Price : {{ restaurant.price }} </span>
+            <span>Rating : {{ restaurant.rating.toFixed(1) }}</span>
+            <span>Type : {{ restaurant.genres.join(", ") }}</span>
           </div>
         </li>
       </ul>
@@ -88,13 +88,17 @@
 </template>
 
 <script>
-import MY_JSON from "@/data/restaurant.json";
+import { getRestoNames } from "@/api/restaurantsAPI.js";
 
 export default {
+  name: "Home",
   data() {
     return {
-      restaurant: MY_JSON,
+      restaurants: [],
     };
+  },
+  async created() {
+    this.restaurants = await getRestoNames();
   },
 };
 </script>

@@ -1,6 +1,4 @@
 <template>
-  <body class="bg-gradient-to-r from-teal-600 to-teal-300 antialiased">
-    <div class="h-screen">
   <body
     class="bg-gradient-to-r from-sky-500 to-indigo-500 antialiased shadow-2xl"
   >
@@ -8,7 +6,6 @@
       <div>
         <div
           class="bg-white relative shadow rounded-lg w-4/6 md:w-4/6 lg:w-3/6 xl:w-2/6 mx-auto top-12"
-          class="bg-neutral-800 relative shadow-2xl rounded-lg w-5/6 md:w-5/6 lg:w-4/6 xl:w-3/6 mx-auto"
         >
           <div class="flex justify-center">
             <img

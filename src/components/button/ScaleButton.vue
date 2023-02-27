@@ -10,7 +10,7 @@
           <v-list-item
             v-for="(user, i) in users"
             :key="i"
-            @click="menuActionClick(user.id)"
+            @click="updateActiveUser(user.id)"
           >
             <v-list-item-title>{{ user.name }}</v-list-item-title>
           </v-list-item>
@@ -22,9 +22,14 @@
 
 <script>
 import { getAllUsersInfo } from "../../api/users.js";
+import { updateActiveUser } from "../../api/api.js";
+import ACTIVEUSER from "../../api/api.js";
 
 export default {
   name: "ScaleButton",
+  props: {
+    user: Object,
+  },
   data: () => {
     return {
       users: [],
@@ -34,8 +39,10 @@ export default {
     this.users = await getAllUsersInfo();
   },
   methods: {
-    menuActionClick(id) {
-      console.log(id);
+    updateActiveUser: function (id) {
+      console.log(ACTIVEUSER);
+      this.$emit("updateActiveUser", id);
+      console.log({ ACTIVEUSER });
     },
   },
 };

@@ -80,12 +80,15 @@
       <div
         class="container pb-2 mx-auto md:flex md:justify-start md:items-center h-8 text-neutral-100"
       >
-        <h6 :class="{ hidden: !loggedIn }">Hi Shrek Potvin</h6>
+        <h6 :class="{ hidden: !loggedIn }">
+          Hi Shrek Potvin <ScaleButton></ScaleButton>
+        </h6>
       </div>
     </div>
   </div>
 </template>
 <script>
+import ScaleButton from "../components/button/ScaleButton.vue";
 export default {
   data() {
     return {
@@ -100,6 +103,9 @@ export default {
     logOut() {
       this.loggedIn = false;
     },
+  },
+  components: {
+    ScaleButton: ScaleButton,
   },
 };
 </script>

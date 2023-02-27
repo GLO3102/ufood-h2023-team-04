@@ -33,7 +33,7 @@
             >
               <div class="w-full">
                 <h3 class="font-medium text-gray-900 text-left px-6">
-                  <ScaleButton>Test</ScaleButton> Recent visits
+                  Recent visits
                 </h3>
                 <div
                   class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm"
@@ -93,7 +93,6 @@ export default {
   },
   components: {
     UsersVisitedRestaurants: UsersVisitedRestaurants,
-    ScaleButton: ScaleButton,
   },
 };
 </script>

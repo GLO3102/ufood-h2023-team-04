@@ -20,9 +20,21 @@ export const getUserInfo = async () => {
 };
 
 export const getAllUsersInfo = async () => {
-  const request = new Request(`${ENDPOINT}/users`, {
-    method: "GET",
-  });
-  const response = await fetch(request);
-  return (await response.json()).tasks;
+  try {
+    const response = await fetch(`${ENDPOINT}/users`);
+    const data = await response.json();
+    const users = data.items.slice(0).map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        email: item.email,
+        rating: item.rating,
+      };
+    });
+    console.log(users);
+    return users;
+  } catch (error) {
+    console.error("can't do SHIT", error);
+    return [];
+  }
 };

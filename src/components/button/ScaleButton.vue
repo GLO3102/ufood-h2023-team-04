@@ -7,7 +7,11 @@
         </template>
 
         <v-list>
-          <v-list-item v-for="(user, i) in users" :key="i">
+          <v-list-item
+            v-for="(user, i) in users"
+            :key="i"
+            @click="menuActionClick(user.id)"
+          >
             <v-list-item-title>{{ user.name }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -22,10 +26,17 @@ import { getAllUsersInfo } from "../../api/users.js";
 export default {
   name: "ScaleButton",
   data: () => {
-    return { users: [] };
+    return {
+      users: [],
+    };
   },
   async created() {
     this.users = await getAllUsersInfo();
+  },
+  methods: {
+    menuActionClick(id) {
+      console.log(id);
+    },
   },
 };
 </script>

@@ -1,6 +1,7 @@
 <template>
   <body class="bg-gradient-to-r from-teal-600 to-teal-300 antialiased">
     <div class="h-screen">
+      <UserLoginSign></UserLoginSign>
       <div>
         <div
           class="bg-white relative shadow rounded-lg w-4/6 md:w-4/6 lg:w-3/6 xl:w-2/6 mx-auto top-24"
@@ -85,6 +86,8 @@ import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants
 import MY_JSON from "@/data/users.json";
 import { getUserInfo } from "../api/users.js";
 import ScaleButton from "../components/button/ScaleButton.vue";
+import UserLoginSign from "../components/users/UserLoginSign.vue";
+
 export default {
   data() {
     return {
@@ -93,6 +96,7 @@ export default {
   },
   components: {
     UsersVisitedRestaurants: UsersVisitedRestaurants,
+    UserLoginSign: UserLoginSign,
   },
 };
 </script>

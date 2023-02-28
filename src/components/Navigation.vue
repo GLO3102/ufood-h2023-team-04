@@ -81,7 +81,11 @@
         class="container pb-2 mx-auto md:flex md:justify-start md:items-center h-8 text-neutral-100"
       >
         <h6 :class="{ hidden: !loggedIn }">
-          Hi Shrek Potvin <ScaleButton></ScaleButton>
+          Hi Shrek Potvin
+          <ScaleButton
+            @updateActiveUser="updateActiveUser"
+            :user="user"
+          ></ScaleButton>
         </h6>
       </div>
     </div>
@@ -89,6 +93,7 @@
 </template>
 <script>
 import ScaleButton from "../components/button/ScaleButton.vue";
+import { ref, onMounted } from "vue";
 export default {
   data() {
     return {
@@ -106,6 +111,18 @@ export default {
   },
   components: {
     ScaleButton: ScaleButton,
+  },
+  setup() {
+    const ACTIVEUSER = ref(null);
+    const updateActiveUser = (user) => {
+      console.log(user);
+      console.log("sexeNav");
+      ACTIVEUSER = user;
+    };
+    return {
+      updateActiveUser,
+      ACTIVEUSER,
+    };
   },
 };
 </script>

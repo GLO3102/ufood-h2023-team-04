@@ -28,12 +28,15 @@
           id="categorie"
           name="categorie"
           class="h-full rounded-md border bg-transparent py-0 pl-2 pr-7 text-neutral-800 focus:border-blue-400 focus:ring-blue-400 sm:text-sm"
+          
         >
-          <option value="any">Any type</option>
+        <option value="any">Any type</option>
+          <option v-for="restaurant in restaurants" :key="restaurant" :value="restaurant.genres"> {{ restaurant.genres }}</option>
+          <!-- <option value="any">Any type</option>
           <option value="ame">American</option>
           <option value="ita">Italian</option>
           <option value="sea">Seafood</option>
-          <option value="jap">Japanese</option>
+          <option value="jap">Japanese</option> -->
         </select>
         <select
           name="price"

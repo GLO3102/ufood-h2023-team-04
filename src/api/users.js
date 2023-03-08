@@ -1,4 +1,5 @@
 import { ENDPOINT } from "./api";
+import { ID } from "./api";
 
 const tempId = "639bbf092b5bb7844f430e47";
 
@@ -26,6 +27,18 @@ export const getAllUsersInfo = async () => {
     return data.items;
   } catch (error) {
     console.error("can't do SHIT", error);
+    return [];
+  }
+};
+
+export const getUserVisits = async () => {
+  try {
+    const response = await fetch(`${ENDPOINT}/users/${ID}/restaurants/visits`);
+    const data = await response.json();
+    console.log(data);
+    return data.items;
+  } catch (error) {
+    console.error("Erreur recherche visit", error);
     return [];
   }
 };

@@ -1,5 +1,8 @@
 <template>
   <body class="bg-white">
+    <div>
+      <Modal @close="toggleModal" :modalActive="modalActive" />
+    </div>
     <div
       class="flex items-center flex-col justify-between bg-neutral-800 rounded p-3 m-10 mt-3 shadow-2xl"
     >
@@ -42,27 +45,29 @@
           <option value="3">$$$</option>
           <option value="4">$$$$</option>
         </select>
-        <!-- <button
-          id="search"
-          type="submit"
-          class="h-full rounded py-0 pl-2 pr-7 text-neutral-800 focus:border-blue-400 focus:ring-blue-400 sm:text-sm"
-        >
-          Search
-        </button> -->
       </div>
     </div>
     <div class="container w-full ms:w-60">
       <div
         class="flex justify-center text-left mt-1 rounded-md shadow-sm bg-neutral-800"
       >
-        <!-- <p>{{ restaurantsNames }}</p> -->
         <ul class="w-80 space-y-1 text-neutral-100 m-3">
           <li
             class="flex flex-col justify-center text-center border border-neutral-700 rounded bg-neutral-700"
             v-for="restaurant in filteredRestaurants"
             :key="restaurant"
           >
-            {{ restaurant.name }}
+            <div class="flex justify-end items-start">
+              <input
+                type="checkbox"
+                class="checkbox"
+                v-model="restaurant.checked"
+                @click="toggleModal"
+              />
+            </div>
+            <div class="flex justify-center">
+              <label for="checkbox">{{ restaurant.name }}</label>
+            </div>
             <div class="flex items-left flex-col bg-neutral-600">
               <span>Price {{ "$".repeat(restaurant.price) }} </span>
               <span>Ratings {{ restaurant.rating.toFixed(1) }}</span>
@@ -78,15 +83,23 @@
 <script>
 import { getRestaurants } from "@/api/restaurantsAPI.js";
 import { ref, computed, watch } from "vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
   name: "Home",
+  components: {
+    Modal,
+  },
   setup() {
     const AllRestaurants = ref([]);
     const AllGenres = ref([]);
     const filterText = ref("");
     const selectGenre = ref("Any Type");
     const selectPrice = ref("Any Price");
+    const modalActive = ref(false);
+    const toggleModal = () => {
+      modalActive.value = !modalActive.value;
+    };
 
     watch(selectGenre, (newValue, oldValue) => {
       console.log(`Selected option changed to ${newValue}`);
@@ -134,6 +147,8 @@ export default {
       filterText,
       selectGenre,
       selectPrice,
+      modalActive,
+      toggleModal,
     };
   },
 };

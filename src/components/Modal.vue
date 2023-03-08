@@ -102,13 +102,12 @@
 .modal-footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 1rem;
   border-top: 1px solid #ccc;
 }
 
 .modal-button {
-  margin-left: 1rem;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
@@ -147,6 +146,7 @@ export default {
       emit("submitReview");
       emit("close");
     };
+
     return { close, submitReview };
   },
 };

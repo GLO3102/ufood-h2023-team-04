@@ -4,7 +4,13 @@ defineProps({ pictures: Array });
 
 <template>
   <div>
-    <div>This is the RestaurantImages component!</div>
-    <div v-for="picture in pictures" :key="picture">{{ picture }}</div>
+    <v-carousel>
+      <v-carousel-item
+        v-for="picture in pictures"
+        :key="picture"
+        :src="picture"
+        cover
+      ></v-carousel-item>
+    </v-carousel>
   </div>
 </template>

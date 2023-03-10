@@ -80,78 +80,59 @@
   </body>
 </template>
 
-<script>
-import { getRestaurants } from "@/api/restaurantsAPI.js";
+<script setup>
+import { getRestaurants } from "../composables/useRestaurants";
 import { ref, computed, watch } from "vue";
 import Modal from "@/components/Modal.vue";
 
-export default {
-  name: "Home",
-  components: {
-    Modal,
-  },
-  setup() {
-    const AllRestaurants = ref([]);
-    const AllGenres = ref([]);
-    const filterText = ref("");
-    const selectGenre = ref("Any Type");
-    const selectPrice = ref("Any Price");
-    const modalActive = ref(false);
-    const toggleModal = () => {
-      modalActive.value = !modalActive.value;
-    };
-
-    watch(selectGenre, (newValue, oldValue) => {
-      console.log(`Selected option changed to ${newValue}`);
-    });
-
-    watch(selectPrice, (newValue, oldValue) => {
-      console.log(`Selected option changed to ${newValue}`);
-    });
-
-    const extractRestos = async () => {
-      AllRestaurants.value = await getRestaurants();
-      const allGenres = AllRestaurants.value.flatMap(
-        (restaurant) => restaurant.genres
-      );
-      AllGenres.value = [...new Set(allGenres)];
-      console.log(AllGenres.value);
-    };
-
-    const filteredRestaurants = computed(() => {
-      let filtered = AllRestaurants.value;
-      if (filterText.value) {
-        filtered = filtered.filter((restaurant) =>
-          restaurant.name.toLowerCase().includes(filterText.value.toLowerCase())
-        );
-      }
-      if (selectGenre.value !== "Any Type") {
-        filtered = filtered.filter((restaurant) =>
-          restaurant.genres.includes(selectGenre.value)
-        );
-      }
-      if (selectPrice.value !== "Any Price") {
-        filtered = filtered.filter((restaurant) =>
-          restaurant.price.includes(selectPrice.value)
-        );
-      }
-      return filtered;
-    });
-
-    extractRestos();
-
-    return {
-      AllRestaurants,
-      AllGenres,
-      filteredRestaurants,
-      filterText,
-      selectGenre,
-      selectPrice,
-      modalActive,
-      toggleModal,
-    };
-  },
+const AllRestaurants = ref([]);
+const AllGenres = ref([]);
+const filterText = ref("");
+const selectGenre = ref("Any Type");
+const selectPrice = ref("Any Price");
+const modalActive = ref(false);
+const toggleModal = () => {
+  modalActive.value = !modalActive.value;
 };
+
+watch(selectGenre, (newValue, oldValue) => {
+  console.log(`Selected option changed to ${newValue}`);
+});
+
+watch(selectPrice, (newValue, oldValue) => {
+  console.log(`Selected option changed to ${newValue}`);
+});
+
+const extractRestos = async () => {
+  AllRestaurants.value = await getRestaurants();
+  const allGenres = AllRestaurants.value.flatMap(
+    (restaurant) => restaurant.genres
+  );
+  AllGenres.value = [...new Set(allGenres)];
+  console.log(AllGenres.value);
+};
+
+const filteredRestaurants = computed(() => {
+  let filtered = AllRestaurants.value;
+  if (filterText.value) {
+    filtered = filtered.filter((restaurant) =>
+      restaurant.name.toLowerCase().includes(filterText.value.toLowerCase())
+    );
+  }
+  if (selectGenre.value !== "Any Type") {
+    filtered = filtered.filter((restaurant) =>
+      restaurant.genres.includes(selectGenre.value)
+    );
+  }
+  if (selectPrice.value !== "Any Price") {
+    filtered = filtered.filter((restaurant) =>
+      restaurant.price.includes(selectPrice.value)
+    );
+  }
+  return filtered;
+});
+
+extractRestos();
 </script>
 
 <style></style>

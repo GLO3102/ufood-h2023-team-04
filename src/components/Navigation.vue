@@ -88,7 +88,7 @@
   </div>
 </template>
 <script>
-import ScaleButton from "../components/button/ScaleButton.vue";
+import ScaleButton from "./button/ScaleButton.vue";
 export default {
   data() {
     return {

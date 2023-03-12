@@ -1,15 +1,15 @@
 <script setup>
 import Restaurants from "@/components/home/Restaurants.vue";
 import { getRestaurants } from "@/composable/UseRestaurant";
-import { ref } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import FitlerGenres from "@/components/home/FitlerGenres.vue";
 import FilterPrice from "@/components/home/FilterPrice.vue";
 
 const json = ref(null);
 const isloaded = ref(false);
 
-let filterPriceValue = 0;
-let filterGenreValue = [];
+let filterPriceValue = ref(0);
+let filterGenreValue = ref([]);
 
 const getAllGenres = function (restaurants) {
   let genres = [];
@@ -27,6 +27,7 @@ const fetchData = async () => {
   const data = await getRestaurants();
   json.value = data.items;
   isloaded.value = true;
+  restoFiltered.value = json.value;
 };
 
 const getMaxPrice = function (restaurants) {
@@ -68,7 +69,7 @@ const filterPrice = function (restaurants, price) {
     return restaurants;
   }
   restaurants.forEach((restaurant) => {
-    if (price <= restaurant.price_range) {
+    if (price >= restaurant.price_range) {
       resto.push(restaurant);
     }
   });
@@ -77,23 +78,42 @@ const filterPrice = function (restaurants, price) {
 
 const filterResto = function (resto) {
   let restofilter = [];
-  restofilter = filterGenre(resto, filterGenreValue);
-  restofilter = filterPrice(restofilter, filterPriceValue);
+  restofilter = filterGenre(resto, filterGenreValue.value);
+  restofilter = filterPrice(restofilter, filterPriceValue.value);
 
-  return restofilter;
+  restoFiltered.value = restofilter;
 };
+
+const updatefilterGenreValue = function (updatedSelectedGenre) {
+  filterGenreValue.value = updatedSelectedGenre;
+};
+
+const updatefilterPriceValue = function (updatedSelectedPrice) {
+  filterPriceValue.value = updatedSelectedPrice;
+};
+
+watch([filterGenreValue, filterPriceValue], () => {
+  filterResto(json.value);
+});
+
+let restoFiltered = ref([]);
 
 fetchData();
 </script>
 
 <template>
   <div>
-    <FilterPrice v-if="isloaded" :maxPrice="getMaxPrice(json)"></FilterPrice>
+    <FilterPrice
+      v-if="isloaded"
+      :maxPrice="getMaxPrice(json)"
+      @filterPriceValue="updatefilterPriceValue"
+    ></FilterPrice>
     <FitlerGenres
       v-if="isloaded"
       :allGenres="getAllGenres(json)"
+      @filterGenresValue="updatefilterGenreValue"
     ></FitlerGenres>
-    <Restaurants :restaurants="filterResto(json)" v-if="isloaded"></Restaurants>
+    <Restaurants :restaurants="restoFiltered" v-if="isloaded"></Restaurants>
   </div>
 </template>
 

@@ -8,7 +8,12 @@
     <div v-if="isExpanded">
       <v-list v-for="genre in allGenres" :key="genre">
         <label>
-          <input type="checkbox" :value="genre" v-model="selectedGenres" />
+          <input
+            type="checkbox"
+            :value="genre"
+            v-model="selectedGenres"
+            @change="emit('filterGenresValue', selectedGenres)"
+          />
           {{ genre }}
         </label>
       </v-list>
@@ -23,12 +28,14 @@
 import { ref } from "vue";
 
 defineProps({ allGenres: Array });
+const emit = defineEmits(["filterGenresValue"]);
 
 const selectedGenres = ref([]);
 const isExpanded = ref(false);
 
 const clearSelection = () => {
   selectedGenres.value = [];
+  emit("filterGenresValue", selectedGenres.value);
 };
 </script>
 

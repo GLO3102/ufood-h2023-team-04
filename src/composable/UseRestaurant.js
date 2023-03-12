@@ -10,3 +10,14 @@ export const getRestaurant = async function (id) {
   const res = await fetch(req);
   return res.json();
 };
+
+export const getRestaurants = async function () {
+  const req = new Request(`${API_ENDPOINT}/restaurants`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const res = await fetch(req);
+  return res.json();
+};

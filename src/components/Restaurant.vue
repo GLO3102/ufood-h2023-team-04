@@ -5,6 +5,7 @@ import RestaurantImages from "@/components/restaurant/RestaurantImages.vue";
 import GoogleMap from "@/components/restaurant/GoogleMap.vue";
 import { getRestaurant } from "@/composable/UseRestaurant";
 import { ref } from "vue";
+import { useRoute } from "vue-router";
 
 const opening_hours = ref(null);
 const pictures = ref();
@@ -16,8 +17,10 @@ const rating = ref(null);
 const genres = ref(null);
 let isLoaded = ref(false);
 
+const route = useRoute();
+
 const fetchData = async () => {
-  const data = await getRestaurant("5f31fc6155d7790550c08afe");
+  const data = await getRestaurant(route.params.id);
   opening_hours.value = data.opening_hours;
   pictures.value = data.pictures;
   name.value = data.name;

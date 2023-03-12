@@ -1,14 +1,3 @@
-<template>
-  <iframe
-    :src="link"
-    width="600"
-    height="450"
-    frameborder="0"
-    style="border: 0"
-    allowfullscreen
-  ></iframe>
-</template>
-
 <script setup>
 import { ref, watch, onMounted, computed } from "vue";
 
@@ -52,3 +41,14 @@ watch(props, (newProps) => {
   destinationAddress.value = newProps.address;
 });
 </script>
+
+<template>
+  <iframe
+    :src="link"
+    width="600"
+    height="450"
+    frameborder="0"
+    style="border: 0"
+    allowfullscreen
+  ></iframe>
+</template>

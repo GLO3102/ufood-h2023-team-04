@@ -1,12 +1,20 @@
 <script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 defineProps({
-  name: String, //ok
-  tel: String, //ok
-  price_range: Number, //ok
-  rating: Number, //ok
-  genres: Array, //ok
-  address: String, //ok
+  name: String,
+  tel: String,
+  price_range: Number,
+  rating: Number,
+  genres: Array,
+  address: String,
+  id: String,
 });
+
+const goToRestaurantPage = function (id) {
+  router.push(`/restaurant/${id}`);
+};
 const formateRating = function (rating) {
   return `Rating: ${rating.toFixed(1)}/5`;
 };
@@ -38,6 +46,7 @@ const formateAddress = function (address) {
         <div>{{ formateTel(tel) }}</div>
         <div>{{ formateGenres(genres) }}</div>
         <div>{{ formateAddress(address) }}</div>
+        <v-btn @click="goToRestaurantPage(id)">Go to page</v-btn>
       </v-card-item>
     </v-card>
   </div>

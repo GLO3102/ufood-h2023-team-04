@@ -5,6 +5,15 @@
       v-if="isloaded"
       :restaurants="json"
     />
+
+    <Pagination
+      v-if="isloaded"
+      :items="resoFiltered"
+      :num-pages="numPages"
+      :current-page="currentPage"
+      :on-update-current-page="(page) => (currentPage = page)"
+      @update:currentPage="changePage"
+    />
     <Restaurants :restaurants="displayedRestaurants" v-if="isloaded" />
     <Pagination
       v-if="isloaded"

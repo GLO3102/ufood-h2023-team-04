@@ -52,6 +52,14 @@
                     {{ val.name + " - " + val.amount + " visits" }}
                   </a>
                 </div>
+                <h3
+                  class="font-medium text-gray-900 text-left px-6 py-6 border-t"
+                >
+                  Favorite restaurants
+                </h3>
+                <UsersFavorite
+                  userID="{{$route.params.currentUserID}}"
+                ></UsersFavorite>
               </div>
             </div>
             <div
@@ -82,6 +90,7 @@
 
 <script>
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
+import UsersFavorite from "../components/users/UsersFavorite.vue";
 import MY_JSON from "@/data/users.json";
 import { getUserInfo } from "../api/users.js";
 import ScaleButton from "../components/button/ScaleButton.vue";
@@ -95,6 +104,7 @@ export default {
   },
   components: {
     UsersVisitedRestaurants: UsersVisitedRestaurants,
+    UsersFavorite: UsersFavorite,
   },
 };
 </script>

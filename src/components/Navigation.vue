@@ -36,9 +36,14 @@
             :class="{ hidden: !loggedIn }"
             class="text-sm font-bold text-neutral-100 hover:text-blue-400"
           >
-            <router-link :to="{ name: 'User', params: { currentUserID: '1' } }"
-              >User Profile</router-link
+            <router-link
+              :to="{
+                name: 'User',
+                params: { currentUserID: '636d37d5a4823385784320a2' },
+              }"
             >
+              User Profile
+            </router-link>
           </li>
           <li
             :class="{ hidden: loggedIn }"

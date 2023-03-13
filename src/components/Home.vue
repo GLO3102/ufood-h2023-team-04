@@ -3,10 +3,15 @@ import Restaurants from "@/components/home/Restaurants.vue";
 import { getRestaurants } from "@/composable/UseRestaurant";
 import { ref } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
+import Modal from "./home/Modal.vue";
 
 const json = ref(null);
 const isloaded = ref(false);
 let resoFiltered = ref(null);
+const modalActive = ref(false);
+const toggleModal = () => {
+  modalActive.value = !modalActive.value;
+};
 
 const fetchData = async () => {
   const data = await getRestaurants();
@@ -24,6 +29,7 @@ fetchData();
 
 <template>
   <div>
+    <Modal @close="toggleModal" :modalActive="modalActive" />
     <FilterRestaurants
       @filtering="restaurantsFiltered"
       v-if="isloaded"

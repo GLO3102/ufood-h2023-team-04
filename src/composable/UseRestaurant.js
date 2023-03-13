@@ -12,7 +12,7 @@ export const getRestaurant = async function (id) {
 };
 
 export const getRestaurants = async function () {
-  const req = new Request(`${API_ENDPOINT}/restaurants`, {
+  const req = new Request(`${API_ENDPOINT}/restaurants?limit=1000`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

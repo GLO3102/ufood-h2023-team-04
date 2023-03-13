@@ -47,6 +47,8 @@ const formateAddress = function (address) {
         <div>{{ formateGenres(genres) }}</div>
         <div>{{ formateAddress(address) }}</div>
         <v-btn @click="goToRestaurantPage(id)">Go to page</v-btn>
+
+        <v-btn @click="toggleModal"> Give a review </v-btn>
       </v-card-item>
     </v-card>
   </div>

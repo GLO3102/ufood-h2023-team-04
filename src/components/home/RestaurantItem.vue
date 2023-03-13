@@ -1,5 +1,7 @@
 <script setup>
 import { useRouter } from "vue-router";
+import Modal from "./Modal.vue";
+import { ref } from "vue";
 
 const router = useRouter();
 defineProps({
@@ -11,6 +13,10 @@ defineProps({
   address: String,
   id: String,
 });
+const modalActive = ref(false);
+const toggleModal = () => {
+  modalActive.value = !modalActive.value;
+};
 
 const goToRestaurantPage = function (id) {
   router.push(`/restaurant/${id}`);
@@ -39,6 +45,7 @@ const formateAddress = function (address) {
 
 <template>
   <div class="d-flex align-center flex-column">
+    <Modal @close="toggleModal" :modalActive="modalActive" />
     <v-card :title="name">
       <v-card-item>
         <div>{{ formateRating(rating) }}</div>
@@ -47,7 +54,6 @@ const formateAddress = function (address) {
         <div>{{ formateGenres(genres) }}</div>
         <div>{{ formateAddress(address) }}</div>
         <v-btn @click="goToRestaurantPage(id)">Go to page</v-btn>
-
         <v-btn @click="toggleModal"> Give a review </v-btn>
       </v-card-item>
     </v-card>

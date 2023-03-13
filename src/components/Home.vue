@@ -9,9 +9,10 @@
     <Pagination
       v-if="isloaded"
       :items="resoFiltered"
-      v-model="currentPageProxy"
       :num-pages="numPages"
-      @page-changed="changePage"
+      :current-page="currentPage"
+      :on-update-current-page="(page) => (currentPage = page)"
+      @update:currentPage="changePage"
     />
   </div>
 </template>
@@ -38,37 +39,38 @@ const fetchData = async () => {
   numPages.value = Math.ceil(json.value.length / itemsPerPage);
 };
 
+const emits = defineEmits(["update:currentPage"]);
+
 const restaurantsFiltered = (filteredRestaurants) => {
   resoFiltered.value = filteredRestaurants;
   currentPage.value = 1;
 };
 
-const emits = defineEmits(["page-changed", "update:currentPage"]);
-
-const changePage = (page) => {
-  currentPage.value = page;
-  emits("page-changed", currentPage.value);
-  emits("update:currentPage", currentPage.value);
-};
-
-const displayedRestaurants = computed(() => {
-  const start = (currentPageProxy.value - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  return resoFiltered.value.slice(start, end);
-});
-
 watch(resoFiltered, () => {
   currentPage.value = 1;
 });
 
-const currentPageProxy = computed({
-  get() {
-    return currentPage.value;
-  },
-  set(value) {
-    currentPage.value = value;
-  },
+const displayedRestaurants = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  return resoFiltered.value.slice(start, end);
 });
+
+const changePage = (page) => {
+  currentPage.value = page;
+};
+
+const nextPage = () => {
+  if (currentPage.value < numPages.value) {
+    currentPage.value = currentPage.value + 1;
+  }
+};
+
+const previousPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value = currentPage.value - 1;
+  }
+};
 
 fetchData();
 </script>

@@ -1,25 +1,10 @@
 <template>
-  <div class="pagination">
-    <button
-      class="previous"
-      :disabled="currentPageProxy === 1"
-      @click="currentPageProxy--"
-    >
-      Previous
-    </button>
+  <div class="pagination" v-if="numPages > 1">
     <v-pagination
-      v-if="numPages > 1"
-      v-model="currentPageProxy"
+      :model-value="currentPageCopy"
       :length="numPages"
-      @input="changePage"
+      @update:model-value="changePage"
     />
-    <button
-      class="next"
-      :disabled="currentPageProxy === numPages"
-      @click="currentPageProxy++"
-    >
-      Next
-    </button>
   </div>
 </template>
 
@@ -37,25 +22,24 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  "onUpdate:currentPage": {
+  onUpdateCurrentPage: {
     type: Function,
     required: true,
   },
 });
 
-const emits = defineEmits(["page-changed", "update:currentPage"]);
+const emit = defineEmits(["update:currentPage"]);
 
-const currentPageProxy = computed({
-  get() {
-    return props.currentPage;
-  },
-  set(value) {
-    props["onUpdate:currentPage"](value);
+const currentPageCopy = computed({
+  get: () => props.currentPage,
+  set: (value) => {
+    props.onUpdateCurrentPage(value);
+    emit("update:currentPage", value);
   },
 });
 
 const displayedItems = computed(() => {
-  const start = (currentPageProxy.value - 1) * itemsPerPage;
+  const start = (currentPageCopy.value - 1) * itemsPerPage;
   const end = start + itemsPerPage;
   return props.items.slice(start, end);
 });
@@ -65,19 +49,21 @@ const numPages = computed(() => {
 });
 
 const changePage = (page) => {
-  emits("page-changed", page);
-  emits("update:currentPage", page);
+  props.onUpdateCurrentPage(page);
+  emit("update:currentPage", page);
 };
 
 const nextPage = () => {
-  if (currentPage.value < numPages.value) {
-    currentPage.value++;
+  if (currentPageCopy.value < numPages.value) {
+    currentPageCopy.value = currentPageCopy.value + 1;
+    emit("update:currentPage", currentPageCopy.value);
   }
 };
 
 const previousPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
+  if (currentPageCopy.value > 1) {
+    currentPageCopy.value = currentPageCopy.value - 1;
+    emit("update:currentPage", currentPageCopy.value);
   }
 };
 </script>
@@ -104,6 +90,4 @@ const previousPage = () => {
   margin: 4px 2px;
   cursor: pointer;
 }
-
-.previous: disabled, .next;
 </style>

@@ -4,6 +4,7 @@
       :model-value="currentPageCopy"
       :length="numPages"
       @update:model-value="changePage"
+      rounded="circle"
       prev-icon="mdi-chevron-left"
       next-icon="mdi-chevron-right"
     />
@@ -12,6 +13,7 @@
 
 <script setup>
 import { computed, defineProps, defineEmits } from "vue";
+
 const itemsPerPage = 10;
 
 const props = defineProps({
@@ -69,9 +71,4 @@ const previousPage = () => {
 };
 </script>
 
-<style scoped>
-.v-pagination__item--prev,
-.v-pagination__item--next {
-  display: block;
-}
-</style>
+<style></style>

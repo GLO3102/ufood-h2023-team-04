@@ -29,9 +29,6 @@
           <li class="text-sm font-bold text-neutral-100 hover:text-blue-400">
             <router-link :to="{ name: 'Home' }">Home</router-link>
           </li>
-          <li class="text-sm font-bold text-neutral-100 hover:text-blue-400">
-            <router-link :to="{ name: 'Restaurant' }">Restaurant</router-link>
-          </li>
           <li
             :class="{ hidden: !loggedIn }"
             class="text-sm font-bold text-neutral-100 hover:text-blue-400"

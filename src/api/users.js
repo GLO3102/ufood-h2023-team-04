@@ -1,21 +1,16 @@
 import { ENDPOINT } from "./api";
 import { ID } from "./api";
 
-const tempId = "639bbf092b5bb7844f430e47";
-
 export const getVisitedRestaurant = async () => {
-  const request = new Request(
-    `${ENDPOINT}/users/${tempId}/restaurants/visits`,
-    {
-      method: "GET",
-    }
-  );
+  const request = new Request(`${ENDPOINT}/users/${ID}/restaurants/visits`, {
+    method: "GET",
+  });
   const response = await fetch(request);
   return (await response.json()).tasks;
 };
 
 export const getUserInfo = async () => {
-  const request = new Request(`${ENDPOINT}/users/${tempId}`, { method: "GET" });
+  const request = new Request(`${ENDPOINT}/users/${ID}`, { method: "GET" });
   const response = await fetch(request);
   return (await response.json()).tasks;
 };
@@ -33,7 +28,9 @@ export const getAllUsersInfo = async () => {
 
 export const getUserVisits = async () => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${ID}/restaurants/visits`);
+    const response = await fetch(
+      `${ENDPOINT}/users/${ID}/restaurants/visits?limit=15`
+    );
     const data = await response.json();
     console.log(data);
     return data.items;

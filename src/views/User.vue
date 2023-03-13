@@ -70,12 +70,9 @@
               >
             </div>
           </div>
+          <UsersVisitedRestaurants></UsersVisitedRestaurants>
         </div>
       </div>
-    </div>
-    <div>
-      //v-for="item in items" v-bind:key="items.user_id"
-      <UsersVisitedRestaurants></UsersVisitedRestaurants>
     </div>
   </body>
 </template>

@@ -48,18 +48,19 @@ const formateAddress = function (address) {
     class="flex flex-col justify-center text-center border border-neutral-700 rounded bg-neutral-700"
   >
     <Modal @close="toggleModal" :modalActive="modalActive" />
-    <v-card :title="name">
-      <v-card-item>
+    <v-card class="text-white">
+      <v-card-title class="bg-neutral-700">{{ name }}</v-card-title>
+      <v-card-item class="bg-neutral-500">
         <div>{{ formateRating(rating) }}</div>
         <div>{{ formatePriceRange(price_range) }}</div>
         <div>{{ formateTel(tel) }}</div>
         <div>{{ formateGenres(genres) }}</div>
         <div>{{ formateAddress(address) }}</div>
         <div
-          class="text-white bg-neutral-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+          class="text-white mx-auto bg-neutral-700 focus:outline-none focus:ring-4 focus:neutral-700 font-medium rounded-full text-sm px-5 py-2.5 mb-2 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:ring-gray-700 dark:border-gray-700 sm:w-3/5 md:w-1/2 lg:w-1/3 xl:w-1/4"
         >
           <v-btn class="mr-2" @click="goToRestaurantPage(id)">Go to page</v-btn>
-          <v-btn @click="toggleModal"> Give a review </v-btn>
+          <v-btn @click="toggleModal">Give a review</v-btn>
         </div>
       </v-card-item>
     </v-card>

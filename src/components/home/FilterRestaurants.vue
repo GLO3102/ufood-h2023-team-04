@@ -1,48 +1,47 @@
 <template>
   <div
-    class="flex flex-col items-center justify-between bg-neutral-800 rounded p-3 m-10 mt-3 shadow-2xl"
+    class="flex flex-col items-center justify-between bg-neutral-800 rounded p-6 m-10 mt-3 shadow-2xl"
   >
     <input
       type="text"
       placeholder="Restaurant's name"
       v-model="searchValue"
-      class="w-56 py-1 px-2 rounded-md bg-neutral-700 text-neutral-100 focus:outline-none focus:ring focus:border-blue-300"
+      class="w-3/4 py-3 px-4 rounded-md bg-neutral-700 text-neutral-100 text-lg focus:outline-none focus:ring focus:border-blue-300"
     />
-    <div class="w-56 mt-2">
+    <div class="w-3/4 mt-4">
       <label class="text-white">Price</label>
       <v-slider
         v-model="priceValue"
         :min="0"
         :max="getMaxPrice(restaurants)"
         :step="1"
+        :ticks="ticksLabels"
+        show-ticks="always"
+        tick-size="5"
         thumb-label
-        class="w-full h-4"
-      ></v-slider>
-      <div class="flex items-center justify-between mt-1">
-        <div class="text-neutral-300 text-xs">$0</div>
-        <div class="text-neutral-100">{{ priceValue }}</div>
-        <div class="text-neutral-300 text-xs">
-          ${{ getMaxPrice(restaurants) }}
-        </div>
-      </div>
+        class="w-full h-6 text-neutral-300 text-lg"
+      >
+        ></v-slider
+      >
+      <div class="flex items-center justify-between mt-2"></div>
     </div>
     <v-select
       label="Select"
       v-model="genreValue"
       :items="getAllGenres(restaurants)"
       variant="underlined"
-      class="w-56 mt-2 text-white"
+      class="w-3/4 mt-4 text-white text-center"
     ></v-select>
-    <div class="flex justify-between w-56 mt-2">
+    <div class="flex justify-between w-72 mt-4">
       <v-btn
         @click="emit('filtering', filter(restaurants))"
-        class="bg-blue-500 hover:bg-blue-600 text-black rounded-md py-1 px-3 text-sm"
+        class="bg-blue-500 hover:bg-blue-600 text-black rounded-md py-2 px-4 text-sm"
       >
         search!
       </v-btn>
       <v-btn
         @click="clearSelection"
-        class="bg-neutral-700 hover:bg-neutral-600 text-neutral-100 rounded-md py-1 px-3 text-sm"
+        class="bg-neutral-700 hover:bg-neutral-600 text-neutral-100 rounded-md py-2 px-4 text-sm"
       >
         clear!
       </v-btn>
@@ -56,6 +55,14 @@ import { ref } from "vue";
 const props = defineProps({
   restaurants: Object,
 });
+const ticksLabels = {
+  0: "0$",
+  1: "1$",
+  2: "2$",
+  3: "3$",
+  4: "4$",
+  5: "5$",
+};
 
 const emit = defineEmits(["filtering"]);
 const clearSelection = () => {

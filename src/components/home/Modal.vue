@@ -126,14 +126,20 @@
 </style>
 
 <script>
+import { postReview } from "../../api/restaurantsAPI";
 export default {
   props: ["modalActive"],
   setup(props, { emit }) {
     const close = () => {
       emit("close");
     };
-    const submitReview = () => {
-      emit("submitReview");
+    const submitReview = async () => {
+      const review = {
+        restaurant_id: "",
+        comment: "",
+        rating: "",
+        date: "",
+      };
       emit("close");
     };
     return { close, submitReview };

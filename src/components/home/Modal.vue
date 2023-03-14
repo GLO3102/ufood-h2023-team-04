@@ -10,18 +10,21 @@
           <div class="modal-body">
             <div class="modal-content">
               <input
+                v-model="date"
                 type="date"
-                name=""
-                id=""
+                name="date"
+                id="date"
                 class="block w-full rounded-md border-black border bg-white mt-2 p-2"
               />
               <textarea
+                v-model="comment"
                 placeholder="Add a comment"
                 class="block w-full rounded-md border-black border bg-white mt-2 p-2"
               ></textarea>
               <select
-                name=""
-                id=""
+                v-model="rating"
+                name="rating"
+                id="rating"
                 class="block w-full rounded-md border-black border bg-white mt-2 p-2"
               >
                 <option value="choose-rating">Choose rating</option>
@@ -84,7 +87,7 @@
   font-size: 1.5rem;
 }
 .modal-close {
-  background-color: transparent;
+  background-color: black;
   border: none;
   font-size: 2rem;
   cursor: pointer;
@@ -125,24 +128,34 @@
 }
 </style>
 
-<script>
-import { postReview } from "../../api/restaurantsAPI";
-export default {
-  props: ["modalActive"],
-  setup(props, { emit }) {
-    const close = () => {
-      emit("close");
-    };
-    const submitReview = async () => {
-      const review = {
-        restaurant_id: "",
-        comment: "",
-        rating: "",
-        date: "",
-      };
-      emit("close");
-    };
-    return { close, submitReview };
-  },
+<script setup>
+import { defineProps, defineEmits, reactive } from "vue";
+import { getRestaurant, postReview } from "@/composable/UseRestaurant";
+
+defineProps({
+  modalActive: Boolean,
+});
+
+const emit = defineEmits(["close"]);
+
+const close = () => {
+  emit("close");
 };
+
+const state = reactive({
+  comment: "",
+  rating: "",
+  date: "",
+});
+
+function toggleModal() {
+  state.modalActive = !state.modalActive;
+  console.log(state.modalActive); // add this line to check if the variable is being updated correctly
+}
+
+async function submitReview(id) {
+  const restaurantId = getRestaurant(id);
+  await postReview(restaurantId, state.comment, state.rating, state.date);
+  toggleModal();
+}
 </script>

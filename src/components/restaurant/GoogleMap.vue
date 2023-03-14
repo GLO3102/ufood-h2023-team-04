@@ -43,12 +43,17 @@ watch(props, (newProps) => {
 </script>
 
 <template>
-  <iframe
-    :src="link"
-    width="600"
-    height="450"
-    frameborder="0"
-    style="border: 0"
-    allowfullscreen
-  ></iframe>
+  <v-container>
+    <v-card class="" elevation="24">
+      <v-card-item
+        ><iframe
+          class="w-full rounded border-lg"
+          :src="link"
+          width="100%"
+          height="600"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe
+      ></v-card-item>
+    </v-card>
+  </v-container>
 </template>

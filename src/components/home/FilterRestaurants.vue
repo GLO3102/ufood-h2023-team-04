@@ -2,7 +2,7 @@
   <div
     class="flex flex-col items-center justify-between bg-neutral-800 rounded p-3 m-10 mt-3 shadow-2xl"
   >
-    <input
+    <v-text-field
       type="text"
       placeholder="Restaurant's name"
       v-model="searchValue"
@@ -20,7 +20,10 @@
       ></v-slider>
       <div class="flex items-center justify-between mt-1">
         <div class="text-neutral-300 text-xs">$0</div>
-        <div class="text-neutral-100">{{ priceValue }}</div>
+        <div v-if="priceValue !== 0" class="text-neutral-100">
+          {{ priceValue }}
+        </div>
+        <div v-if="priceValue === 0" class="text-neutral-100">any</div>
         <div class="text-neutral-300 text-xs">
           ${{ getMaxPrice(restaurants) }}
         </div>

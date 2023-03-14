@@ -34,11 +34,11 @@ export const postNewList = async (payload) => {
 export const putList = async (payload, id) => {
   try {
     const request = new Request(`${ENDPOINT}/favorites/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
     });
     await fetch(request);
   } catch (error) {
@@ -55,6 +55,34 @@ export const deleteList = async (id) => {
     await fetch(request);
   } catch (error) {
     console.log(error);
-    return [];
+  }
+};
+
+export const postAddRestoInList = async (listID, restoID) => {
+  try {
+    const request = new Request(`${ENDPOINT}/favorites/${listID}/restaurants`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: restoID }),
+    });
+    await fetch(request);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteRestoFromList = async (listID, restoID) => {
+  try {
+    const request = new Request(
+      `${ENDPOINT}/favorites/${listID}/restaurants/${restoID}`,
+      {
+        method: "DELETE",
+      }
+    );
+    await fetch(request);
+  } catch (error) {
+    console.error(error);
   }
 };

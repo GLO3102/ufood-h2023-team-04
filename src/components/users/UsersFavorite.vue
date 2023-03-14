@@ -1,5 +1,10 @@
 <template>
   <body>
+    <UsersModalFavoriteVue
+      v-if="showModal"
+      @close="showModal = false"
+      @addedRestaurent="addRestoInList"
+    ></UsersModalFavoriteVue>
     <div class="w-full">
       <div class="flex">
         <h3
@@ -47,20 +52,39 @@
       <div
         class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm"
       >
-        <a
-          href="/restaurant"
-          @click="goToResto"
-          class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
+        <div
+          class="w-full text-gray-600 py-4 pl-6 pr-3 block flex"
           v-for="val of selectedFavList"
           :key="val.id"
         >
-          <img
-            src="https://avatars0.githubusercontent.com/u/35900628?v=4"
-            alt="Profile picture"
-            class="rounded-full h-6 shadow-md inline-block mr-2"
-          />
-          {{ val.name }}
-        </a>
+          <a
+            href="/restaurant"
+            @click="goToResto"
+            class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
+          >
+            <img
+              src="https://avatars0.githubusercontent.com/u/35900628?v=4"
+              alt="Profile picture"
+              class="rounded-full h-6 shadow-md inline-block mr-2"
+            />
+            {{ val.name }}
+          </a>
+          <button
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"
+            :value="val.id"
+            @click="deleteRestoList"
+          >
+            Delete
+          </button>
+        </div>
+        <div>
+          <button
+            @click="showModal = true"
+            class="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md font-semibold text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Add a restaurant
+          </button>
+        </div>
       </div>
     </div>
   </body>
@@ -68,15 +92,17 @@
 
 <script>
 /* eslint-disable */
-import { ref } from "vue";
 import { getUserFavoriteLists, getUserInfo } from "../../api/users";
 import {
   getFavoriteById,
   postNewList,
   deleteList,
   putList,
+  deleteRestoFromList,
+  postAddRestoInList,
 } from "../../api/favorites";
 import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
+import UsersModalFavoriteVue from "./UsersModalFavorite.vue";
 
 export default {
   data: () => ({
@@ -86,7 +112,11 @@ export default {
     selectedListName: "",
     showDropdown: false,
     selectedFavList: [],
+    showModal: false,
   }),
+  components: {
+    UsersModalFavoriteVue,
+  },
   props: {
     currentUserID: {
       type: String,
@@ -134,6 +164,16 @@ export default {
       this.lists = (await getUserFavoriteLists(this.user.id)).items;
       this.selectedListID = this.lists[0].id;
       this.selectedListName = this.lists[0].name;
+      await this.changeSelectedListRestos();
+    },
+    async addRestoInList(id) {
+      await postAddRestoInList(this.selectedListID, id);
+      await this.changeSelectedListRestos();
+      this.showModal = false;
+    },
+    async deleteRestoList(event) {
+      let restoID = event.target.value;
+      await deleteRestoFromList(this.selectedListID, restoID);
       await this.changeSelectedListRestos();
     },
   },

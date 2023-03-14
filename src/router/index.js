@@ -18,6 +18,9 @@ const routes = [
     path: "/user/:currentUserID",
     name: "User",
     component: User,
+    props: (route) => {
+      return { currentUserID: route.params.currentUserID };
+    },
   },
 ];
 

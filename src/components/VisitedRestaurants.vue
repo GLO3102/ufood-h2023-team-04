@@ -13,7 +13,7 @@
       :on-update-current-page="(page) => (currentPage = page)"
       @update:currentPage="changePage"
     />
-    <Restaurants :restaurants="visitedRestoFormate"></Restaurants>
+    <Restaurants :restaurants="displayedRestaurants"></Restaurants>
     <Pagination
       v-if="isloaded"
       :items="visitedRestoFormate"
@@ -65,6 +65,12 @@ const restaurantsFiltered = (filteredRestaurants) => {
   resoFiltered.value = filteredRestaurants;
   currentPage.value = 1;
 };
+
+const displayedRestaurants = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  return visitedRestoFormate.value.slice(start, end);
+});
 
 watch(visitedRestoFormate, () => {
   currentPage.value = 1;

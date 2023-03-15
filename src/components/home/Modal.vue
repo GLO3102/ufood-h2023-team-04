@@ -18,6 +18,8 @@
               />
               <textarea
                 v-model="comment"
+                name="comment"
+                id="comment"
                 placeholder="Add a comment"
                 class="block w-full rounded-md border-black border bg-white mt-2 p-2"
               ></textarea>
@@ -40,7 +42,7 @@
           <div class="modal-footer">
             <button
               class="modal-button modal-button-primary"
-              @click="submitReview"
+              @click="submitReview(id)"
             >
               Save
             </button>
@@ -129,12 +131,12 @@
 </style>
 
 <script setup>
-import { defineProps, defineEmits, reactive } from "vue";
-import { getRestaurant, postReview } from "@/composable/UseRestaurant";
-import { getAllUsersInfo } from "../../api/users";
+import { defineProps, defineEmits, reactive, ref } from "vue";
+import { postReview, getRestaurant } from "@/composable/UseRestaurant";
 
 defineProps({
   modalActive: Boolean,
+  id: String,
 });
 
 const emit = defineEmits(["close"]);
@@ -143,20 +145,12 @@ const close = () => {
   emit("close");
 };
 
-const state = reactive({
-  comment: "",
-  rating: "",
-  date: "",
-});
+const comment = ref("");
+const rating = ref("");
+const date = ref("");
 
-function toggleModal() {
-  state.modalActive = !state.modalActive;
-  console.log(state.modalActive); // add this line to check if the variable is being updated correctly
-}
-
-async function submitReview(userId) {
-  const userID = getAllUsersInfo(id);
-  await postReview(restaurantID, state.comment, state.rating, state.date);
-  toggleModal();
+async function submitReview(id) {
+  await postReview(comment.value, rating.value, date.value, id);
+  close();
 }
 </script>

@@ -21,7 +21,4 @@ import RestaurantItem from "@/components/home/RestaurantItem.vue";
 defineProps({ restaurants: Object });
 </script>
 
-<style scoped>
-.v-container {
-}
-</style>
+<style scoped></style>

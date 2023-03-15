@@ -1,6 +1,6 @@
 <template>
   <v-container class="justify-center text-center">
-    <Modal @close="toggleModal" :modalActive="modalActive" />
+    <Modal @close="toggleModal" :modalActive="modalActive" :id="id" />
     <v-card elevation="0">
       <v-card-title>{{ name }}</v-card-title>
       <v-card-item>
@@ -44,6 +44,7 @@ const toggleModal = () => {
 const goToRestaurantPage = function (id) {
   router.push(`/restaurant/${id}`);
 };
+
 const formateRating = function (rating) {
   return `Rating: ${rating.toFixed(1)}/5`;
 };

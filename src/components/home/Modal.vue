@@ -28,6 +28,7 @@
                 name="rating"
                 id="rating"
                 class="block w-full rounded-md border-black border bg-white mt-2 p-2"
+                placeholder="Pick a rating"
               >
                 <option value="choose-rating">Choose rating</option>
                 <option value="1">1</option>

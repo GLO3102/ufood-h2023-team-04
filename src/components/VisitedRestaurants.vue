@@ -11,17 +11,8 @@
       :num-pages="numPages"
       :current-page="currentPage"
       :on-update-current-page="(page) => (currentPage = page)"
-      @update:currentPage="changePage"
     />
     <Restaurants :restaurants="displayedRestaurants"></Restaurants>
-    <Pagination
-      v-if="isloaded"
-      :items="visitedRestoFormate"
-      :num-pages="numPages"
-      :current-page="currentPage"
-      :on-update-current-page="(page) => (currentPage = page)"
-      @update:currentPage="changePage"
-    />
   </div>
 </template>
 
@@ -47,8 +38,8 @@ let visitedRestoFormate = ref(null);
 const getData = async () => {
   const info = await getVisitedRestaurentsByUser();
   idsOfVisitedResto.value = info.items;
-  visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
-  numPages.value = Math.ceil(visitedRestoFormate.value.length / itemsPerPage);
+  isloaded.value = true;
+  numPages.value = Math.ceil(idsOfVisitedResto.value.length / itemsPerPage);
 };
 const formatRestaurents = async function (visitedResto) {
   const listeDeRestoFormate = [];
@@ -71,12 +62,11 @@ const displayedRestaurants = computed(() => {
   return visitedRestoFormate.value.slice(start, end);
 });
 
-watch(visitedRestoFormate, () => {
+watch(idsOfVisitedResto, async () => {
+  visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
+  numPages.value = Math.ceil(visitedRestoFormate.value.length / itemsPerPage);
   currentPage.value = 1;
 });
-const changePage = (page) => {
-  currentPage.value = page;
-};
 
 getData();
 </script>

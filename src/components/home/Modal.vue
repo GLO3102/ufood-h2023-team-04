@@ -4,7 +4,7 @@
       <transition name="modal-animation-inner">
         <div v-show="modalActive" class="modal-container">
           <div class="modal-header">
-            <h2 class="modal-title">Nom du restaurant</h2>
+            <h2 class="modal-title">{{ name }}</h2>
             <button class="modal-close" @click="close">×</button>
           </div>
           <div class="modal-body">
@@ -137,6 +137,7 @@ import { postReview, getRestaurant } from "@/composable/UseRestaurant";
 defineProps({
   modalActive: Boolean,
   id: String,
+  name: String,
 });
 
 const emit = defineEmits(["close"]);

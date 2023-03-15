@@ -1,6 +1,11 @@
 <template>
   <v-container class="justify-center text-center">
-    <Modal @close="toggleModal" :modalActive="modalActive" :id="id" />
+    <Modal
+      @close="toggleModal"
+      :modalActive="modalActive"
+      :id="id"
+      :name="name"
+    />
     <v-card elevation="0">
       <v-card-title>{{ name }}</v-card-title>
       <v-card-item>

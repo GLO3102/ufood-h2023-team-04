@@ -1,10 +1,5 @@
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
-
-const User = "619fcadb71a43a000462a905";
-
-// const User = "636d37d5a4823385784320a2";
-//const User2 = "639bbf092b5bb7844f430e47";
-//const User3 = "604cc220ef6fa10004dc0179";
+const User = "604cc220ef6fa10004dc0179";
 
 export const getRestaurant = async function (id) {
   const req = new Request(`${API_ENDPOINT}/restaurants/${id}`, {

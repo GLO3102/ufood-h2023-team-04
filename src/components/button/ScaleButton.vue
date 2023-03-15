@@ -5,9 +5,12 @@
         <template v-slot:activator="{ props }">
           <v-btn color="primary" v-bind="props"> Change User </v-btn>
         </template>
-
         <v-list>
-          <v-list-item v-for="(user, i) in users" :key="i">
+          <v-list-item
+            v-for="(user, i) in users"
+            :key="i"
+            @click="updateActiveUser"
+          >
             <v-list-item-title>{{ user.name }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -20,12 +23,26 @@
 import { getAllUsersInfo } from "../../api/users.js";
 
 export default {
-  name: "ScaleButton",
+  names: "ScaleButton",
+  props: {
+    user: Object,
+  },
   data: () => {
-    return { users: [] };
+    return {
+      users: [],
+    };
   },
   async created() {
     this.users = await getAllUsersInfo();
+  },
+  methods: {
+    updateActiveUser: function (user) {
+      console.log("sexytime");
+      //const { name } = this.user;
+      console.log("Sexy Daddy");
+      console.log(user);
+      this.$emit("updateActiveUser", user);
+    },
   },
 };
 </script>

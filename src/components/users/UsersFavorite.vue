@@ -91,7 +91,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { getUserFavoriteLists, getUserInfo } from "../../api/users";
 import {
   getFavoriteById,
@@ -137,7 +136,7 @@ export default {
       let restaurants = [];
       for (let id of restaurantsID.restaurants) {
         let data = await getRestaurantsNameByID(id.id);
-        restaurants.push(data);
+        restaurants.push({ name: data, id: id.id });
       }
       this.selectedFavList = restaurants;
     },
@@ -162,9 +161,14 @@ export default {
     async deleteList() {
       await deleteList(this.selectedListID);
       this.lists = (await getUserFavoriteLists(this.user.id)).items;
-      this.selectedListID = this.lists[0].id;
-      this.selectedListName = this.lists[0].name;
-      await this.changeSelectedListRestos();
+      if (this.lists.length > 0) {
+        this.selectedListID = this.lists[0].id;
+        this.selectedListName = this.lists[0].name;
+        await this.changeSelectedListRestos();
+      } else {
+        this.selectedListID = null;
+        this.selectedListName = null;
+      }
     },
     async addRestoInList(id) {
       await postAddRestoInList(this.selectedListID, id);
@@ -179,11 +183,12 @@ export default {
   },
   async created() {
     this.user = await getUserInfo(this.currentUserID);
-    console.log(this.user);
     this.lists = (await getUserFavoriteLists(this.user.id)).items;
-    this.selectedListID = this.lists[0].id;
-    this.selectedListName = this.lists[0].name;
-    await this.changeSelectedListRestos();
+    if (this.lists.length > 0) {
+      this.selectedListID = this.lists[0].id;
+      this.selectedListName = this.lists[0].name;
+      await this.changeSelectedListRestos();
+    }
   },
 };
 </script>

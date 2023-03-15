@@ -5,7 +5,6 @@
       v-if="isloaded"
       :restaurants="json"
     />
-
     <Pagination
       v-if="isloaded"
       :items="visitedRestoFormate"
@@ -28,7 +27,11 @@
 
 <script setup>
 import Restaurants from "@/components/home/Restaurants.vue";
-import { getRestaurant, getRestaurants, getVisitedRestaurentsByUser } from "@/composable/UseRestaurant";
+import {
+  getRestaurant,
+  getRestaurants,
+  getVisitedRestaurentsByUser,
+} from "@/composable/UseRestaurant";
 import { ref, computed, watch, defineEmits } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
@@ -41,17 +44,11 @@ const currentPage = ref(1);
 const numPages = ref(1);
 let idsOfVisitedResto = ref(null);
 let visitedRestoFormate = ref(null);
-const fetchData = async () => {
-  const data = await getRestaurants();
-  json.value = data.items;
-  isloaded.value = true;
-  resoFiltered.value = json.value;
-  numPages.value = Math.ceil(json.value.length / itemsPerPage);
-};
 const getData = async () => {
   const info = await getVisitedRestaurentsByUser();
   idsOfVisitedResto.value = info.items;
   visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
+  numPages.value = Math.ceil(visitedRestoFormate.value.length / itemsPerPage);
 };
 const formatRestaurents = async function (visitedResto) {
   const listeDeRestoFormate = [];
@@ -68,14 +65,13 @@ const restaurantsFiltered = (filteredRestaurants) => {
   currentPage.value = 1;
 };
 
-watch(resoFiltered, () => {
+watch(visitedRestoFormate, () => {
   currentPage.value = 1;
 });
 const changePage = (page) => {
   currentPage.value = page;
 };
 
-fetchData();
 getData();
 </script>
 

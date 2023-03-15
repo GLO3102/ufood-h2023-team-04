@@ -5,8 +5,6 @@ defineProps({
   ratings: Number,
   genres: Array,
 });
-
-const 
 </script>
 
 <template><div></div></template>

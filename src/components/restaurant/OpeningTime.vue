@@ -14,7 +14,7 @@ const formateHours = function (hours) {
 
 <template>
   <v-container>
-    <v-card title="WEEKLY SCHEDULE" class="text-center" elevation="24">
+    <v-card title="WEEKLY SCHEDULE" class="text-center" elevation="0">
       <v-card-item>
         <v-row class="justify-center">
           <v-col v-for="(hours, day) in opening_hours" :key="day" cols="7">
@@ -28,3 +28,14 @@ const formateHours = function (hours) {
     </v-card>
   </v-container>
 </template>
+
+<style scoped>
+.v-container {
+  background: white;
+  color: #fff;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  padding: 20px;
+  border: 3px solid #000;
+  box-shadow: 10px 15px 0px black;
+}
+</style>

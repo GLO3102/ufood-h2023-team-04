@@ -19,6 +19,11 @@ const routes = [
     name: "User",
     component: User,
   },
+  {
+    path: "/user/:currentUserID",
+    name: "User",
+    component: User,
+  },
 ];
 
 export const router = createRouter({

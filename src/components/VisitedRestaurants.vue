@@ -4,12 +4,20 @@
       @filtering="restaurantsFiltered"
       v-if="isloaded"
       :restaurants="json"
-      class="mt-10"
     />
-    <Restaurants :restaurants="displayedRestaurants" v-if="isloaded" />
+
     <Pagination
       v-if="isloaded"
-      :items="resoFiltered"
+      :items="visitedRestoFormate"
+      :num-pages="numPages"
+      :current-page="currentPage"
+      :on-update-current-page="(page) => (currentPage = page)"
+      @update:currentPage="changePage"
+    />
+    <Restaurants :restaurants="visitedRestoFormate"></Restaurants>
+    <Pagination
+      v-if="isloaded"
+      :items="visitedRestoFormate"
       :num-pages="numPages"
       :current-page="currentPage"
       :on-update-current-page="(page) => (currentPage = page)"
@@ -20,8 +28,12 @@
 
 <script setup>
 import Restaurants from "@/components/home/Restaurants.vue";
-import { getRestaurants } from "@/composable/UseRestaurant";
-import { ref, computed, watch } from "vue";
+import {
+  getRestaurant,
+  getRestaurants,
+  getVisitedRestaurentsByUser,
+} from "@/composable/UseRestaurant";
+import { ref, watch } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
 
@@ -31,13 +43,26 @@ const resoFiltered = ref(null);
 const itemsPerPage = 10;
 const currentPage = ref(1);
 const numPages = ref(1);
-
+let idsOfVisitedResto = ref(null);
+let visitedRestoFormate = ref(null);
 const fetchData = async () => {
   const data = await getRestaurants();
   json.value = data.items;
   isloaded.value = true;
   resoFiltered.value = json.value;
   numPages.value = Math.ceil(json.value.length / itemsPerPage);
+};
+const getData = async () => {
+  const info = await getVisitedRestaurentsByUser();
+  idsOfVisitedResto.value = info.items;
+  visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
+};
+const formatRestaurents = async function (visitedResto) {
+  const listeDeRestoFormate = [];
+  for (const element of visitedResto) {
+    listeDeRestoFormate.push(await getRestaurant(element["restaurant_id"]));
+  }
+  return listeDeRestoFormate;
 };
 
 const emits = defineEmits(["update:currentPage"]);
@@ -50,30 +75,12 @@ const restaurantsFiltered = (filteredRestaurants) => {
 watch(resoFiltered, () => {
   currentPage.value = 1;
 });
-
-const displayedRestaurants = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  return resoFiltered.value.slice(start, end);
-});
-
 const changePage = (page) => {
   currentPage.value = page;
 };
 
-const nextPage = () => {
-  if (currentPage.value < numPages.value) {
-    currentPage.value = currentPage.value + 1;
-  }
-};
-
-const previousPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value = currentPage.value - 1;
-  }
-};
-
 fetchData();
+getData();
 </script>
 
 <style></style>

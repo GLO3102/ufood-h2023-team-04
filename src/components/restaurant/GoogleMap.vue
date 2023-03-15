@@ -44,10 +44,10 @@ watch(props, (newProps) => {
 
 <template>
   <v-container>
-    <v-card class="" elevation="24">
+    <v-card class="" elevation="0">
       <v-card-item
         ><iframe
-          class="w-full rounded border-lg"
+          class="w-full"
           :src="link"
           width="100%"
           height="600"
@@ -57,3 +57,14 @@ watch(props, (newProps) => {
     </v-card>
   </v-container>
 </template>
+
+<style scoped>
+.v-container {
+  background: white;
+  color: #fff;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  padding: 20px;
+  border: 3px solid #000;
+  box-shadow: 10px 15px 0px black;
+}
+</style>

@@ -48,9 +48,13 @@ fetchData();
           :address="address"
           :genres="genres"
         />
-        <RestaurantImages v-if="isLoaded" :pictures="pictures" />
-        <OpeningTime v-if="isLoaded" :opening_hours="opening_hours" />
-        <GoogleMap v-if="isLoaded" :address="address" />
+        <RestaurantImages v-if="isLoaded" :pictures="pictures" class="mt-10" />
+        <OpeningTime
+          v-if="isLoaded"
+          :opening_hours="opening_hours"
+          class="mt-10"
+        />
+        <GoogleMap v-if="isLoaded" :address="address" class="mt-10 mb-5" />
       </v-col>
     </v-row>
   </v-container>

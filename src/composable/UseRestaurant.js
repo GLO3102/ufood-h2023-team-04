@@ -1,4 +1,5 @@
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
+const User = "636d37d5a4823385784320a2";
 
 export const getRestaurant = async function (id) {
   const req = new Request(`${API_ENDPOINT}/restaurants/${id}`, {
@@ -42,5 +43,16 @@ export const postReview = async function (
     }),
   });
   const res = await fetch(req);
+  return res.json();
+};
+
+export const getVisitedRestaurentsByUser = async function () {
+  const res = await fetch(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
   return res.json();
 };

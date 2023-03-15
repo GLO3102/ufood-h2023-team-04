@@ -43,12 +43,28 @@ watch(props, (newProps) => {
 </script>
 
 <template>
-  <iframe
-    :src="link"
-    width="600"
-    height="450"
-    frameborder="0"
-    style="border: 0"
-    allowfullscreen
-  ></iframe>
+  <v-container>
+    <v-card class="" elevation="0">
+      <v-card-item
+        ><iframe
+          class="w-full"
+          :src="link"
+          width="100%"
+          height="600"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe
+      ></v-card-item>
+    </v-card>
+  </v-container>
 </template>
+
+<style scoped>
+.v-container {
+  background: white;
+  color: #fff;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  padding: 20px;
+  border: 3px solid #000;
+  box-shadow: 10px 15px 0px black;
+}
+</style>

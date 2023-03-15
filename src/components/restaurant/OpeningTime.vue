@@ -14,19 +14,28 @@ const formateHours = function (hours) {
 
 <template>
   <v-container>
-    <div class="text-center font-bold">WEEKLY SCHEDULE</div>
-    <v-row no-gutters class="justify-center">
-      <v-col
-        v-for="(hours, day) in opening_hours"
-        :key="day"
-        cols="7"
-        class="border-md m-1"
-      >
-        <v-sheet class="ma-1 pa-1 text-center">
-          <div>{{ formateDay(day) }}</div>
-          <div>{{ formateHours(hours) }}</div>
-        </v-sheet>
-      </v-col>
-    </v-row>
+    <v-card title="WEEKLY SCHEDULE" class="text-center" elevation="0">
+      <v-card-item>
+        <v-row class="justify-center">
+          <v-col v-for="(hours, day) in opening_hours" :key="day" cols="7">
+            <v-sheet class="border-b">
+              <div class="text-xs sm:text-base">{{ formateDay(day) }}</div>
+              <div class="text-xs sm:text-base">{{ formateHours(hours) }}</div>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-card-item>
+    </v-card>
   </v-container>
 </template>
+
+<style scoped>
+.v-container {
+  background: white;
+  color: #fff;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  padding: 20px;
+  border: 3px solid #000;
+  box-shadow: 10px 15px 0px black;
+}
+</style>

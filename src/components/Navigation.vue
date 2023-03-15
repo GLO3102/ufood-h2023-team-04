@@ -21,8 +21,58 @@
         <v-btn @click="loggedIn = true" v-if="loggedIn === false"
           >Register</v-btn
         >
-        <v-btn @click="loggedIn = false" v-if="loggedIn === true"
-          >log out</v-btn
+          <li class="text-sm font-bold text-neutral-100 hover:text-blue-400">
+            <router-link :to="{ name: 'Home' }">Home</router-link>
+          </li>
+          <li class="text-sm font-bold text-neutral-100 hover:text-blue-400">
+            <router-link :to="{ name: 'Restaurant' }">Restaurant</router-link>
+          </li>
+          <li
+            :class="{ hidden: !loggedIn }"
+            class="text-sm font-bold text-neutral-100 hover:text-blue-400"
+          >
+            <router-link
+              :to="{
+                name: 'User',
+                params: { currentUserID: '636d37d5a4823385784320a2' },
+              }"
+            >
+              User Profile
+            </router-link>
+          </li>
+          <li
+            :class="{ hidden: loggedIn }"
+            @click="logIn"
+            class="text-sm font-bold text-neutral-100 hover:text-blue-400"
+          >
+            <router-link :to="{ name: 'Home' }">Register</router-link>
+          </li>
+          <li
+            :class="{ hidden: loggedIn }"
+            @click="logIn"
+            class="text-sm font-bold text-neutral-100 hover:text-blue-400"
+          >
+            <router-link :to="{ name: 'Home' }">Sign in</router-link>
+          </li>
+          <li
+            :class="{ hidden: !loggedIn }"
+            @click="logOut"
+            class="text-sm font-bold text-neutral-100 hover:text-blue-400"
+          >
+            <router-link :to="{ name: 'Home' }">Logout</router-link>
+          </li>
+        </ul>
+      </nav>
+      <div
+        class="container pb-2 mx-auto md:flex md:justify-end md:items-center h-8"
+      >
+        <input
+          class="bg-neutral-200 text-neutral-800 h-7 px-2 rounded-lg text-sm focus:outline-none"
+          type="search"
+        />
+        <button
+          type="submit"
+          class="bg-neutral-600 h-7 px-2 rounded-lg text-sm focus:outline-none text-neutral-100 hover:bg-blue-400 ml-1"
         >
         <v-btn>
           <router-link :to="'/user/1'">user</router-link>

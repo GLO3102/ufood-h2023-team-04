@@ -80,7 +80,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 2rem;
   border-bottom: 1px solid #ccc;
   position: relative;
 }
@@ -89,11 +89,15 @@
   font-size: 1.5rem;
 }
 .modal-close {
-  background-color: black;
+  background-color: white;
   border: none;
   font-size: 2rem;
   cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
+
 .modal-body {
   padding: 1rem;
   flex: 1;

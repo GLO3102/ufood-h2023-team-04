@@ -49,13 +49,6 @@
                 <router-link :to="'/'">Home</router-link></v-list-item-title
               >
             </v-list-item>
-            <v-list-item>
-              <v-list-item-title>
-                <router-link :to="'/restaurant'"
-                  >Restaurant</router-link
-                ></v-list-item-title
-              >
-            </v-list-item>
           </v-list>
         </v-menu>
       </div>

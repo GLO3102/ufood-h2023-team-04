@@ -26,7 +26,7 @@
               >
             </div>
           </div>
-          <UsersFavorite :currentUserID="currentUserID"></UsersFavorite>
+          <UsersVisitedRestaurants></UsersVisitedRestaurants>
         </div>
       </div>
     </div>
@@ -34,8 +34,8 @@
 </template>
 
 <script>
-//import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
-import UsersFavorite from "../components/users/UsersFavorite.vue";
+import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
+//import UsersFavorite from "../components/users/UsersFavorite.vue";
 import MY_JSON from "@/data/users.json";
 import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
 import ScaleButton from "../components/button/ScaleButton.vue";
@@ -54,8 +54,8 @@ export default {
     },
   },
   components: {
-    //UsersVisitedRestaurants: UsersVisitedRestaurants,
-    UsersFavorite: UsersFavorite,
+    UsersVisitedRestaurants: UsersVisitedRestaurants,
+    //UsersFavorite: UsersFavorite,
   },
   async created() {
     this.user = await getUserInfo(this.currentUserID);

@@ -64,8 +64,8 @@
           class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
           v-for="visit in visits"
           :key="visit"
-          ><a>{{ restoName }}</a>
-          {{ visit.restaurant_id + " - " + visit.rating + " visits" }}
+        >
+          {{ visit.name + " - " + visit.rating + " visits" }}
         </a>
       </div>
     </div>
@@ -79,19 +79,17 @@ import { getUserVisits } from "../../api/users";
 import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
 
 const visits = ref([]);
-const restoName = ref(null);
-const temp = "5f31fc6155d7790550c08afe";
-
-const getRestoName = async () => {
-  restoName.value = await getRestaurantsNameByID();
-};
 
 const getVisits = async () => {
   visits.value = await getUserVisits();
+  visits.value.forEach(async (visit) => {
+    const name = await getRestaurantsNameByID(visit.restaurant_id);
+    visit["name"] = name;
+  });
 };
 
 //getRestoName();
 getVisits();
 console.log(visits);
-console.log(restoName);
+console.log("restoName");
 </script>

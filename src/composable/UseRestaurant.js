@@ -1,5 +1,11 @@
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
+<<<<<<< HEAD
 const User = "619fcadb71a43a000462a905";
+=======
+const User = "636d37d5a4823385784320a2";
+//const User2 = "639bbf092b5bb7844f430e47";
+//const User3 = "604cc220ef6fa10004dc0179";
+>>>>>>> ffd7fd6b186215a1f167f8301e7d4757e8b79823
 
 export const getRestaurant = async function (id) {
   const req = new Request(`${API_ENDPOINT}/restaurants/${id}`, {
@@ -23,14 +29,8 @@ export const getRestaurants = async function () {
   return res.json();
 };
 
-export const postReview = async function (
-  id,
-  restaurantId,
-  comment,
-  rating,
-  date
-) {
-  const req = new Request(`${API_ENDPOINT}/users/${id}/restaurants/visits`, {
+export const postReview = async function (comment, rating, date, restaurantId) {
+  const req = new Request(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -42,7 +42,12 @@ export const postReview = async function (
       date: date,
     }),
   });
+
   const res = await fetch(req);
+  if (!res.ok) {
+    window.alert("get gud scrub!");
+  }
+  console.log("SUCCESS!");
   return res.json();
 };
 

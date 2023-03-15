@@ -1,25 +1,28 @@
 <template>
-  <div
-    class="flex flex-col justify-center text-center border border-neutral-700 rounded bg-neutral-700"
-  >
-    <Modal @close="toggleModal" :modalActive="modalActive" />
-    <v-card class="text-white">
-      <v-card-title class="bg-neutral-700">{{ name }}</v-card-title>
-      <v-card-item class="bg-neutral-500">
+  <v-container class="justify-center text-center">
+    <Modal
+      @close="toggleModal"
+      :modalActive="modalActive"
+      :id="id"
+      :name="name"
+    />
+    <v-card elevation="0">
+      <v-card-title>{{ name }}</v-card-title>
+      <v-card-item>
         <div>{{ formateRating(rating) }}</div>
         <div>{{ formatePriceRange(price_range) }}</div>
         <div>{{ formateTel(tel) }}</div>
         <div>{{ formateGenres(genres) }}</div>
         <div>{{ formateAddress(address) }}</div>
-        <div
-          class="text-white mx-auto bg-neutral-700 focus:outline-none focus:ring-4 focus:neutral-700 font-medium rounded-full text-sm px-5 py-2.5 mb-2 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:ring-gray-700 dark:border-gray-700 sm:w-3/5 md:w-1/2 lg:w-1/3 xl:w-1/4"
-        >
-          <v-btn class="mr-2" @click="goToRestaurantPage(id)">Go to page</v-btn>
+        <div class="flex p-5 justify-center">
+          <v-btn class="mr-5 bg-amber-accent-1" @click="goToRestaurantPage(id)"
+            >Go to page</v-btn
+          >
           <v-btn @click="toggleModal">Give a review</v-btn>
         </div>
       </v-card-item>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script setup>
@@ -46,6 +49,7 @@ const toggleModal = () => {
 const goToRestaurantPage = function (id) {
   router.push(`/restaurant/${id}`);
 };
+
 const formateRating = function (rating) {
   return `Rating: ${rating.toFixed(1)}/5`;
 };
@@ -67,3 +71,19 @@ const formateAddress = function (address) {
   return `Address: ${address}`;
 };
 </script>
+
+<style scoped>
+.v-container {
+  background: white;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  padding: 20px;
+  border: 3px solid #000;
+  box-shadow: 10px 15px 0px black;
+}
+.v-btn {
+  background: white;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  border: 3px solid #000;
+  box-shadow: 5px 10px 0px black;
+}
+</style>

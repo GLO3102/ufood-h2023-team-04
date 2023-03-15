@@ -36,18 +36,26 @@ fetchData();
 </script>
 
 <template>
-  <div>
-    <RestaurantInformations
-      v-if="isLoaded"
-      :name="name"
-      :tel="tel"
-      :price_range="price_range"
-      :rating="rating"
-      :address="address"
-      :genres="genres"
-    />
-    <OpeningTime v-if="isLoaded" :opening_hours="opening_hours" />
-    <RestaurantImages v-if="isLoaded" :pictures="pictures" />
-    <GoogleMap v-if="isLoaded" :address="address" />
-  </div>
+  <v-container class="justify-center mt-2">
+    <v-row>
+      <v-col>
+        <RestaurantInformations
+          v-if="isLoaded"
+          :name="name"
+          :tel="tel"
+          :price_range="price_range"
+          :rating="rating"
+          :address="address"
+          :genres="genres"
+        />
+        <RestaurantImages v-if="isLoaded" :pictures="pictures" class="mt-10" />
+        <OpeningTime
+          v-if="isLoaded"
+          :opening_hours="opening_hours"
+          class="mt-10"
+        />
+        <GoogleMap v-if="isLoaded" :address="address" class="mt-10 mb-5" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>

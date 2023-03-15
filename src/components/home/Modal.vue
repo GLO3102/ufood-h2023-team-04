@@ -4,7 +4,7 @@
       <transition name="modal-animation-inner">
         <div v-show="modalActive" class="modal-container">
           <div class="modal-header">
-            <h2 class="modal-title">Nom du restaurant</h2>
+            <h2 class="modal-title">{{ name }}</h2>
             <button class="modal-close" @click="close">×</button>
           </div>
           <div class="modal-body">
@@ -18,6 +18,8 @@
               />
               <textarea
                 v-model="comment"
+                name="comment"
+                id="comment"
                 placeholder="Add a comment"
                 class="block w-full rounded-md border-black border bg-white mt-2 p-2"
               ></textarea>
@@ -40,7 +42,7 @@
           <div class="modal-footer">
             <button
               class="modal-button modal-button-primary"
-              @click="submitReview"
+              @click="submitReview(id)"
             >
               Save
             </button>
@@ -78,7 +80,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 2rem;
   border-bottom: 1px solid #ccc;
   position: relative;
 }
@@ -87,11 +89,15 @@
   font-size: 1.5rem;
 }
 .modal-close {
-  background-color: black;
+  background-color: white;
   border: none;
   font-size: 2rem;
   cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
+
 .modal-body {
   padding: 1rem;
   flex: 1;
@@ -129,11 +135,13 @@
 </style>
 
 <script setup>
-import { defineProps, defineEmits, reactive } from "vue";
-import { getRestaurant, postReview } from "@/composable/UseRestaurant";
+import { defineProps, defineEmits, reactive, ref } from "vue";
+import { postReview, getRestaurant } from "@/composable/UseRestaurant";
 
 defineProps({
   modalActive: Boolean,
+  id: String,
+  name: String,
 });
 
 const emit = defineEmits(["close"]);
@@ -142,20 +150,12 @@ const close = () => {
   emit("close");
 };
 
-const state = reactive({
-  comment: "",
-  rating: "",
-  date: "",
-});
-
-function toggleModal() {
-  state.modalActive = !state.modalActive;
-  console.log(state.modalActive); // add this line to check if the variable is being updated correctly
-}
+const comment = ref("");
+const rating = ref("");
+const date = ref("");
 
 async function submitReview(id) {
-  const restaurantId = getRestaurant(id);
-  await postReview(restaurantId, state.comment, state.rating, state.date);
-  toggleModal();
+  await postReview(comment.value, rating.value, date.value, id);
+  close();
 }
 </script>

@@ -4,15 +4,7 @@
       @filtering="restaurantsFiltered"
       v-if="isloaded"
       :restaurants="json"
-    />
-
-    <Pagination
-      v-if="isloaded"
-      :items="resoFiltered"
-      :num-pages="numPages"
-      :current-page="currentPage"
-      :on-update-current-page="(page) => (currentPage = page)"
-      @update:currentPage="changePage"
+      class="mt-10"
     />
     <Restaurants :restaurants="displayedRestaurants" v-if="isloaded" />
     <Pagination
@@ -29,7 +21,7 @@
 <script setup>
 import Restaurants from "@/components/home/Restaurants.vue";
 import { getRestaurants } from "@/composable/UseRestaurant";
-import { ref, computed, watch, defineEmits } from "vue";
+import { ref, computed, watch } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
 

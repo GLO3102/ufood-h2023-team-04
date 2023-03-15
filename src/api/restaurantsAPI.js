@@ -10,14 +10,3 @@ export const fetchRestaurants = async () => {
     return null;
   }
 };
-
-export const postReview = async (review) => {
-  const response = await fetch(
-    `${ENDPOINT}/users/636d37d5a4823385784320a2/restaurants/visits`,
-    {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(review),
-    }
-  );
-};

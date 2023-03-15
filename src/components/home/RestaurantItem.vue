@@ -8,6 +8,7 @@
     />
     <v-card elevation="0">
       <v-card-title>{{ name }}</v-card-title>
+      <v-card-title v-if="visited">Already visited</v-card-title>
       <v-card-item>
         <div>{{ formateRating(rating) }}</div>
         <div>{{ formatePriceRange(price_range) }}</div>
@@ -39,6 +40,7 @@ defineProps({
   genres: Array,
   address: String,
   id: String,
+  visited: Boolean,
 });
 
 const modalActive = ref(false);

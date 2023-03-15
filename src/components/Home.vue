@@ -6,7 +6,11 @@
       :restaurants="json"
       class="mt-10"
     />
-    <Restaurants :restaurants="displayedRestaurants" v-if="isloaded" />
+    <Restaurants
+      :restaurants="displayedRestaurants"
+      :VisitedRestaurant="visitedRestoFormate"
+      v-if="isloaded"
+    />
     <Pagination
       v-if="isloaded"
       :items="resoFiltered"
@@ -20,7 +24,11 @@
 
 <script setup>
 import Restaurants from "@/components/home/Restaurants.vue";
-import { getRestaurants } from "@/composable/UseRestaurant";
+import {
+  getRestaurant,
+  getRestaurants,
+  getVisitedRestaurentsByUser,
+} from "@/composable/UseRestaurant";
 import { ref, computed, watch } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
@@ -31,13 +39,19 @@ const resoFiltered = ref(null);
 const itemsPerPage = 10;
 const currentPage = ref(1);
 const numPages = ref(1);
-
+let idsOfVisitedResto = ref(null);
+let visitedRestoFormate = ref(null);
 const fetchData = async () => {
   const data = await getRestaurants();
   json.value = data.items;
   isloaded.value = true;
   resoFiltered.value = json.value;
   numPages.value = Math.ceil(json.value.length / itemsPerPage);
+
+  const info = await getVisitedRestaurentsByUser();
+  idsOfVisitedResto.value = info.items;
+  visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
+  checkVisitedResto(resoFiltered.value);
 };
 
 const emits = defineEmits(["update:currentPage"]);
@@ -61,10 +75,28 @@ const changePage = (page) => {
   currentPage.value = page;
 };
 
+const checkVisitedResto = function (AllRestos) {
+  for (const restaurant of AllRestos) {
+    for (const element of visitedRestoFormate.value) {
+      if (element.name === restaurant.name) {
+        restaurant["visited"] = true;
+      }
+    }
+  }
+};
+
 const nextPage = () => {
   if (currentPage.value < numPages.value) {
     currentPage.value = currentPage.value + 1;
   }
+};
+
+const formatRestaurents = async function (visitedResto) {
+  const listeDeRestoFormate = [];
+  for (const element of visitedResto) {
+    listeDeRestoFormate.push(await getRestaurant(element["restaurant_id"]));
+  }
+  return listeDeRestoFormate;
 };
 
 const previousPage = () => {

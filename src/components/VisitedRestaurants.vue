@@ -47,6 +47,7 @@ let visitedRestoFormate = ref(null);
 const getData = async () => {
   const info = await getVisitedRestaurentsByUser();
   idsOfVisitedResto.value = info.items;
+  isloaded.value = true;
   visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
   numPages.value = Math.ceil(visitedRestoFormate.value.length / itemsPerPage);
 };

@@ -1,3 +1,5 @@
+import { ENDPOINT } from "@/api/api";
+
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
 const User = "604cc220ef6fa10004dc0179";
 
@@ -54,4 +56,30 @@ export const getVisitedRestaurentsByUser = async function () {
   });
 
   return res.json();
+};
+
+export const getUserFavorites = async function (id) {
+  const req = new Request(`${API_ENDPOINT}/users/${id}/favorites`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const res = await fetch(req);
+  return res.json();
+};
+
+export const addToFavorites = async (listID, restoID) => {
+  try {
+    const request = new Request(`${ENDPOINT}/favorites/${listID}/restaurants`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: restoID }),
+    });
+    await fetch(request);
+  } catch (error) {
+    console.error(error);
+  }
 };

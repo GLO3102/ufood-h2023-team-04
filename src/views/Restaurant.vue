@@ -6,6 +6,7 @@ import GoogleMap from "@/components/restaurant/GoogleMap.vue";
 import { getRestaurant } from "@/composable/UseRestaurant";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
+import AddToFavorite from "@/components/restaurant/AddToFavorite.vue";
 
 const opening_hours = ref(null);
 const pictures = ref();
@@ -16,6 +17,7 @@ const price_range = ref(null);
 const rating = ref(null);
 const genres = ref(null);
 let isLoaded = ref(false);
+const restoId = ref(null);
 
 const route = useRoute();
 
@@ -54,7 +56,8 @@ fetchData();
           :opening_hours="opening_hours"
           class="mt-10"
         />
-        <GoogleMap v-if="isLoaded" :address="address" class="mt-10 mb-5" />
+        <GoogleMap v-if="isLoaded" :address="address" class="mt-10" />
+        <AddToFavorite v-if="isLoaded" class="mt-10 mb-5"></AddToFavorite>
       </v-col>
     </v-row>
   </v-container>

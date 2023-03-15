@@ -1,5 +1,5 @@
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
-const User = "619fcadb71a43a000462a905";
+const User = "604cc220ef6fa10004dc0179";
 
 export const getRestaurant = async function (id) {
   const req = new Request(`${API_ENDPOINT}/restaurants/${id}`, {

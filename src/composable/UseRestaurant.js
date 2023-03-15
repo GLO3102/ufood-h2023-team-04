@@ -23,13 +23,13 @@ export const getRestaurants = async function () {
 };
 
 export const postReview = async function (
-  id,
+  userId,
   restaurantId,
   comment,
   rating,
   date
 ) {
-  const req = new Request(`${API_ENDPOINT}/users/${id}/restaurants/visits`, {
+  const req = new Request(`${API_ENDPOINT}/users/:id/restaurants/visits`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

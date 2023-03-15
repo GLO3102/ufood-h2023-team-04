@@ -131,6 +131,7 @@
 <script setup>
 import { defineProps, defineEmits, reactive } from "vue";
 import { getRestaurant, postReview } from "@/composable/UseRestaurant";
+import { getAllUsersInfo } from "../../api/users";
 
 defineProps({
   modalActive: Boolean,
@@ -153,9 +154,9 @@ function toggleModal() {
   console.log(state.modalActive); // add this line to check if the variable is being updated correctly
 }
 
-async function submitReview(id) {
-  const restaurantId = getRestaurant(id);
-  await postReview(restaurantId, state.comment, state.rating, state.date);
+async function submitReview(userId) {
+  const userID = getAllUsersInfo(id);
+  await postReview(restaurantID, state.comment, state.rating, state.date);
   toggleModal();
 }
 </script>

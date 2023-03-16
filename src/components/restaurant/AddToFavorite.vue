@@ -95,7 +95,7 @@ const addFavoriteToList = async (listName) => {
     getIdOfListeByName(ListesDeRestofavorites.value, listName),
     restoId
   );
-  isAdded.value = true;
+  isPresent.value = true;
 };
 
 fetch();

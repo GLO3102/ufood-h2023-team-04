@@ -1,4 +1,5 @@
 import { ENDPOINT } from "@/api/api";
+import { id } from "vuetify/locale";
 
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
 const User = "604cc220ef6fa10004dc0179";
@@ -82,4 +83,14 @@ export const addToFavorites = async (listID, restoID) => {
   } catch (error) {
     console.error(error);
   }
+};
+export const getListefavori = async function (idListe) {
+  const req = new Request(`${API_ENDPOINT}/favorites/${idListe}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const res = await fetch(req);
+  return res.json();
 };

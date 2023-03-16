@@ -4,36 +4,71 @@
       <v-card-item>
         <v-select
           label="Favorite"
-          v-model="favortieList"
-          :items="getFavoritesNames(favorites)"
+          v-model="NomFavoriteList"
+          :items="getFavoritesNames(ListesDeRestofavorites)"
           class="text-black"
           variant="solo"
+          @change="onSelectItem"
         ></v-select>
       </v-card-item>
       <v-card-item>
-        <v-btn @click="addFavoriteToList(favortieList)">
+        <v-layout
+          :disabled="RestoAlreadyInFavorite(NomFavoriteList)"
+        ></v-layout>
+        <v-btn
+          :disabled="isPresent"
+          @click="addFavoriteToList(NomFavoriteList)"
+        >
           AddToMyFavorites
         </v-btn>
+        <v-layout v-if="isPresent">
+          this Restaurant is already in this list</v-layout
+        >
       </v-card-item>
     </v-card>
   </v-container>
 </template>
 
 <script setup>
-import { addToFavorites, getUserFavorites } from "@/composable/UseRestaurant";
+import {
+  addToFavorites,
+  getListefavori,
+  getUserFavorites,
+} from "@/composable/UseRestaurant";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-const favorites = ref(null);
-let favortieList = ref(null);
+const ListesDeRestofavorites = ref(null);
+let NomFavoriteList = ref(null);
 let isLoaded = ref(false);
+let isPresent = ref(false);
+let isAdded = ref(false);
 const restoId = route.params.id;
 const fetch = async () => {
-  favorites.value = (await getUserFavorites("604cc220ef6fa10004dc0179")).items;
-  favortieList.value = favorites.value[0].name;
+  ListesDeRestofavorites.value = (
+    await getUserFavorites("604cc220ef6fa10004dc0179")
+  ).items;
+  NomFavoriteList.value = ListesDeRestofavorites.value[0].name;
   isLoaded.value = true;
+};
+const onSelectItem = () => {
+  isAdded.value = false;
+};
+const RestoAlreadyInFavorite = async (listName) => {
+  let Its = false;
+  const id = getIdOfListeByName(ListesDeRestofavorites.value, listName);
+  const listeDeRestoFavoris = await getListefavori(id);
+  console.log("restoId : " + restoId);
+  console.log("liste De favorie " + NomFavoriteList.value);
+  console.log(listeDeRestoFavoris.restaurants);
+  for (const element of listeDeRestoFavoris.restaurants) {
+    if (element.id === restoId) {
+      Its = true;
+    }
+  }
+  isPresent.value = Its;
 };
 
 const getFavoritesNames = function (array) {
@@ -44,19 +79,23 @@ const getFavoritesNames = function (array) {
   return favList;
 };
 
-const getIdByName = function (array, name) {
+const getIdOfListeByName = function (array, name) {
   let id = null;
   array.forEach(function (item) {
     if (item.name === name) {
       id = item.id;
     }
   });
-  console.log(id);
   return id;
 };
 
 const addFavoriteToList = async (listName) => {
-  await addToFavorites(getIdByName(favorites.value, listName), restoId);
+  console.log(isAdded.value);
+  await addToFavorites(
+    getIdOfListeByName(ListesDeRestofavorites.value, listName),
+    restoId
+  );
+  isAdded.value = true;
 };
 
 fetch();

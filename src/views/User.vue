@@ -1,5 +1,5 @@
 <template>
-  <body class="bg-gradient-to-r from-teal-600 to-teal-300 antialiased">
+  <div class="bg-gradient-to-r from-teal-600 to-teal-300 antialiased">
     <div class="h-screen">
       <div>
         <div
@@ -26,12 +26,13 @@
               >
             </div>
           </div>
-          <UsersVisitedRestaurants></UsersVisitedRestaurants>
+
           <UsersFavorite :currentUserID="currentUserID"></UsersFavorite>
+          <UsersVisitedRestaurants></UsersVisitedRestaurants>
         </div>
       </div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>

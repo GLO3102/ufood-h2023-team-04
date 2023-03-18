@@ -24,11 +24,6 @@ const routes = [
     },
   },
   {
-    path: "/user/:currentUserID",
-    name: "User",
-    component: User,
-  },
-  {
     path: "/restaurantVisits",
     name: "VisitedRestaurant",
     component: VisitedRestaurants,

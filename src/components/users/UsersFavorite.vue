@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <div>
     <UsersModalFavoriteVue
       v-if="showModal"
       @close="showModal = false"
@@ -58,8 +58,7 @@
           :key="val.id"
         >
           <a
-            href="/restaurant"
-            @click="goToResto"
+            :href="'/restaurant/' + val.id"
             class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
           >
             <img
@@ -87,7 +86,7 @@
         </div>
       </div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -139,10 +138,6 @@ export default {
         restaurants.push({ name: data, id: id.id });
       }
       this.selectedFavList = restaurants;
-    },
-    goToResto() {
-      // TODO finish this when resto pages are available
-      this.$router.push({ name: "Restaurant" });
     },
     async addList() {
       let payload = { name: this.selectedListName, owner: this.user.email };

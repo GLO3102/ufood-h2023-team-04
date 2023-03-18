@@ -1,76 +1,63 @@
 <template>
-  <v-container class="flex flex-col items-center justify-between">
-    <div class="w-full flex justify-between items-center">
-      <div></div>
-      <div>Filters</div>
-      <v-btn @click="toggleExpand" class="ml-2">
-        <img
-          v-if="!expanded"
-          src="https://cdn-icons-png.flaticon.com/512/4655/4655143.png"
-          alt=""
-          class="w-2"
-        />
-        <img
-          v-if="expanded"
-          src="https://cdn-icons-png.flaticon.com/512/57/57055.png"
-          alt=""
-          class="w-2"
-        />
-      </v-btn>
-    </div>
-    <div v-show="expanded">
-      <div
-        class="flex flex-col sm:flex-row mt-5 w-3/4 justify-space-evenly items-end sm:items-center"
-      >
+  <v-container class="justify-center text-center">
+    <v-card elevation="0">
+      <v-card-title>Filters</v-card-title>
+      <v-card-item>
+        <v-btn @click="toggleExpand" class="m-2">
+          <v-img
+            v-if="!expanded"
+            src="https://cdn-icons-png.flaticon.com/512/4655/4655143.png"
+            alt=""
+            class="w-6"
+          />
+          <v-img
+            v-if="expanded"
+            src="https://cdn-icons-png.flaticon.com/512/57/57055.png"
+            alt=""
+            class="w-6"
+          />
+        </v-btn>
+      </v-card-item>
+      <v-card-item v-show="expanded">
         <v-text-field
           type="text"
           placeholder="Restaurant's name"
           v-model="searchValue"
-          class="w-full sm:w-1/2 sm:mb-0 sm:mr-5"
         />
         <v-select
-          label="Choosen genre"
+          label="Chosen genre"
           v-model="genreValue"
           :items="getAllGenres(restaurants)"
           class="text-black"
           variant="solo"
         ></v-select>
-      </div>
-      <div class="w-3/4 mt-4">
-        <label class="text-white">Price</label>
+      </v-card-item>
+      <v-card-item v-show="expanded">
+        Choose max price
         <v-slider
           v-model="priceValue"
           :min="0"
           :max="getMaxPrice(restaurants)"
           :step="1"
-          :ticks="ticksLabels"
-          show-ticks="always"
           tick-size="5"
           thumb-label
-          class="h-6"
           elevation="0"
-          color="black"
           track-fill-color="yellow"
+          class="pt-10 px-4"
         >
           ></v-slider
         >
-        <div class="flex items-center justify-between mt-2"></div>
-      </div>
-      <div class="flex justify-between w-72 mt-4">
+      </v-card-item>
+      <v-card-item v-show="expanded">
         <v-btn
           @click="emit('filtering', filter(restaurants))"
-          class="bg-blue-500 hover:bg-blue-600 text-black rounded-md py-2 px-4 text-sm"
+          class="bg-amber-accent-1 m-2"
         >
           search!
         </v-btn>
-        <v-btn
-          @click="clearSelection"
-          class="bg-neutral-700 hover:bg-neutral-600 text-neutral-100 rounded-md py-2 px-4 text-sm"
-        >
-          clear!
-        </v-btn>
-      </div>
-    </div>
+        <v-btn @click="clearSelection" class="m-2"> clear! </v-btn>
+      </v-card-item>
+    </v-card>
   </v-container>
 </template>
 
@@ -85,14 +72,6 @@ const toggleExpand = () => {
 const props = defineProps({
   restaurants: Object,
 });
-const ticksLabels = {
-  0: "0$",
-  1: "1$",
-  2: "2$",
-  3: "3$",
-  4: "4$",
-  5: "5$",
-};
 
 const emit = defineEmits(["filtering"]);
 const clearSelection = () => {
@@ -156,18 +135,33 @@ const filter = function (restaurants) {
   font-family: "Helvetica Neue", Arial, sans-serif;
   padding: 20px;
   border: 3px solid #000;
-  box-shadow: 10px 15px 0px black;
+  box-shadow: 10px 15px 0 black;
 }
 .v-btn {
   background: white;
   font-family: "Helvetica Neue", Arial, sans-serif;
   border: 3px solid #000;
-  box-shadow: 5px 10px 0px black;
+  box-shadow: 5px 10px 0 black;
 }
 
 input {
   background: white;
   font-family: "Helvetica Neue", Arial, sans-serif;
   border: 3px solid #000;
+}
+
+@media (max-width: 800px) {
+  .v-card-item {
+    font-size: 15px;
+  }
+
+  .v-card-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .v-btn {
+    font-size: 15px;
+  }
 }
 </style>

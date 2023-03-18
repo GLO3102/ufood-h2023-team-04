@@ -1,38 +1,16 @@
 <template>
-  <div class="bg-gradient-to-r from-teal-600 to-teal-300 antialiased">
-    <div class="h-screen">
-      <div>
-        <div
-          class="bg-white relative shadow rounded-lg w-4/6 md:w-4/6 lg:w-3/6 xl:w-2/6 mx-auto top-24"
-        >
-          <div class="flex justify-center">
-            <img
-              src="https://avatarfiles.alphacoders.com/231/231277.jpg"
-              alt=""
-              class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110"
-            />
-          </div>
-
-          <div class="mt-16">
-            <h1 class="font-bold text-center text-3xl text-gray-900"></h1>
-            <p class="text-center">
-              <span> {{ user.name }} </span>
-            </p>
-
-            <div class="flex justify-between items-center my-5 px-6">
-              <a
-                class="text-gray-500 bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3"
-                >Score: {{ score }}</a
-              >
-            </div>
-          </div>
-
-          <UsersFavorite :currentUserID="currentUserID"></UsersFavorite>
-          <UsersVisitedRestaurants></UsersVisitedRestaurants>
-        </div>
-      </div>
-    </div>
-  </div>
+  <v-container class="mt-10 mb-5">
+    <v-card elevation="0">
+      <v-card-item class="text-center"> {{ user.name }} </v-card-item>
+      <v-card-item class="text-center"> Score: {{ score }} </v-card-item>
+      <v-card-item>
+        <UsersFavorite :currentUserID="currentUserID"> </UsersFavorite>
+      </v-card-item>
+      <v-card-item>
+        <UsersVisitedRestaurants></UsersVisitedRestaurants>
+      </v-card-item>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -63,4 +41,29 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.v-container {
+  background: white;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  padding: 20px;
+  border: 3px solid #000;
+  box-shadow: 10px 15px 0 black;
+}
+.v-btn {
+  background: white;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  border: 3px solid #000;
+  box-shadow: 5px 10px 0 black;
+}
+
+@media (max-width: 800px) {
+  .v-card-item {
+    font-size: 15px;
+  }
+
+  .v-card-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+</style>

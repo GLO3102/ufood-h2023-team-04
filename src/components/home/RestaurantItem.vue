@@ -8,19 +8,18 @@
     />
     <v-card elevation="0">
       <v-card-title>{{ name }}</v-card-title>
-      <v-card-title v-if="visited">Already visited</v-card-title>
+      <v-card-item v-if="visited">Already visited</v-card-item>
+
+      <v-card-item>{{ formateRating(rating) }}</v-card-item>
+      <v-card-item>{{ formatePriceRange(price_range) }}</v-card-item>
+      <v-card-item>{{ formateTel(tel) }}</v-card-item>
+      <v-card-item>{{ formateGenres(genres) }}</v-card-item>
+      <v-card-item>{{ formateAddress(address) }}</v-card-item>
       <v-card-item>
-        <div>{{ formateRating(rating) }}</div>
-        <div>{{ formatePriceRange(price_range) }}</div>
-        <div>{{ formateTel(tel) }}</div>
-        <div>{{ formateGenres(genres) }}</div>
-        <div>{{ formateAddress(address) }}</div>
-        <div class="flex p-5 justify-center">
-          <v-btn class="mr-5 bg-amber-accent-1" @click="goToRestaurantPage(id)"
-            >Go to page</v-btn
-          >
-          <v-btn @click="toggleModal">Give a review</v-btn>
-        </div>
+        <v-btn class="bg-amber-accent-1 m-2" @click="goToRestaurantPage(id)"
+          >Go to page</v-btn
+        >
+        <v-btn class="m-2" @click="toggleModal">Give a review</v-btn>
       </v-card-item>
     </v-card>
   </v-container>
@@ -87,5 +86,19 @@ const formateAddress = function (address) {
   font-family: "Helvetica Neue", Arial, sans-serif;
   border: 3px solid #000;
   box-shadow: 5px 10px 0px black;
+}
+@media (max-width: 800px) {
+  .v-card-item {
+    font-size: 15px;
+  }
+
+  .v-card-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .v-btn {
+    font-size: 15px;
+  }
 }
 </style>

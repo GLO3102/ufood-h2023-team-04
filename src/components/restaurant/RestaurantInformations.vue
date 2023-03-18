@@ -48,10 +48,26 @@ const formateAddress = function (address) {
 <style scoped>
 .v-container {
   background: white;
-  color: #fff;
   font-family: "Helvetica Neue", Arial, sans-serif;
   padding: 20px;
   border: 3px solid #000;
-  box-shadow: 10px 15px 0px black;
+  box-shadow: 10px 15px 0 black;
+}
+.v-btn {
+  background: white;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  border: 3px solid #000;
+  box-shadow: 5px 10px 0 black;
+}
+
+@media (max-width: 800px) {
+  .v-card-item {
+    font-size: 15px;
+  }
+
+  .v-card-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
 }
 </style>

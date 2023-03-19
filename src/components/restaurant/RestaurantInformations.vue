@@ -31,6 +31,9 @@ const formateAddress = function (address) {
 
 <template>
   <v-container>
+    <div class="favorite-icon">
+      <i class="far fa-heart"></i>
+    </div>
     <v-card :title="name" class="text-sm" elevation="0">
       <v-card-item>
         <div class="text-xs sm:text-base">{{ formateRating(rating) }}</div>
@@ -69,5 +72,18 @@ const formateAddress = function (address) {
     font-size: 18px;
     font-weight: bold;
   }
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.favorite-icon i {
+  font-size: 24px;
+  color: #f44336;
 }
 </style>

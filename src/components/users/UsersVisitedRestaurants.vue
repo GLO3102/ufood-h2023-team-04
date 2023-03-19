@@ -11,7 +11,8 @@
           v-for="visit in visits"
           :key="visit"
         >
-          {{ visit.name + " - " + visit.rating + " visits" }}
+          {{ visit.name + " - " + visit.rating + " Stars"
+          }}<ModalVisitedReadOnly :id="visit" />
         </a>
       </div>
     </div>
@@ -19,12 +20,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import ModalVisitedReadOnly from "../users/ModalVisitedReadOnly.vue";
 
-import { getUserVisits } from "../../composables/useUser";
-import { getRestaurantsNameByID } from "../../composables/useRestaurantsForUser";
+import { getUserVisits } from "../../api/users";
+import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
 
 const visits = ref([]);
+
+defineProps({ id: Object });
 
 const getVisits = async () => {
   visits.value = await getUserVisits();

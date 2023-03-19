@@ -39,6 +39,12 @@ export const getRestaurants = async function () {
 };
 
 export const postReview = async function (comment, rating, date, restaurantId) {
+  if (!rating) {
+    console.error("Select a rating");
+    window.alert("Rating cannot be empty");
+    return null;
+  }
+
   try {
     const req = new Request(
       `${API_ENDPOINT}/users/${User}/restaurants/visits`,
@@ -58,11 +64,9 @@ export const postReview = async function (comment, rating, date, restaurantId) {
 
     const res = await fetch(req);
     if (!res.ok) throw new Error("Failed to post review");
-    console.log("SUCCESS!");
     return res.json();
   } catch (error) {
     console.error(error);
-    window.alert("get gud scrub!");
     return null;
   }
 };

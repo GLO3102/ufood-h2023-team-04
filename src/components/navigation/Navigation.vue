@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click="drawer = true"> </v-app-bar-nav-icon>
       <v-toolbar-title>RestoAnalyser3000</v-toolbar-title>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer v-model="drawer" app temporary>
       <v-list nav dense>
         <v-list-item
           v-model="group"
@@ -13,14 +13,14 @@
           <v-list-item>
             <router-link :to="'/'">Home</router-link>
           </v-list-item>
-          <v-list-item>
+          <v-list-item v-if="loggedIn === true">
             <router-link
               :to="{
                 name: 'User',
                 params: { currentUserID: '604cc220ef6fa10004dc0179' },
               }"
             >
-              User Profile
+              User profile
             </router-link>
           </v-list-item>
           <v-list-item v-if="loggedIn === false">
@@ -28,14 +28,14 @@
               >Register</router-link
             >
           </v-list-item>
-          <v-list-item v-if="loggedIn">
+          <v-list-item v-if="loggedIn === false">
             <router-link :to="'/'" @click="loggedIn = true"
               >Sign in</router-link
             >
           </v-list-item>
           <v-list-item v-if="loggedIn === true">
             <router-link :to="'/'" @click="loggedIn = false"
-              >log out
+              >Log out
             </router-link>
           </v-list-item>
         </v-list-item>

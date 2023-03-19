@@ -52,4 +52,25 @@ const drawer = ref(false);
 const group = ref(null);
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.nav-icon {
+  color: #fff;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+</style>

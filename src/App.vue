@@ -13,15 +13,11 @@
   </v-app>
 </template>
 
-<script>
-import Navigation from "@/components/Navigation";
+<script setup>
+import Navigation from "@/components/navigation/Navigation.vue";
+import { defineComponent } from "vue";
 
-export default {
-  name: "app",
-  components: {
-    "nav-menu": Navigation,
-  },
-};
+const navMenu = defineComponent(Navigation);
 </script>
 
 <style></style>

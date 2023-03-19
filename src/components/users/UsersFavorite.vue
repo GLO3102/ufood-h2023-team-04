@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { getUserFavoriteLists, getUserInfo } from "../../api/users";
+import { getUserFavoriteLists, getUserInfo } from "../../composables/useUser";
 import {
   getFavoriteById,
   postNewList,
@@ -98,8 +98,8 @@ import {
   putList,
   deleteRestoFromList,
   postAddRestoInList,
-} from "../../api/favorites";
-import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
+} from "../../composables/useFavorite";
+import { getRestaurantsNameByID } from "../../composables/useRestaurantsForUser";
 import UsersModalFavoriteVue from "./UsersModalFavorite.vue";
 
 export default {

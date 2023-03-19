@@ -3,7 +3,7 @@ import OpeningTime from "@/components/restaurant/OpeningTime.vue";
 import RestaurantInformations from "@/components/restaurant/RestaurantInformations.vue";
 import RestaurantImages from "@/components/restaurant/RestaurantImages.vue";
 import GoogleMap from "@/components/restaurant/GoogleMap.vue";
-import { getRestaurant } from "@/composable/UseRestaurant";
+import { getRestaurant } from "@/composables/UseRestaurant";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import AddToFavorite from "@/components/restaurant/AddToFavorite.vue";

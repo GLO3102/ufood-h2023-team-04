@@ -16,7 +16,7 @@
 <script>
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import UsersFavorite from "../components/users/UsersFavorite.vue";
-import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
+import { getUserInfo, getVisitedRestaurant } from "../composables/useUser.js";
 
 export default {
   data() {

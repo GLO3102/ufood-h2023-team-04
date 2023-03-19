@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "@/components/Home";
+import Home from "@/views/Home.vue";
 import Restaurant from "@/views/Restaurant.vue";
 import User from "@/views/User";
-import VisitedRestaurants from "@/components/VisitedRestaurants.vue";
 
 const routes = [
   {
@@ -22,11 +21,6 @@ const routes = [
     props: (route) => {
       return { currentUserID: route.params.currentUserID };
     },
-  },
-  {
-    path: "/restaurantVisits",
-    name: "VisitedRestaurant",
-    component: VisitedRestaurants,
   },
 ];
 

@@ -1,4 +1,4 @@
-import { ENDPOINT } from "./api";
+import { ENDPOINT } from "./API_ENDPOINT";
 
 export const getRestaurantsNameByID = async (restoId) => {
   try {

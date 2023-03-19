@@ -21,8 +21,8 @@
 <script setup>
 import { ref } from "vue";
 
-import { getUserVisits } from "../../api/users";
-import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
+import { getUserVisits } from "../../composables/useUser";
+import { getRestaurantsNameByID } from "../../composables/useRestaurantsForUser";
 
 const visits = ref([]);
 

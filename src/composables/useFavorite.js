@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { ENDPOINT } from "./api";
-import { ID } from "./api";
+import { ENDPOINT } from "./API_ENDPOINT";
+import { ID } from "./API_ENDPOINT";
 
 export const getFavoriteById = async (id) => {
   try {

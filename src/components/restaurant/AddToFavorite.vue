@@ -33,7 +33,7 @@ import {
   addToFavorites,
   getListefavori,
   getUserFavorites,
-} from "@/composable/UseRestaurant";
+} from "@/composables/UseRestaurant";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 

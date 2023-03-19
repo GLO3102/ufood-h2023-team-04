@@ -1,4 +1,4 @@
-import { ENDPOINT } from "@/api/api";
+import { ENDPOINT } from "@/composables/API_ENDPOINT";
 import { id } from "vuetify/locale";
 
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";

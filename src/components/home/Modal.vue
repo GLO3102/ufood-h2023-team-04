@@ -137,7 +137,7 @@
 
 <script setup>
 import { defineProps, defineEmits, reactive, ref } from "vue";
-import { postReview, getRestaurant } from "@/composable/UseRestaurant";
+import { postReview, getRestaurant } from "@/composables/UseRestaurant";
 
 defineProps({
   modalActive: Boolean,

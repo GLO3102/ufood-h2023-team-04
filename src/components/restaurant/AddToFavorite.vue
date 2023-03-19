@@ -59,9 +59,6 @@ const RestoAlreadyInFavorite = async (listName) => {
   let Its = false;
   const id = getIdOfListeByName(ListesDeRestofavorites.value, listName);
   const listeDeRestoFavoris = await getListefavori(id);
-  console.log("restoId : " + restoId);
-  console.log("liste De favorie " + NomFavoriteList.value);
-  console.log(listeDeRestoFavoris.restaurants);
   for (const element of listeDeRestoFavoris.restaurants) {
     if (element.id === restoId) {
       Its = true;
@@ -89,7 +86,6 @@ const getIdOfListeByName = function (array, name) {
 };
 
 const addFavoriteToList = async (listName) => {
-  console.log(isAdded.value);
   await addToFavorites(
     getIdOfListeByName(ListesDeRestofavorites.value, listName),
     restoId

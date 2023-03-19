@@ -54,7 +54,7 @@ export const deleteList = async (id) => {
     });
     await fetch(request);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

@@ -4,7 +4,9 @@ import { ID } from "./API_ENDPOINT";
 
 export const getVisitedRestaurant = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${userID}/restaurants/visits`);
+    const response = await fetch(
+      `${ENDPOINT}/users/${userID}/restaurants/visits`
+    );
     const data = await response.json();
     return data;
   } catch (error) {
@@ -40,7 +42,6 @@ export const getUserVisits = async () => {
       `${ENDPOINT}/users/${ID}/restaurants/visits?limit=15`
     );
     const data = await response.json();
-    console.log(data);
     return data.items;
   } catch (error) {
     console.error("Erreur recherche visit", error);

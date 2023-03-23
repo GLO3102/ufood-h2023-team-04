@@ -33,6 +33,7 @@ import {
   addToFavorites,
   getListefavori,
   getUserFavorites,
+  logIn,
 } from "@/composable/UseRestaurant";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
@@ -98,6 +99,8 @@ const addFavoriteToList = async (listName) => {
 };
 
 fetch();
+
+console.log(await logIn("lol@gmail.caom", "String123"));
 </script>
 
 <style scoped>

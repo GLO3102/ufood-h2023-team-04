@@ -75,10 +75,14 @@
         </v-menu>
       </v-toolbar>
     </div>
+    <div>
+      <ConnectionPopUp></ConnectionPopUp>
+    </div>
   </v-container>
 </template>
 <script setup>
 import { ref } from "vue";
+import ConnectionPopUp from "@/components/ConnectionPopUp.vue";
 
 let loggedIn = ref(false);
 let searchIsOpen = ref(false);

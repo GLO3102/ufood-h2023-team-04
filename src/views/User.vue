@@ -1,47 +1,113 @@
 <template>
-  <v-container class="mt-10 mb-5">
-    <v-card elevation="0">
-      <v-card-item class="text-center"> {{ user.name }} </v-card-item>
-      <v-card-item class="text-center"> Score: {{ score }} </v-card-item>
-      <v-card-item>
-        <UsersFavorite :currentUserID="currentUserID"> </UsersFavorite>
-      </v-card-item>
-      <v-card-item>
-        <UsersVisitedRestaurants></UsersVisitedRestaurants>
-      </v-card-item>
-    </v-card>
-  </v-container>
+  <v-card>
+    <v-toolbar color="red">
+      <v-toolbar-title
+        >User Profile
+        <v-card-item class="text-center"> {{ user.name }} </v-card-item>
+        <v-card-item class="text-center"> Score: {{ score }} </v-card-item>
+      </v-toolbar-title>
+    </v-toolbar>
+    <div class="d-flex flex-row">
+      <v-tabs v-model="tab" direction="vertical" color="red">
+        <v-tab value="option-1">
+          <v-icon start> mdi-account </v-icon>
+          Favorites
+        </v-tab>
+        <v-tab value="option-2">
+          <v-icon start> mdi-lock </v-icon>
+          Followers
+        </v-tab>
+        <v-tab value="option-3">
+          <v-icon start> mdi-access-point </v-icon>
+          Recent visits
+        </v-tab>
+      </v-tabs>
+      <v-window v-model="tab">
+        <v-window-item value="option-1">
+          <v-card flat>
+            <v-card-text>
+              <p>
+                <UsersFavorite :currentUserID="currentUserID"> </UsersFavorite>
+              </p>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
+        <v-window-item value="option-2">
+          <v-card flat>
+            <v-card-text>
+              <p><Followers></Followers></p>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
+        <v-window-item value="option-3">
+          <v-card flat>
+            <v-card-text>
+              <p><UsersVisitedRestaurants></UsersVisitedRestaurants></p>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
+      </v-window>
+    </div>
+  </v-card>
 </template>
 
 <script>
+import { reactive, toRefs, onMounted, ref } from "vue";
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import UsersFavorite from "../components/users/UsersFavorite.vue";
+import Followers from "../components/users/follow/Followers.vue";
 import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
 
 export default {
-  data() {
-    return {
-      user: {},
-      score: "0",
-    };
+  components: {
+    UsersVisitedRestaurants,
+    UsersFavorite,
+    Followers,
   },
   props: {
     currentUserID: {
       type: String,
     },
   },
-  components: {
-    UsersVisitedRestaurants: UsersVisitedRestaurants,
-    UsersFavorite: UsersFavorite,
-  },
-  async created() {
-    this.user = await getUserInfo(this.currentUserID);
-    this.score = (await getVisitedRestaurant(this.currentUserID)).total;
+  setup(props) {
+    const state = reactive({
+      user: {},
+      score: "0",
+    });
+    const tab = ref("option-1");
+    const options = [
+      {
+        value: "option-1",
+        label: "Option 1",
+        icon: "mdi-account",
+      },
+      {
+        value: "option-2",
+        label: "Option 2",
+        icon: "mdi-lock",
+      },
+      {
+        value: "option-3",
+        label: "Option 3",
+        icon: "mdi-access-point",
+      },
+    ];
+
+    onMounted(async () => {
+      state.user = await getUserInfo(props.currentUserID);
+      state.score = (await getVisitedRestaurant(props.currentUserID)).total;
+    });
+
+    return {
+      ...toRefs(state),
+      tab,
+      options,
+    };
   },
 };
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .v-container {
   background: white;
   font-family: "Helvetica Neue", Arial, sans-serif;
@@ -66,4 +132,4 @@ export default {
     font-weight: bold;
   }
 }
-</style>
+</style> -->

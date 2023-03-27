@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { ENDPOINT } from "../composables/API_ENDPOINT";
 import { ID } from "../composables/API_ENDPOINT";
 

@@ -24,12 +24,12 @@
             </router-link>
           </v-list-item>
           <v-list-item v-if="loggedIn === false">
-            <router-link :to="'/'" @click="loggedIn = true"
+            <router-link :to="'/register'" @click="loggedIn = true"
               >Register</router-link
             >
           </v-list-item>
           <v-list-item v-if="loggedIn === false">
-            <router-link :to="'/'" @click="loggedIn = true"
+            <router-link :to="'/connexion'" @click="loggedIn = true"
               >Sign in</router-link
             >
           </v-list-item>

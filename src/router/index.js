@@ -2,12 +2,24 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Restaurant from "@/views/Restaurant.vue";
 import User from "@/views/User";
+import Register from "@/views/Register.vue";
+import Connexion from "@/views/Connexion.vue";
 
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+  },
+  {
+    path: "/connexion",
+    name: "Connexion",
+    component: Connexion,
   },
   {
     path: "/restaurant/:id",

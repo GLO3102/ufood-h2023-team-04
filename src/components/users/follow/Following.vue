@@ -17,28 +17,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps } from "vue";
+import { ref, onMounted } from "vue";
 
-import { getUserInfoFollowers } from "../../../composables/useUser";
+import { getUserInfoFollowing } from "../../../composables/useUser";
 
 const userInfos = ref([]);
 
 defineProps({ id: Object });
 
 const getInfos = async () => {
-  userInfos.value = await getUserInfoFollowers();
+  userInfos.value = await getUserInfoFollowing();
   userInfos.value;
 };
-/* const getInfos = async () => {
-  //const data = await getUserInfo(props.currentUserID);
-  //const data = await getUserInfo();
-  userInfos.value = await getUserInfo();
-  userInfos.value.forEach(async (id) => ({
-    id: item.id,
-    name: item.name,
-    email: item.email,
-  )});
-  //userInfos.value.followers;
-}; */
 getInfos();
 </script>

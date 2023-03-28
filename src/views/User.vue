@@ -1,10 +1,9 @@
 <template>
   <v-card>
     <v-toolbar color="red">
-      <v-toolbar-title
-        >User Profile
-        <v-card-item class="text-center"> {{ user.name }} </v-card-item>
-        <v-card-item class="text-center"> Score: {{ score }} </v-card-item>
+      <v-toolbar-title class="d-flex flex-row">
+        <v-card-item> {{ user.name }} </v-card-item>
+        <v-card-item> Score: {{ score }} </v-card-item>
       </v-toolbar-title>
     </v-toolbar>
     <div class="d-flex flex-row">
@@ -41,14 +40,25 @@
         <v-window-item value="option-2">
           <v-card flat>
             <v-card-text>
-              <p><Followers></Followers></p>
+              <p><Followers :currentUserID="currentUserID"></Followers></p>
             </v-card-text>
           </v-card>
         </v-window-item>
         <v-window-item value="option-3">
           <v-card flat>
             <v-card-text>
-              <p><UsersVisitedRestaurants></UsersVisitedRestaurants></p>
+              <p>><Following :currentUserID="currentUserID"></Following></p>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
+        <v-window-item value="option-4">
+          <v-card flat>
+            <v-card-text>
+              <p>
+                <UsersVisitedRestaurants
+                  :currentUserID="currentUserID"
+                ></UsersVisitedRestaurants>
+              </p>
             </v-card-text>
           </v-card>
         </v-window-item>
@@ -62,6 +72,7 @@ import { reactive, toRefs, onMounted, ref } from "vue";
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import UsersFavorite from "../components/users/UsersFavorite.vue";
 import Followers from "../components/users/follow/Followers.vue";
+import Following from "../components/users/follow/Following.vue";
 import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
 
 export default {
@@ -69,6 +80,7 @@ export default {
     UsersVisitedRestaurants,
     UsersFavorite,
     Followers,
+    Following,
   },
   props: {
     currentUserID: {

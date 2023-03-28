@@ -1,5 +1,5 @@
 import { ENDPOINT } from "@/composables/API_ENDPOINT";
-import { id } from "vuetify/locale";
+import { ID } from "./API_ENDPOINT";
 
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
 const User = "604cc220ef6fa10004dc0179";
@@ -46,21 +46,18 @@ export const postReview = async function (comment, rating, date, restaurantId) {
   }
 
   try {
-    const req = new Request(
-      `${API_ENDPOINT}/users/${User}/restaurants/visits`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          restaurant_id: restaurantId,
-          comment: comment,
-          rating: rating,
-          date: date,
-        }),
-      }
-    );
+    const req = new Request(`${API_ENDPOINT}/users/${ID}/restaurants/visits`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        restaurant_id: restaurantId,
+        comment: comment,
+        rating: rating,
+        date: date,
+      }),
+    });
 
     const res = await fetch(req);
     if (!res.ok) throw new Error("Failed to post review");
@@ -73,15 +70,12 @@ export const postReview = async function (comment, rating, date, restaurantId) {
 
 export const getVisitedRestaurentsByUser = async function () {
   try {
-    const res = await fetch(
-      `${API_ENDPOINT}/users/${User}/restaurants/visits`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${API_ENDPOINT}/users/${ID}/restaurants/visits`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!res.ok) throw new Error("Failed to fetch visited restaurants data");
     return res.json();

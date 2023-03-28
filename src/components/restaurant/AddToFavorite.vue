@@ -29,6 +29,7 @@
 </template>
 
 <script setup>
+import { ID } from "../../composables/API_ENDPOINT";
 import {
   addToFavorites,
   getListefavori,
@@ -46,9 +47,7 @@ let isPresent = ref(false);
 let isAdded = ref(false);
 const restoId = route.params.id;
 const fetch = async () => {
-  ListesDeRestofavorites.value = (
-    await getUserFavorites("604cc220ef6fa10004dc0179")
-  ).items;
+  ListesDeRestofavorites.value = (await getUserFavorites(ID)).items;
   NomFavoriteList.value = ListesDeRestofavorites.value[0].name;
   isLoaded.value = true;
 };

@@ -58,3 +58,29 @@ export const getUserFavoriteLists = async (userID) => {
     return {};
   }
 };
+
+export const getUserInfoFollowers = async () => {
+  try {
+    console.log(ID);
+    const response = await fetch(`${ENDPOINT}/users/${ID}`);
+    const data = await response.json();
+    console.log(data);
+    return data.followers;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const getUserInfoFollowing = async () => {
+  try {
+    console.log(ID);
+    const response = await fetch(`${ENDPOINT}/users/${ID}`);
+    const data = await response.json();
+    console.log(data);
+    return data.following;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};

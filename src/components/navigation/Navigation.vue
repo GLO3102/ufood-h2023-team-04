@@ -17,7 +17,7 @@
             <router-link
               :to="{
                 name: 'User',
-                params: { currentUserID: '604cc220ef6fa10004dc0179' },
+                params: { currentUserID: '634b0183dae040956403888c' },
               }"
             >
               User profile

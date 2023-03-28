@@ -14,6 +14,11 @@ export const getFavoriteById = async (id) => {
 };
 
 export const postNewList = async (payload) => {
+  if (!payload) {
+    console.error("Enter a list name");
+    window.alert("List name cannot be empty");
+    return null;
+  }
   try {
     const request = new Request(`${ENDPOINT}/favorites`, {
       method: "POST",
@@ -59,6 +64,7 @@ export const deleteList = async (id) => {
 };
 
 export const postAddRestoInList = async (listID, restoID) => {
+  
   try {
     const request = new Request(`${ENDPOINT}/favorites/${listID}/restaurants`, {
       method: "POST",

@@ -7,6 +7,7 @@ import { getRestaurant } from "@/composables/UseRestaurant";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import AddToFavorite from "@/components/restaurant/AddToFavorite.vue";
+import FeedInstagram from "@/components/restaurant/FeedInstagram.vue";
 
 const opening_hours = ref(null);
 const pictures = ref();
@@ -18,7 +19,7 @@ const rating = ref(null);
 const genres = ref(null);
 let isLoaded = ref(false);
 const restoId = ref(null);
-
+const instagramFeed = ref([]);
 const route = useRoute();
 
 const fetchData = async () => {
@@ -32,6 +33,12 @@ const fetchData = async () => {
   rating.value = data.rating;
   genres.value = data.genres;
   isLoaded.value = true;
+  const response = await fetch(
+    `https://www.instagram.com/${data.instagram_handle}/?__a=1`
+  );
+  const instagramData = await response.json();
+  instagramFeed.value =
+    instagramData.graphql.user.edge_owner_to_timeline_media.edges;
 };
 
 fetchData();
@@ -57,6 +64,11 @@ fetchData();
           class="mt-10"
         />
         <GoogleMap v-if="isLoaded" :address="address" class="mt-10" />
+        <FeedInstagram
+          v-if="isLoaded"
+          :mediaList="instagramFeed"
+          class="mt-10"
+        />
         <AddToFavorite v-if="isLoaded" class="mt-10 mb-5"></AddToFavorite>
       </v-col>
     </v-row>

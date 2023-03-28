@@ -24,8 +24,6 @@
           :items="getAllRestaurantNames(restaurants)"
           label="Restaurant's name"
           placeholder="Search for a restaurant"
-          persistent-hint
-          hide-details
         ></v-autocomplete>
         <v-select
           label="Chosen genre"

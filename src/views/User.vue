@@ -10,15 +10,21 @@
     <div class="d-flex flex-row">
       <v-tabs v-model="tab" direction="vertical" color="red">
         <v-tab value="option-1">
-          <v-icon start> mdi-account </v-icon>
+          <v-icon start> mdi-star</v-icon>
           Favorites
         </v-tab>
         <v-tab value="option-2">
-          <v-icon start> mdi-lock </v-icon>
+          <v-icon start>mdi-account-star </v-icon>
+
           Followers
         </v-tab>
         <v-tab value="option-3">
-          <v-icon start> mdi-access-point </v-icon>
+          <v-icon start>mdi-account-plus-outline </v-icon>
+
+          Following
+        </v-tab>
+        <v-tab value="option-4">
+          <v-icon start> mdi-history </v-icon>
           Recent visits
         </v-tab>
       </v-tabs>
@@ -79,17 +85,22 @@ export default {
       {
         value: "option-1",
         label: "Option 1",
-        icon: "mdi-account",
+        icon: "mdi-star",
       },
       {
         value: "option-2",
         label: "Option 2",
-        icon: "mdi-lock",
+        icon: "mdi-account-star",
       },
       {
         value: "option-3",
         label: "Option 3",
-        icon: "mdi-access-point",
+        icon: "mdi-account-plus-outline",
+      },
+      {
+        value: "option-4",
+        label: "Option 4",
+        icon: "mdi-history",
       },
     ];
 

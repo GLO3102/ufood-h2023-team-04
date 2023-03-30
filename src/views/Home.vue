@@ -6,7 +6,14 @@
       :restaurants="json"
       class="mt-10"
     />
-    <button @click="showMap = !showMap">Show Map</button>
+    <button
+      class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-elevated bg-amber-accent-1 m-2"
+      @click="showMap = !showMap"
+    >
+      <span class="v-btn__overlay"></span>
+      <span class="v-btn__underlay"></span>
+      <span class="v-btn__content" data-no-activator="">Show Map</span>
+    </button>
     <div v-if="!showMap">
       <HomeGoogleMap v-if="isloaded" />
     </div>

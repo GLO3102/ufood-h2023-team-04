@@ -11,12 +11,13 @@
 
 <script setup>
 /* eslint-disable */
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { getRestaurants } from "../../composables/UseRestaurant";
 
 onMounted(async () => {
   const quebec = { lat: 46.8130816, lng: -71.2074596 };
   const locations = [];
+  const userLocation = ref(null);
 
   const fetchRestaurants = async () => {
     const data = await getRestaurants();
@@ -33,28 +34,37 @@ onMounted(async () => {
 
   await fetchRestaurants();
 
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 11,
-    center: quebec
-  });
-
-  const markers = [];
-
-  locations.forEach((location, i) => {
-    const marker = new google.maps.Marker({
-      position: { lat: location[0][1], lng: location[0][0] },
-      title: `${i + 1}. ${location[1]}`,
-      map: map
-    });
-    markers.push(marker);
-
-    marker.addListener("click", () => {
-      const infoWindow = new google.maps.InfoWindow({
-        content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      userLocation.value = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 11,
+        center: userLocation.value
       });
-      infoWindow.open(map, marker);
+      console.log(userLocation); // This will log the user's current latitude and longitude
+
+      const markers = [];
+
+      locations.forEach((location, i) => {
+        const marker = new google.maps.Marker({
+          position: { lat: location[0][1], lng: location[0][0] },
+          title: `${i + 1}. ${location[1]}`,
+          map: map
+        });
+        markers.push(marker);
+
+        marker.addListener("click", () => {
+          const infoWindow = new google.maps.InfoWindow({
+            content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`
+          });
+          infoWindow.open(map, marker);
+        });
+      });
     });
-  });
+  }
 });
 </script>
 

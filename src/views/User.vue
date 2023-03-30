@@ -14,12 +14,10 @@
         </v-tab>
         <v-tab value="option-2">
           <v-icon start>mdi-account-star </v-icon>
-
           Followers
         </v-tab>
         <v-tab value="option-3">
           <v-icon start>mdi-account-plus-outline </v-icon>
-
           Following
         </v-tab>
         <v-tab value="option-4">
@@ -32,7 +30,7 @@
           <v-card flat>
             <v-card-text>
               <p>
-                <UsersFavorite :currentUserID="currentUserID"> </UsersFavorite>
+                <UsersFavorite :currentUserID="currentUserID"></UsersFavorite>
               </p>
             </v-card-text>
           </v-card>
@@ -47,7 +45,7 @@
         <v-window-item value="option-3">
           <v-card flat>
             <v-card-text>
-              <p>><Following :currentUserID="currentUserID"></Following></p>
+              <p><Following :currentUserID="currentUserID"></Following></p>
             </v-card-text>
           </v-card>
         </v-window-item>

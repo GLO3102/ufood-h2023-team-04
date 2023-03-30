@@ -1,6 +1,7 @@
 <template>
-  <div class="text-center">
-    <v-btn color="primary" @click="dialog = true"> See Informations </v-btn>
+  <div class="text-right">
+    <v-btn icon="mdi-open-in-new" color="primary" @click="dialog = true">
+    </v-btn>
 
     <v-dialog persistent v-model="dialog" width="auto">
       <v-card>

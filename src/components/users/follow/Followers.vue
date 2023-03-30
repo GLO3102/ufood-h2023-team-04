@@ -6,10 +6,10 @@
       >
         <a
           href="#"
-          class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
+          class="w-full text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
           v-for="id in userInfos"
           :key="id"
-          >Coucou {{ id.name + " - " + id.email }}
+          >{{ id.name + " - " + id.email }}
         </a>
       </div>
     </div>
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps } from "vue";
+import { ref } from "vue";
 
 import { getUserInfoFollowers } from "../../../composables/useUser";
 
@@ -29,16 +29,5 @@ const getInfos = async () => {
   userInfos.value = await getUserInfoFollowers();
   userInfos.value;
 };
-/* const getInfos = async () => {
-  //const data = await getUserInfo(props.currentUserID);
-  //const data = await getUserInfo();
-  userInfos.value = await getUserInfo();
-  userInfos.value.forEach(async (id) => ({
-    id: item.id,
-    name: item.name,
-    email: item.email,
-  )});
-  //userInfos.value.followers;
-}; */
 getInfos();
 </script>

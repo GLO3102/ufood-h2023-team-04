@@ -6,10 +6,15 @@
       >
         <a
           href="#"
-          class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
+          class="w-full text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
           v-for="id in userInfos"
           :key="id"
-          >Coucou {{ id.name + " - " + id.email }}
+          >{{ id.name + " - " + id.email
+          }}<v-btn
+            class="mx-5"
+            icon="mdi-account-remove-outline"
+            size="small"
+          ></v-btn>
         </a>
       </div>
     </div>
@@ -17,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 
 import { getUserInfoFollowing } from "../../../composables/useUser";
 

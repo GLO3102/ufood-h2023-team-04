@@ -1,10 +1,16 @@
 /* eslint-disable */
-import { ENDPOINT } from "./api";
+import { ENDPOINT, ENDPOINT_SECURE } from "./api";
 import { ID } from "./api";
+import Cookies from "js.cookie";
 
 export const getVisitedRestaurant = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${userID}/restaurants/visits`);
+    const token = Cookies.get("connectionToken");
+    const response = await fetch(`${ENDPOINT_SECURE}/users/${token.id}/restaurants/visits`,{
+      headers : {
+        authorization : token.token
+      }
+    });
     const data = await response.json();
     return data;
   } catch (error) {
@@ -14,7 +20,12 @@ export const getVisitedRestaurant = async (userID) => {
 
 export const getUserInfo = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${userID}`);
+    const token = Cookies.get("connectionToken");
+    const response = await fetch(`${ENDPOINT_SECURE}/users/${token.id}`,{
+      headers : {
+        authorization : token.token
+      }
+    });
     const data = await response.json();
     return data;
   } catch (error) {
@@ -36,8 +47,13 @@ export const getAllUsersInfo = async () => {
 
 export const getUserVisits = async () => {
   try {
+    const token = Cookies.get("connectionToken");
     const response = await fetch(
-      `${ENDPOINT}/users/${ID}/restaurants/visits?limit=15`
+      `${ENDPOINT_SECURE}/users/${token.id}/restaurants/visits?limit=15`, {
+        headers : {
+          authorization : token.token
+        }
+      }
     );
     const data = await response.json();
     console.log(data);
@@ -50,7 +66,12 @@ export const getUserVisits = async () => {
 
 export const getUserFavoriteLists = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${userID}/favorites`);
+    const token = Cookies.get("connectionToken");
+    const response = await fetch(`${ENDPOINT_SECURE}/users/${token.id}/favorites`,{
+      headers : {
+        authorization: token.token
+      }
+    });
     const data = await response.json();
     return data;
   } catch (error) {

@@ -24,9 +24,6 @@ const getEmailAndPassword = () => {
 const connection = async () => {
   getEmailAndPassword();
   response.value = await logIn(email.value, password.value);
-  token.value = response.value.token;
-  console.log(response.value);
-  console.log(token.value);
 };
 </script>
 

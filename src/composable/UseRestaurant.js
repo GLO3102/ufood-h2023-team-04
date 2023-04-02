@@ -1,8 +1,15 @@
-import { ENDPOINT } from "@/api/api";
-import { id } from "vuetify/locale";
+import Cookies from "js.cookie";
+import { getEmailAndPassword } from "@/components/ConnectionPopUp.vue";
 
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
+const API_ENDPOINT_SECURE = "https://ufoodapi.herokuapp.com/";
 const User = "604cc220ef6fa10004dc0179";
+
+let email = "";
+let password = "";
+let response = "";
+let token = "";
+let idUser = "";
 
 export const getRestaurant = async function (id) {
   const req = new Request(`${API_ENDPOINT}/restaurants/${id}`, {
@@ -27,6 +34,7 @@ export const getRestaurants = async function () {
 };
 
 export const postReview = async function (comment, rating, date, restaurantId) {
+  const token = Cookies.get("ConnectionToken");
   const req = new Request(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
     method: "POST",
     headers: {
@@ -49,10 +57,12 @@ export const postReview = async function (comment, rating, date, restaurantId) {
 };
 
 export const getVisitedRestaurentsByUser = async function () {
+  const token = Cookies.get("ConnectionToken");
   const res = await fetch(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      Authorization: token,
     },
   });
 
@@ -60,10 +70,15 @@ export const getVisitedRestaurentsByUser = async function () {
 };
 
 export const getUserFavorites = async function (id) {
-  const req = new Request(`${API_ENDPOINT}/users/${id}/favorites`, {
+  const token = Cookies.get("connectionToken");
+  console.log(token);
+  console.log(token.token);
+  console.log(token.id);
+  const req = new Request(`${API_ENDPOINT_SECURE}users/${id}/favorites`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      authorization: token.token,
     },
   });
   const res = await fetch(req);
@@ -72,13 +87,19 @@ export const getUserFavorites = async function (id) {
 
 export const addToFavorites = async (listID, restoID) => {
   try {
-    const request = new Request(`${ENDPOINT}/favorites/${listID}/restaurants`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: restoID }),
-    });
+    // const token = Cookies.get("ConnectionToken");
+    // console.log("token =" + token);
+    const request = new Request(
+      `${API_ENDPOINT_SECURE}/favorites/${listID}/restaurants`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: token,
+        },
+        body: JSON.stringify({ id: restoID }),
+      }
+    );
     await fetch(request);
   } catch (error) {
     console.error(error);
@@ -89,6 +110,7 @@ export const getListefavori = async function (idListe) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      // Authorization: token,
     },
   });
   const res = await fetch(req);
@@ -103,5 +125,7 @@ export const logIn = async function (email, password) {
     },
     body: JSON.stringify({ email: email, password: password }),
   });
-  return res.json();
+  const response = await res.json();
+  const token = { token: response.token, id: response.id };
+  Cookies.set("connectionToken", token);
 };

@@ -43,7 +43,7 @@
                 </v-layout></v-list-item-title
               >
               <v-list-item-title>
-                <v-layout @click="loggedIn = true" v-if="loggedIn === false"
+                <v-layout v-if="loggedIn === false"
                   >Sign in</v-layout
                 ></v-list-item-title
               >
@@ -61,7 +61,7 @@
                 </v-layout></v-list-item-title
               >
               <v-list-item-title>
-                <v-layout @click="loggedIn = false" v-if="loggedIn === true">
+                <v-layout @click="logOut" v-if="loggedIn === true">
                   <router-link :to="'/'">log out </router-link>
                 </v-layout></v-list-item-title
               >
@@ -83,9 +83,28 @@
 <script setup>
 import { ref } from "vue";
 import ConnectionPopUp from "@/components/ConnectionPopUp.vue";
+import Cookies from "js.cookie";
+import { el } from "vuetify/locale";
 
 let loggedIn = ref(false);
 let searchIsOpen = ref(false);
+const fetch = () => {
+  let token;
+  try {
+    token = Cookies.get("connectionToken");
+  } catch (e) {
+    loggedIn.value = false;
+  }
+  if (token !== undefined) {
+    loggedIn.value = true;
+  }
+};
+
+const logOut = () => {
+  Cookies.remove("connectionToken", { path: "/" });
+  loggedIn.value = false;
+};
+fetch();
 </script>
 
 <style scoped>

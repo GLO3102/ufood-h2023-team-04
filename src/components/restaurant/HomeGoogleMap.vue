@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import { onMounted, ref } from "vue";
 import { getRestaurants } from "../../composables/UseRestaurant";
 
@@ -38,11 +37,11 @@ onMounted(async () => {
     navigator.geolocation.getCurrentPosition((position) => {
       userLocation.value = {
         lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lng: position.coords.longitude,
       };
       const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 11,
-        center: userLocation.value
+        center: userLocation.value,
       });
       console.log(userLocation); // This will log the user's current latitude and longitude
 
@@ -52,13 +51,13 @@ onMounted(async () => {
         const marker = new google.maps.Marker({
           position: { lat: location[0][1], lng: location[0][0] },
           title: `${i + 1}. ${location[1]}`,
-          map: map
+          map: map,
         });
         markers.push(marker);
 
         marker.addListener("click", () => {
           const infoWindow = new google.maps.InfoWindow({
-            content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`
+            content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`,
           });
           infoWindow.open(map, marker);
         });

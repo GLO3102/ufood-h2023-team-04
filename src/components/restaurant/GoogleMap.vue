@@ -8,6 +8,7 @@ const props = defineProps({
 const currentLocation = ref(null);
 const destinationAddress = ref(props.address);
 const link = ref(
+  // eslint-disable-next-line comma-dangle
   `https://www.google.com/maps/embed/v1/place?key=AIzaSyDPwE29SL2uITilVyupqhmj3u1-STknoPU&q=${destinationAddress.value}`
 );
 

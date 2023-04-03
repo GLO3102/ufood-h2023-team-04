@@ -24,6 +24,10 @@
           <v-icon start> mdi-history </v-icon>
           Recent visits
         </v-tab>
+        <v-tab value="option-5">
+          <v-icon start> mdi-account-box-multiple-outline </v-icon>
+          Users List
+        </v-tab>
       </v-tabs>
       <v-window v-model="tab">
         <v-window-item value="option-1">
@@ -60,15 +64,25 @@
             </v-card-text>
           </v-card>
         </v-window-item>
+        <v-window-item value="option-5">
+          <v-card flat>
+            <v-card-text>
+              <p><UsersList></UsersList>></p>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
       </v-window>
     </div>
   </v-card>
 </template>
 
 <script>
+//Pour les pictogrammes
+//https://pictogrammers.com/library/mdi/
 import { reactive, toRefs, onMounted, ref } from "vue";
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import UsersFavorite from "../components/users/UsersFavorite.vue";
+import UsersList from "../components/users/UsersList.vue";
 import Followers from "../components/users/follow/Followers.vue";
 import Following from "../components/users/follow/Following.vue";
 import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
@@ -79,6 +93,7 @@ export default {
     UsersFavorite,
     Followers,
     Following,
+    UsersList,
   },
   props: {
     currentUserID: {
@@ -111,6 +126,11 @@ export default {
         value: "option-4",
         label: "Option 4",
         icon: "mdi-history",
+      },
+      {
+        value: "option-5",
+        label: "Option 5",
+        icon: "mdi-account-box-multiple-outline",
       },
     ];
 

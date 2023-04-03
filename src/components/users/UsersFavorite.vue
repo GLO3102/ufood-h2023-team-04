@@ -142,10 +142,12 @@ export default {
     async addList() {
       let payload = { name: this.selectedListName, owner: this.user.email };
       const data = await postNewList(payload);
-      this.lists = (await getUserFavoriteLists(this.user.id)).items;
-      this.selectedListID = data.id;
-      this.selectedListName = data.name;
-      await this.changeSelectedListRestos();
+      if (data) {
+        this.lists = (await getUserFavoriteLists(this.user.id)).items;
+        this.selectedListID = data.id;
+        this.selectedListName = data.name;
+        await this.changeSelectedListRestos();
+      }
     },
     async modifyList() {
       let payload = { name: this.selectedListName, owner: this.user.email };

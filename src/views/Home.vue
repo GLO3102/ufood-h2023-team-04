@@ -6,6 +6,19 @@
       :restaurants="json"
       class="mt-10"
     />
+    <div style="display: flex; justify-content: center; align-items: center">
+      <button
+        class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-elevated bg-white-accent-1 m-10"
+        @click="showMap = !showMap"
+      >
+        <span class="v-btn__overlay"></span>
+        <span class="v-btn__underlay"></span>
+        <span class="v-btn__content">Toggle Map</span>
+      </button>
+    </div>
+    <div v-if="!showMap">
+      <HomeGoogleMap v-if="isloaded" />
+    </div>
     <Restaurants
       :restaurants="displayedRestaurants"
       :VisitedRestaurant="visitedRestoFormate"
@@ -23,16 +36,19 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import Restaurants from "@/components/home/Restaurants.vue";
 import {
   getRestaurant,
   getRestaurants,
-  getVisitedRestaurentsByUser,
+  getVisitedRestaurentsByUser
 } from "@/composables/UseRestaurant";
 import { ref, computed, watch } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
+import HomeGoogleMap from "../components/restaurant/HomeGoogleMap.vue";
 
+const showMap = ref(true);
 const json = ref(null);
 const isloaded = ref(false);
 const resoFiltered = ref(null);
@@ -41,6 +57,9 @@ const currentPage = ref(1);
 const numPages = ref(1);
 let idsOfVisitedResto = ref(null);
 let visitedRestoFormate = ref(null);
+
+const mapVisible = computed(() => !showMap.value);
+
 const fetchData = async () => {
   const data = await getRestaurants();
   json.value = data.items;

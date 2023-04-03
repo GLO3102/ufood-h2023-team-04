@@ -61,10 +61,8 @@ export const getUserFavoriteLists = async (userID) => {
 
 export const getUserInfoFollowers = async () => {
   try {
-    console.log(ID);
     const response = await fetch(`${ENDPOINT}/users/${ID}`);
     const data = await response.json();
-    console.log(data);
     return data.followers;
   } catch (error) {
     console.error(error);
@@ -74,13 +72,43 @@ export const getUserInfoFollowers = async () => {
 
 export const getUserInfoFollowing = async () => {
   try {
-    console.log(ID);
     const response = await fetch(`${ENDPOINT}/users/${ID}`);
     const data = await response.json();
-    console.log(data);
     return data.following;
   } catch (error) {
     console.error(error);
     return [];
+  }
+};
+
+//* Va falloir tester quand je vais avoir le token
+export const deleteFollower = async (ID) => {
+  try {
+    const req = new Request(`${ENDPOINT}/follow/${ID}`, {
+      method: "DELETE",
+      headers: {
+        authorization: "${TOKEN}",
+      },
+    });
+    console.log(ID);
+    await fetch(req);
+  } catch (error) {
+    console.error("Ne supprime pas le follower");
+  }
+};
+
+//* Va falloir tester quand je vais avoir le token
+export const followUser = async (userFollowID) => {
+  try {
+    const req = new Request(`${ENDPOINT}/follow/`, {
+      method: "DELETE",
+      headers: {
+        authorization: "${TOKEN}",
+        body: JSON.stringify({ id: "userFollowID" }),
+      },
+    });
+    await fetch(req);
+  } catch {
+    console.log("Ne peut pas follow le user");
   }
 };

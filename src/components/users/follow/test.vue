@@ -9,22 +9,22 @@
           class="w-full text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
           v-for="userInfo in userInfos"
           :key="userInfo.id"
-          >{{ userInfo.name + " - " + userInfo.email
-          }}<v-btn
+        >
+          {{ userInfo.name + " - " + userInfo.email }}
+          <v-btn
             class="mx-5"
             icon="mdi-account-remove-outline"
             size="small"
-            @click="handleDeleteFollower(userInfo.id)"
+            :value="userInfo.id"
+            @click="deleteFollower"
           ></v-btn>
         </a>
       </div>
     </div>
   </div>
 </template>
-
 <script setup>
 import { ref } from "vue";
-
 import {
   getUserInfoFollowing,
   deleteFollower,
@@ -40,8 +40,6 @@ const getInfos = async () => {
 
 const handleDeleteFollower = async (id) => {
   await deleteFollower(id);
-  console.log(id);
   userInfos.value = userInfos.value.filter((userInfo) => userInfo.id !== id);
 };
-getInfos();
 </script>

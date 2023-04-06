@@ -1,12 +1,16 @@
-import { ENDPOINT } from "./api";
+import { ENDPOINT } from "../composables/API_ENDPOINT";
 
 export const getRestaurantsNameByID = async (restoId) => {
   try {
-    const response = await fetch(`${ENDPOINT}/restaurants/${restoId}`);
-    const data = await response.json();
-    return data.name;
+    if (restoId.length !== 24) {
+      throw new Error("Invalid restaurant ID length. Must be 6 characters.");
+    } else {
+      const response = await fetch(`${ENDPOINT}/restaurants/${restoId}`);
+      const data = await response.json();
+      return data.name;
+    }
   } catch (error) {
-    console.error("Erreur recherche visit", error);
+    console.error("Erreur recherche visit, restoID invalide:", restoId);
     return [];
   }
 };

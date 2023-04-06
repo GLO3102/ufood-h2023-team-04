@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { ENDPOINT } from "./api";
-import { ID } from "./api";
+import { ENDPOINT } from "./API_ENDPOINT";
+import { ID } from "./API_ENDPOINT";
 
 export const getFavoriteById = async (id) => {
   try {
@@ -14,6 +14,11 @@ export const getFavoriteById = async (id) => {
 };
 
 export const postNewList = async (payload) => {
+  if (!payload.name) {
+    console.error("Select a name");
+    window.alert("Name cannot be empty");
+    return null;
+  }
   try {
     const request = new Request(`${ENDPOINT}/favorites`, {
       method: "POST",
@@ -54,11 +59,16 @@ export const deleteList = async (id) => {
     });
     await fetch(request);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 export const postAddRestoInList = async (listID, restoID) => {
+  if (!restoID) {
+    console.error("Select a restaurant");
+    window.alert("Restaurant cannot be empty");
+    return null;
+  }
   try {
     const request = new Request(`${ENDPOINT}/favorites/${listID}/restaurants`, {
       method: "POST",

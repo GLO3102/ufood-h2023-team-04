@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { getAllRestaurants } from "../../api/restaurantsAPI";
+import { getAllRestaurants } from "../../composables/useRestaurantsForUser";
 export default {
   data() {
     return {

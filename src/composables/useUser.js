@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { ENDPOINT } from "../composables/API_ENDPOINT";
-import { ID } from "../composables/API_ENDPOINT";
+import { ENDPOINT } from "./API_ENDPOINT";
+import { ID } from "./API_ENDPOINT";
 
 export const getVisitedRestaurant = async (userID) => {
   try {
@@ -39,7 +39,7 @@ export const getAllUsersInfo = async () => {
 export const getUserVisits = async () => {
   try {
     const response = await fetch(
-      `${ENDPOINT}/users/${ID}/restaurants/visits?limit=500`
+      `${ENDPOINT}/users/${ID}/restaurants/visits?limit=15`
     );
     const data = await response.json();
     return data.items;
@@ -57,18 +57,5 @@ export const getUserFavoriteLists = async (userID) => {
   } catch (error) {
     console.error(error);
     return {};
-  }
-};
-
-export const getVisitInformation = async (visitID) => {
-  try {
-    const response = await fetch(
-      `${ENDPOINT}/users/${ID}/restaurants/visits/${visitID}`
-    );
-    const data = await response.json();
-    return data.items;
-  } catch (error) {
-    console.error("Erreur recherche visit", error);
-    return [];
   }
 };

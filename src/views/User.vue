@@ -67,7 +67,7 @@
         <v-window-item value="option-5">
           <v-card flat>
             <v-card-text>
-              <p><UsersList></UsersList>></p>
+              <p><UsersList :currentUserID="currentUserID"></UsersList></p>
             </v-card-text>
           </v-card>
         </v-window-item>
@@ -85,7 +85,11 @@ import UsersFavorite from "../components/users/UsersFavorite.vue";
 import UsersList from "../components/users/UsersList.vue";
 import Followers from "../components/users/follow/Followers.vue";
 import Following from "../components/users/follow/Following.vue";
-import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
+import {
+  getUserInfo,
+  getVisitedRestaurant,
+  getAllUsersInfo,
+} from "../api/users.js";
 
 export default {
   components: {

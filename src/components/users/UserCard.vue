@@ -1,46 +1,62 @@
 <template>
-  <v-card
-    class="mx-auto"
-    color="#26c6da"
-    theme="dark"
-    max-width="400"
-    prepend-icon="mdi-twitter"
-    title="Twitter"
-  >
-    <template v-slot:prepend>
-      <v-icon size="x-large"></v-icon>
-    </template>
+  <v-container>
+    <v-row justify="space-around">
+      <v-card width="300">
+        <v-img
+          height="200"
+          src="https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_960_720.jpg"
+          cover
+          class="text-white"
+        >
+          <v-toolbar color="rgba(0, 0, 0, 0)" theme="dark">
+            <template v-slot:prepend>
+              <v-btn icon="$menu"></v-btn>
+            </template>
 
-    <v-card-text class="text-h5 py-2">
-      "Turns out semicolon-less style is easier and safer in TS because most
-      gotcha edge cases are type invalid as well."
-    </v-card-text>
+            <v-toolbar-title class="text-h6"> {{ id.name }} </v-toolbar-title>
 
-    <v-card-actions>
-      <v-list-item class="w-100">
-        <template v-slot:prepend>
-          <v-avatar
-            color="grey-darken-3"
-            image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-          ></v-avatar>
-        </template>
+            <template v-slot:append>
+              <v-btn icon="mdi-dots-vertical"></v-btn>
+            </template>
+          </v-toolbar>
+        </v-img>
 
-        <v-list-item-title>Evan You</v-list-item-title>
+        <v-card-text>
+          <div class="font-weight-bold ms-1 mb-2">Today</div>
 
-        <v-list-item-subtitle>Vue Creator</v-list-item-subtitle>
-
-        <template v-slot:append>
-          <div class="justify-self-end">
-            <v-icon class="me-1" icon="mdi-heart"></v-icon>
-            <span class="subheading me-2">256</span>
-            <span class="me-1">·</span>
-            <v-icon class="me-1" icon="mdi-share-variant"></v-icon>
-            <span class="subheading">45</span>
-          </div>
-        </template>
-      </v-list-item>
-    </v-card-actions>
-  </v-card>
+          <v-timeline density="compact" align="start">
+            <v-timeline-item
+              v-for="message in messages"
+              :key="message.time"
+              :dot-color="message.color"
+              size="x-small"
+            >
+              <div class="mb-4">
+                <div class="font-weight-normal">
+                  <strong>{{ message.from }}</strong> @{{ message.time }}
+                </div>
+                <div>{{ message.message }}</div>
+              </div>
+            </v-timeline-item>
+          </v-timeline>
+        </v-card-text>
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
 
-<script setup></script>
+<script setup>
+//https://vuetifyjs.com/en/components/cards/
+import { ref } from "vue";
+import { getUserInfo } from "../../composables/useUser";
+
+const props = defineProps({
+  id: Object,
+});
+
+const info = ref([]);
+
+const getInfo = async () => {
+  info.value = await getUserInfo(props.id);
+};
+</script>

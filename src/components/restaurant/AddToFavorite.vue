@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="isLoaded">
     <v-card v-if="isLoaded" elevation="0">
       <v-card-item>
         <v-select
@@ -36,6 +36,7 @@ import {
 } from "@/composables/UseRestaurant";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
+import Cookies from "js.cookie";
 
 const route = useRoute();
 
@@ -46,11 +47,14 @@ let isPresent = ref(false);
 let isAdded = ref(false);
 const restoId = route.params.id;
 const fetch = async () => {
-  ListesDeRestofavorites.value = (
-    await getUserFavorites("604cc220ef6fa10004dc0179")
-  ).items;
-  NomFavoriteList.value = ListesDeRestofavorites.value[0].name;
-  isLoaded.value = true;
+  const token = Cookies.get("connectionToken");
+  if (token.id === null || token.token === null) {
+    isLoaded.value = false;
+  } else {
+    ListesDeRestofavorites.value = (await getUserFavorites(token.id)).items;
+    NomFavoriteList.value = ListesDeRestofavorites.value[0].name;
+    isLoaded.value = true;
+  }
 };
 const onSelectItem = () => {
   isAdded.value = false;

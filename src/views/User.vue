@@ -17,6 +17,7 @@
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import UsersFavorite from "../components/users/UsersFavorite.vue";
 import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
+import Cookies from "js.cookie";
 
 export default {
   data() {
@@ -35,8 +36,9 @@ export default {
     UsersFavorite: UsersFavorite,
   },
   async created() {
-    this.user = await getUserInfo(this.currentUserID);
-    this.score = (await getVisitedRestaurant(this.currentUserID)).total;
+    const token = Cookies.get("connectionToken");
+    this.user = await getUserInfo(token.id);
+    this.score = (await getVisitedRestaurant(token.id)).total;
   },
 };
 </script>

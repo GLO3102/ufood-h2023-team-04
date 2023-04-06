@@ -6,6 +6,9 @@
       @addedRestaurent="addRestoInList"
     ></UsersModalFavoriteVue>
     <div class="w-full">
+      <small class="text-red" v-if="errorMsg != null"
+        >Error: {{ errorMsg }}</small
+      >
       <div class="flex">
         <h3
           class="font-medium text-gray-900 text-left px-6 py-2 border-t flex-1"
@@ -15,6 +18,7 @@
         <div class="relative inline-block flex">
           <input
             type="text"
+            id="fav-list-input"
             class="border border-gray-400 py-2 px-3 rounded-md"
             v-model="selectedListName"
             @click="toggleDropdown"
@@ -29,24 +33,6 @@
               {{ val.name }}
             </option>
           </select>
-          <button
-            class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-2"
-            @click="addList"
-          >
-            Add
-          </button>
-          <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-2"
-            @click="modifyList"
-          >
-            Modify
-          </button>
-          <button
-            class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"
-            @click="deleteList"
-          >
-            Delete
-          </button>
         </div>
       </div>
       <div
@@ -79,9 +65,28 @@
         <div>
           <button
             @click="showModal = true"
+            v-if="selectedListID != null"
             class="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md font-semibold text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Add a restaurant
+          </button>
+          <button
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-2"
+            @click="addList"
+          >
+            Add
+          </button>
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-2"
+            @click="modifyList"
+          >
+            Modify
+          </button>
+          <button
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"
+            @click="deleteList"
+          >
+            Delete
           </button>
         </div>
       </div>
@@ -106,11 +111,12 @@ export default {
   data: () => ({
     user: {},
     lists: [],
-    selectedListID: "",
-    selectedListName: "",
+    selectedListID: null,
+    selectedListName: null,
     showDropdown: false,
     selectedFavList: [],
     showModal: false,
+    errorMsg: null,
   }),
   components: {
     UsersModalFavoriteVue,
@@ -140,6 +146,15 @@ export default {
       this.selectedFavList = restaurants;
     },
     async addList() {
+      if (this.selectedListName == "" || this.selectedListName == null) {
+        this.errorMsg = "Please enter a valid name for the new list.";
+        return;
+      }
+      if (this.checkIfInList(this.selectedListName)) {
+        this.errorMsg = "You already have a list with that name.";
+        return;
+      }
+      this.errorMsg = null;
       let payload = { name: this.selectedListName, owner: this.user.email };
       const data = await postNewList(payload);
       this.lists = (await getUserFavoriteLists(this.user.id)).items;
@@ -148,12 +163,30 @@ export default {
       await this.changeSelectedListRestos();
     },
     async modifyList() {
+      if (this.selectedListID == "" || this.selectedListID == null) {
+        this.errorMsg = "Please select a list before editing the list's name.";
+        return;
+      }
+      if (this.selectedListName == "" || this.selectedListName == null) {
+        this.errorMsg = "Please enter a valid name to modify this list.";
+        return;
+      }
+      if (this.checkIfInList(this.selectedListName)) {
+        this.errorMsg = "You already have a list with that name.";
+        return;
+      }
+      this.errorMsg = null;
       let payload = { name: this.selectedListName, owner: this.user.email };
       await putList(payload, this.selectedListID);
       this.lists = (await getUserFavoriteLists(this.user.id)).items;
       await this.changeSelectedListRestos();
     },
     async deleteList() {
+      if (this.selectedListID == "" || this.selectedListID == null) {
+        this.errorMsg = "Please select a list before deleting a list.";
+        return;
+      }
+      this.errorMsg = null;
       await deleteList(this.selectedListID);
       this.lists = (await getUserFavoriteLists(this.user.id)).items;
       if (this.lists.length > 0) {
@@ -174,6 +207,14 @@ export default {
       let restoID = event.target.value;
       await deleteRestoFromList(this.selectedListID, restoID);
       await this.changeSelectedListRestos();
+    },
+    checkIfInList(name) {
+      for (let list of this.lists) {
+        if (list.name == name) {
+          return true;
+        }
+      }
+      return false;
     },
   },
   async created() {

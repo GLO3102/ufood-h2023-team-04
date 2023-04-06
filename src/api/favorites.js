@@ -54,12 +54,15 @@ export const deleteList = async (id) => {
     });
     await fetch(request);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 export const postAddRestoInList = async (listID, restoID) => {
   try {
+    if (restoID == ""){
+      throw new Error("Please select a restaurent");
+    }
     const request = new Request(`${ENDPOINT}/favorites/${listID}/restaurants`, {
       method: "POST",
       headers: {

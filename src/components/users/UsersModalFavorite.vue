@@ -9,6 +9,9 @@
             class="block text-gray-700 font-medium mb-2"
             >Restaurant Name</label
           >
+          <small class="text-red" v-if="errorMsg != null"
+            >Error: {{ errorMsg }}</small
+          >
           <select
             v-model="restaurantID"
             id="restaurant-id"
@@ -48,20 +51,26 @@ export default {
     return {
       restaurantID: "",
       restaurantList: [],
+      errorMsg: null,
     };
   },
   methods: {
     submitNewRestaurant() {
+      if (this.restaurantID == "") {
+        this.errorMsg = "Please select a restaurant";
+        return;
+      }
+      this.errorMsg = null;
       this.$emit("addedRestaurent", this.restaurantID);
       this.closeModal();
     },
     closeModal() {
+      this.errorMsg = null;
       this.$emit("close");
     },
   },
   async created() {
     this.restaurantList = await getAllRestaurants();
-    // https://stackoverflow.com/questions/6712034/sort-array-by-firstname-alphabetically-in-javascript
     this.restaurantList.sort((a, b) => a.name.localeCompare(b.name));
   },
 };

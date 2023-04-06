@@ -40,7 +40,6 @@ export const getUserVisits = async () => {
       `${ENDPOINT}/users/${ID}/restaurants/visits?limit=15`
     );
     const data = await response.json();
-    console.log(data);
     return data.items;
   } catch (error) {
     console.error("Erreur recherche visit", error);

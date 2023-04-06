@@ -13,6 +13,7 @@
           <v-list-item>
             <router-link :to="'/'">Home</router-link>
           </v-list-item>
+
           <v-list-item v-if="loggedIn === true">
             <router-link
               :to="{
@@ -38,6 +39,9 @@
               >Log out
             </router-link>
           </v-list-item>
+          <v-list-item>
+            <FacebookLogin :checkLoginState="checkLoginState" />
+          </v-list-item>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -45,6 +49,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import FacebookLogin from "@/components/navigation/FacebookLogin.vue";
 
 let loggedIn = ref(false);
 let searchIsOpen = ref(false);

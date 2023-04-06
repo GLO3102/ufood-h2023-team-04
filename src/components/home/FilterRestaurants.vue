@@ -24,6 +24,7 @@
           :items="getAllRestaurantNames(restaurants)"
           label="Restaurant's name"
           placeholder="Search for a restaurant"
+          @change="filteredRestaurants"
         ></v-autocomplete>
         <v-select
           label="Chosen genre"
@@ -133,6 +134,7 @@ const filter = function (restaurants) {
       (restaurant) => restaurant.price_range <= priceValue.value
     );
   }
+  emit("filtering", filtered);
   return filtered;
 };
 </script>

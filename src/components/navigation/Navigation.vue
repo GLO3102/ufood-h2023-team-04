@@ -22,29 +22,73 @@
             >
               User Profile
             </router-link>
-          </v-list-item>
-          <v-list-item v-if="loggedIn === false">
-            <router-link :to="'/'" @click="loggedIn = true"
-              >Register</router-link
-            >
-          </v-list-item>
-          <v-list-item v-if="loggedIn === false">
-            <router-link :to="'/'" @click="loggedIn = true"
-              >Sign in</router-link
-            >
-          </v-list-item>
-          <v-list-item v-if="loggedIn === true">
-            <router-link :to="'/'" @click="loggedIn = false"
-              >Log out
-            </router-link>
-          </v-list-item>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+          </v-btn>
+          <v-btn v-if="loggedIn === false"
+            ><router-link :to="'/connexion'">Register</router-link></v-btn
+          >
+        </v-toolbar-items>
+      </v-toolbar>
+    </div>
+
+    <div class="hidden-lg-and-up">
+      <v-toolbar :elevation="0" color="white">
+        <v-toolbar-title>RestoCheker</v-toolbar-title>
+        <v-menu color="white">
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props"> Menu </v-btn>
+          </template>
+          <v-list class="reponsiveMenu">
+            <v-list-item>
+              <v-list-item-title>
+                <v-layout>
+                  <router-link :to="'/'">Home</router-link>
+                </v-layout></v-list-item-title
+              >
+              <v-list-item-title>
+                <v-layout v-if="loggedIn === false"
+                  ><router-link :to="'/register'"
+                    >Sign In</router-link
+                  ></v-layout
+                ></v-list-item-title
+              >
+              <v-list-item-title>
+                <v-layout>
+                  <router-link
+                    v-if="loggedIn"
+                    :to="{
+                      name: 'User',
+                      params: { currentUserID: '604cc220ef6fa10004dc0179' },
+                    }"
+                  >
+                    User Profile
+                  </router-link>
+                </v-layout></v-list-item-title
+              >
+              <v-list-item-title>
+                <v-layout @click="logOut" v-if="loggedIn === true">
+                  <router-link :to="'/'">log out </router-link>
+                </v-layout></v-list-item-title
+              >
+              <v-list-item-title>
+                <v-layout v-if="loggedIn === false"
+                  ><router-link :to="'/connexion'"
+                    >Register</router-link
+                  ></v-layout
+                ></v-list-item-title
+              >
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-toolbar>
+    </div>
   </v-container>
 </template>
 <script setup>
 import { ref } from "vue";
+import FacebookLogin from "@/components/navigation/FacebookLogin.vue";
+import ConnectionPopUp from "@/components/ConnectionPopUp.vue";
+import Cookies from "js.cookie";
+import { el } from "vuetify/locale";
 
 let loggedIn = ref(false);
 let searchIsOpen = ref(false);

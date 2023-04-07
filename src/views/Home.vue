@@ -17,13 +17,7 @@
       </button>
     </div>
     <div>
-      <HomeGoogleMap
-        v-if="!showMap"
-        :markingMap="markingMap"
-        :showMap="showMap"
-        :map="map"
-        :locations="locations"
-      />
+      <HomeGoogleMap :locations="locations" v-if="!showMap" />
     </div>
     <Restaurants
       :restaurants="displayedRestaurants"
@@ -63,9 +57,7 @@ const currentPage = ref(1);
 const numPages = ref(1);
 let idsOfVisitedResto = ref(null);
 let visitedRestoFormate = ref(null);
-const locations = [];
-const markers = ref([]);
-const map = ref(null);
+const locations = ref([]);
 
 const fetchData = async () => {
   const data = await getRestaurants();
@@ -76,17 +68,17 @@ const fetchData = async () => {
     const addresses = restaurant.address;
     const coordinates = restaurant.location.coordinates;
     const photos = restaurant.pictures;
-    locations.push([coordinates, names, addresses, photos]);
+    locations.value.push([coordinates, names, addresses, photos]);
   }
+  console.log(locations);
   isloaded.value = true;
   resoFiltered.value = json.value;
   numPages.value = Math.ceil(json.value.length / itemsPerPage);
-  /*   console.log(locations); */
+
   const info = await getVisitedRestaurentsByUser();
   idsOfVisitedResto.value = info.items;
   visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
   checkVisitedResto(resoFiltered.value);
-  markingMap(locations, map);
 };
 
 const emits = defineEmits(["update:currentPage"]);
@@ -140,7 +132,7 @@ const previousPage = () => {
   }
 };
 
-const markingMap = (locations, map) => {
+/* const markingMap = (locations) => {
   locations.forEach((location, i) => {
     const marker = new google.maps.Marker({
       position: { lat: location[0][1], lng: location[0][0] },
@@ -156,15 +148,9 @@ const markingMap = (locations, map) => {
       markers.value.push(marker);
     });
   });
-};
-const initMap = () => {
-  map.value = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 37.7749, lng: -122.4194 },
-    zoom: 12,
-  });
-  markingMap(locations, map.value);
-};
-
+  console.log(markers);
+  return markers;
+}; */
 
 fetchData();
 </script>

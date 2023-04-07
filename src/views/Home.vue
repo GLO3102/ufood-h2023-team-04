@@ -17,7 +17,13 @@
       </button>
     </div>
     <div>
-      <HomeGoogleMap v-if="!showMap" />
+      <HomeGoogleMap
+        v-if="!showMap"
+        :markingMap="markingMap"
+        :showMap="showMap"
+        :map="map"
+        :locations="locations"
+      />
     </div>
     <Restaurants
       :restaurants="displayedRestaurants"
@@ -59,6 +65,7 @@ let idsOfVisitedResto = ref(null);
 let visitedRestoFormate = ref(null);
 const locations = [];
 const markers = ref([]);
+const map = ref(null);
 
 const fetchData = async () => {
   const data = await getRestaurants();
@@ -79,7 +86,7 @@ const fetchData = async () => {
   idsOfVisitedResto.value = info.items;
   visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
   checkVisitedResto(resoFiltered.value);
-  markingMap(locations);
+  markingMap(locations, map);
 };
 
 const emits = defineEmits(["update:currentPage"]);
@@ -133,25 +140,31 @@ const previousPage = () => {
   }
 };
 
-const markingMap = (locations) => {
+const markingMap = (locations, map) => {
   locations.forEach((location, i) => {
     const marker = new google.maps.Marker({
       position: { lat: location[0][1], lng: location[0][0] },
       title: `${i + 1}. ${location[1]}`,
       map: map,
     });
-    markers.value.push(marker);
 
     marker.addListener("click", () => {
       const infoWindow = new google.maps.InfoWindow({
         content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`,
       });
       infoWindow.open(map, marker);
+      markers.value.push(marker);
     });
   });
-  console.log(markers);
-  return markers;
 };
+const initMap = () => {
+  map.value = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 37.7749, lng: -122.4194 },
+    zoom: 12,
+  });
+  markingMap(locations, map.value);
+};
+
 
 fetchData();
 </script>

@@ -57,7 +57,7 @@ const currentPage = ref(1);
 const numPages = ref(1);
 let idsOfVisitedResto = ref(null);
 let visitedRestoFormate = ref(null);
-const locations = ref([]);
+const markers = ref([]);
 
 const fetchData = async () => {
   const data = await getRestaurants();
@@ -131,8 +131,21 @@ const previousPage = () => {
     currentPage.value = currentPage.value - 1;
   }
 };
+const locations = computed(() => {
+  if (!json.value) {
+    return [];
+  }
 
-/* const markingMap = (locations) => {
+  return json.value.map((restaurant) => {
+    const names = restaurant.name;
+    const addresses = restaurant.address;
+    const coordinates = restaurant.location.coordinates;
+    const photos = restaurant.pictures;
+    return [coordinates, names, addresses, photos];
+  });
+});
+
+const markingMap = (locations) => {
   locations.forEach((location, i) => {
     const marker = new google.maps.Marker({
       position: { lat: location[0][1], lng: location[0][0] },
@@ -145,12 +158,12 @@ const previousPage = () => {
         content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`,
       });
       infoWindow.open(map, marker);
-      markers.value.push(marker);
+      markers.value.push(marker); // Push the marker into the markers array
     });
   });
   console.log(markers);
   return markers;
-}; */
+};
 
 fetchData();
 </script>

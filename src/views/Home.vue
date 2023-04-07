@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isloaded">
     <FilterRestaurants
       @filtering="restaurantsFiltered"
       v-if="isloaded"
@@ -16,8 +16,8 @@
         <span class="v-btn__content">Toggle Map</span>
       </button>
     </div>
-    <div v-if="!showMap">
-      <HomeGoogleMap v-if="isloaded" />
+    <div>
+      <HomeGoogleMap v-if="!showMap" />
     </div>
     <Restaurants
       :restaurants="displayedRestaurants"
@@ -41,12 +41,12 @@ import Restaurants from "@/components/home/Restaurants.vue";
 import {
   getRestaurant,
   getRestaurants,
-  getVisitedRestaurentsByUser
+  getVisitedRestaurentsByUser,
 } from "@/composables/UseRestaurant";
 import { ref, computed, watch } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
-import HomeGoogleMap from "../components/restaurant/HomeGoogleMap.vue";
+import HomeGoogleMap from "../components/home/HomeGoogleMap.vue";
 
 const showMap = ref(true);
 const json = ref(null);
@@ -57,20 +57,29 @@ const currentPage = ref(1);
 const numPages = ref(1);
 let idsOfVisitedResto = ref(null);
 let visitedRestoFormate = ref(null);
-
-const mapVisible = computed(() => !showMap.value);
+const locations = [];
+const markers = ref([]);
 
 const fetchData = async () => {
   const data = await getRestaurants();
   json.value = data.items;
+  for (let i = 0; i < json.value.length; i++) {
+    const restaurant = json.value[i];
+    const names = restaurant.name;
+    const addresses = restaurant.address;
+    const coordinates = restaurant.location.coordinates;
+    const photos = restaurant.pictures;
+    locations.push([coordinates, names, addresses, photos]);
+  }
   isloaded.value = true;
   resoFiltered.value = json.value;
   numPages.value = Math.ceil(json.value.length / itemsPerPage);
-
+  /*   console.log(locations); */
   const info = await getVisitedRestaurentsByUser();
   idsOfVisitedResto.value = info.items;
   visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
   checkVisitedResto(resoFiltered.value);
+  markingMap(locations);
 };
 
 const emits = defineEmits(["update:currentPage"]);
@@ -122,6 +131,26 @@ const previousPage = () => {
   if (currentPage.value > 1) {
     currentPage.value = currentPage.value - 1;
   }
+};
+
+const markingMap = (locations) => {
+  locations.forEach((location, i) => {
+    const marker = new google.maps.Marker({
+      position: { lat: location[0][1], lng: location[0][0] },
+      title: `${i + 1}. ${location[1]}`,
+      map: map,
+    });
+    markers.value.push(marker);
+
+    marker.addListener("click", () => {
+      const infoWindow = new google.maps.InfoWindow({
+        content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`,
+      });
+      infoWindow.open(map, marker);
+    });
+  });
+  console.log(markers);
+  return markers;
 };
 
 fetchData();

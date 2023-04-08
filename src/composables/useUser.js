@@ -101,7 +101,7 @@ export const deleteFollower = async (ID) => {
 export const followUser = async (userFollowID) => {
   try {
     const req = new Request(`${ENDPOINT}/follow/`, {
-      method: "DELETE",
+      method: "POST",
       headers: {
         authorization: "${TOKEN}",
         body: JSON.stringify({ id: "userFollowID" }),

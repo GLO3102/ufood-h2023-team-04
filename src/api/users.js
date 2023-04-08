@@ -35,10 +35,10 @@ export const getAllUsersInfo = async () => {
   }
 };
 
-export const getUserVisits = async () => {
+export const getUserVisits = async (userId) => {
   try {
     const response = await fetch(
-      `${ENDPOINT}/users/${ID}/restaurants/visits?limit=500`
+      `${ENDPOINT}/users/${userId}/restaurants/visits?limit=500`
     );
     const data = await response.json();
     return data.items;

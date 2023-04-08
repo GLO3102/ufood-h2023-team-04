@@ -1,17 +1,20 @@
 <template>
   <div>
-    <v-container class="bg-surface-variant">
-      <v-row no-gutters>
-        <v-col v-for="visit in visits" :key="visit">
-          <v-sheet class="pa-4 ma-6"
-            ><UserVisitCard :id="visit"></UserVisitCard>
-            <ModalVisitedReadOnly :id="visit"></ModalVisitedReadOnly
-          ></v-sheet>
-        </v-col>
-
-        <v-responsive width="100%"></v-responsive>
-      </v-row>
-    </v-container>
+    <div class="w-full">
+      <div
+        class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm"
+      >
+        <a
+          href="#"
+          class="w-full text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
+          v-for="visit in visits"
+          :key="visit"
+        >
+          {{ visit.name + " - " + visit.rating + " Stars"
+          }}<ModalVisitedReadOnly :id="visit" />
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -21,7 +24,6 @@ import ModalVisitedReadOnly from "../users/ModalVisitedReadOnly.vue";
 
 import { getUserVisits } from "../../api/users";
 import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
-import UserVisitCard from "./UserVisitCard.vue";
 
 const visits = ref([]);
 

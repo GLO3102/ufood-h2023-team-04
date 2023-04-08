@@ -16,6 +16,7 @@
               class="ma-2"
               color="black"
               icon="mdi-account-plus-outline"
+              @click="handleFollowUser(id.id)"
             ></v-btn>
           </template>
         </v-toolbar>
@@ -50,25 +51,33 @@ import { getUserInfo } from "../../composables/useUser";
 
 import { getUserVisits } from "../../api/users";
 import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
+import { followUser } from "../../composables/useUser";
 
 const props = defineProps({
   id: Object,
 });
 
-const info = ref([]);
+//const info = ref([]);
 const visits = ref([]);
 
-const getInfo = async () => {
-  info.value = await getUserInfo(props.id);
+//const getInfo = async () => {
+//  info.value = await getUserInfo(props.id);
+//};
+
+const handleFollowUser = async (id) => {
+  await followUser(id);
+  console.log(id);
+  //Doit vérifier cette ligne
+  //userInfos.value = userInfos.value.filter((userInfo) => userInfo.id !== id);
 };
 
-const getVisits = async () => {
-  const response = await getUserVisits();
+const getVisits = async (id) => {
+  const response = await getUserVisits(id);
   visits.value = response.slice(0, 3);
   visits.value.forEach(async (visit) => {
     const name = await getRestaurantsNameByID(visit.restaurant_id);
     visit["name"] = name;
   });
 };
-getVisits();
+getVisits(props.id.id);
 </script>

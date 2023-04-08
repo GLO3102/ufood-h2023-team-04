@@ -24,12 +24,16 @@
           <div class="font-weight-bold ms-1 mb-2">Recent Visits</div>
 
           <v-timeline density="compact" align="start">
-            <v-timeline-item>
+            <v-timeline-item
+              size="x-small"
+              v-for="visit in visits"
+              :key="visit"
+            >
               <div class="mb-4">
                 <div class="font-weight-normal">
-                  <strong> message.from </strong> @ message.time
+                  <strong> {{ visit.name }} </strong>
                 </div>
-                <div>message.message</div>
+                <div>{{ visit.comment }}</div>
               </div>
             </v-timeline-item>
           </v-timeline>
@@ -44,6 +48,9 @@
 import { ref } from "vue";
 import { getUserInfo } from "../../composables/useUser";
 
+import { getUserVisits } from "../../api/users";
+import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
+
 const props = defineProps({
   id: Object,
 });
@@ -56,10 +63,12 @@ const getInfo = async () => {
 };
 
 const getVisits = async () => {
-  visits.value = await getUserVisits();
+  const response = await getUserVisits();
+  visits.value = response.slice(0, 3);
   visits.value.forEach(async (visit) => {
     const name = await getRestaurantsNameByID(visit.restaurant_id);
     visit["name"] = name;
   });
 };
+getVisits();
 </script>

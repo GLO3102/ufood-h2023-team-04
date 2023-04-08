@@ -26,7 +26,7 @@ export const getUserInfo = async (userID) => {
 
 export const getAllUsersInfo = async () => {
   try {
-    const response = await fetch(`${ENDPOINT}/users`);
+    const response = await fetch(`${ENDPOINT}/users?limit=40`);
     const data = await response.json();
     return data.items;
   } catch (error) {

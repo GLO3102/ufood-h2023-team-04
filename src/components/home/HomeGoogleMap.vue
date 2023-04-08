@@ -10,15 +10,31 @@
 </template>
 
 <script setup>
-import { onMounted, ref, defineProps, withCtx, watchEffect } from "vue";
-const map = ref(null);
-defineProps({
-  locations: Object,
+import { onMounted, ref, defineProps, watchEffect, toRaw } from "vue";
+const props = defineProps({
+  restaurants: Object,
 });
-const markers = ref([]);
-const props = withCtx(() => ({ locations: props.locations }));
+
 onMounted(async () => {
   const userLocation = ref(null);
+  const locations = [];
+  const extractInfo = () => {
+    const restaurants = toRaw(props.restaurants);
+    console.log(restaurants);
+    for (let i = 0; i < restaurants.length; i++) {
+      const restos = restaurants[i];
+      const names = restos.name;
+      const addresses = restos.address;
+      const coordinates = restos.location.coordinates;
+      const photos = restos.pictures;
+      locations.push([coordinates, names, addresses, photos]);
+    }
+    console.log(locations);
+  };
+
+  watchEffect(() => {
+    extractInfo();
+  });
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -26,29 +42,25 @@ onMounted(async () => {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
-      map.value = new google.maps.Map(document.getElementById("map"), {
-        zoom: 13,
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 11,
         center: userLocation.value,
       });
-    });
-  }
-});
-
-watchEffect(() => {
-  if (props.locations) {
-    props.locations.forEach((location, i) => {
-      const marker = new google.maps.Marker({
-        position: { lat: location[0][1], lng: location[0][0] },
-        title: `${i + 1}. ${location[1]}`,
-        map: map,
-      });
-      markers.value.push(marker);
-
-      marker.addListener("click", () => {
-        const infoWindow = new google.maps.InfoWindow({
-          content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`,
+      console.log(userLocation); // This will log the user's current latitude and longitude
+      const markers = [];
+      locations.forEach((location, i) => {
+        const marker = new google.maps.Marker({
+          position: { lat: location[0][1], lng: location[0][0] },
+          title: `${i + 1}. ${location[1]}`,
+          map: map,
         });
-        infoWindow.open(map, marker);
+        markers.push(marker);
+        marker.addListener("click", () => {
+          const infoWindow = new google.maps.InfoWindow({
+            content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`,
+          });
+          infoWindow.open(map, marker);
+        });
       });
     });
   }

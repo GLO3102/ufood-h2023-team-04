@@ -17,7 +17,7 @@
       </button>
     </div>
     <div>
-      <HomeGoogleMap :locations="locations" v-if="!showMap" />
+      <HomeGoogleMap :restaurants="json" v-if="!showMap" />
     </div>
     <Restaurants
       :restaurants="displayedRestaurants"
@@ -43,7 +43,7 @@ import {
   getRestaurants,
   getVisitedRestaurentsByUser,
 } from "@/composables/UseRestaurant";
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, toRaw } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
 import HomeGoogleMap from "../components/home/HomeGoogleMap.vue";
@@ -70,7 +70,7 @@ const fetchData = async () => {
     const photos = restaurant.pictures;
     locations.value.push([coordinates, names, addresses, photos]);
   }
-  console.log(locations);
+
   isloaded.value = true;
   resoFiltered.value = json.value;
   numPages.value = Math.ceil(json.value.length / itemsPerPage);
@@ -131,26 +131,6 @@ const previousPage = () => {
     currentPage.value = currentPage.value - 1;
   }
 };
-
-/* const markingMap = (locations) => {
-  locations.forEach((location, i) => {
-    const marker = new google.maps.Marker({
-      position: { lat: location[0][1], lng: location[0][0] },
-      title: `${i + 1}. ${location[1]}`,
-      map: map,
-    });
-    markers.value.push(marker);
-
-    marker.addListener("click", () => {
-      const infoWindow = new google.maps.InfoWindow({
-        content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`,
-      });
-      infoWindow.open(map, marker);
-    });
-  });
-  console.log(markers);
-  return markers;
-}; */
 
 fetchData();
 </script>

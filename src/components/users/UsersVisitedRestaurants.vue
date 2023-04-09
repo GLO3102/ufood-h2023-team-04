@@ -4,7 +4,11 @@
       <v-row no-gutters>
         <v-col v-for="visit in visits" :key="visit">
           <v-sheet class="pa-4 ma-6"
-            ><UserVisitCard :id="visit"></UserVisitCard>
+            ><RestaurantUserInformations
+              :name="visit.name"
+              :comment="visit.comment"
+              :rating="visit.rating"
+              :date="visit.date" />
             <ModalVisitedReadOnly :id="visit"></ModalVisitedReadOnly
           ></v-sheet>
         </v-col>
@@ -16,24 +20,25 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import ModalVisitedReadOnly from "../users/ModalVisitedReadOnly.vue";
 
+import RestaurantUserInformations from "./RestaurantUserInformations.vue";
 import { getUserVisits } from "../../api/users";
 import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
-import UserVisitCard from "./UserVisitCard.vue";
 
 const visits = ref([]);
 
-defineProps({ id: Object });
+const props = defineProps({ id: Object, currentUserID: String });
 
-const getVisits = async () => {
-  visits.value = await getUserVisits();
+const getVisits = async (currentUserID) => {
+  const data = await getUserVisits(currentUserID);
+  visits.value = data;
   visits.value.forEach(async (visit) => {
     const name = await getRestaurantsNameByID(visit.restaurant_id);
     visit["name"] = name;
   });
 };
 
-getVisits();
+getVisits(props.currentUserID);
 </script>

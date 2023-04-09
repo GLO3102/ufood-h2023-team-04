@@ -13,7 +13,6 @@
 </template>
 <script setup>
 import UserCard from "./UserCard";
-///https://vuetifyjs.com/en/components/grids/
 
 import { ref } from "vue";
 

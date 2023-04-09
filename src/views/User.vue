@@ -85,11 +85,7 @@ import UsersFavorite from "../components/users/UsersFavorite.vue";
 import UsersList from "../components/users/UsersList.vue";
 import Followers from "../components/users/follow/Followers.vue";
 import Following from "../components/users/follow/Following.vue";
-import {
-  getUserInfo,
-  getVisitedRestaurant,
-  getAllUsersInfo,
-} from "../api/users.js";
+import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
 
 export default {
   components: {

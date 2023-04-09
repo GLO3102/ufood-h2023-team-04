@@ -45,9 +45,7 @@
 </template>
 
 <script setup>
-//https://vuetifyjs.com/en/components/cards/
 import { ref } from "vue";
-import { getUserInfo } from "../../composables/useUser";
 
 import { getUserVisits } from "../../api/users";
 import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
@@ -57,12 +55,7 @@ const props = defineProps({
   id: Object,
 });
 
-//const info = ref([]);
 const visits = ref([]);
-
-//const getInfo = async () => {
-//  info.value = await getUserInfo(props.id);
-//};
 
 const handleFollowUser = async (id) => {
   await followUser(id);

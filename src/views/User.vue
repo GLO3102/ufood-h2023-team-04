@@ -42,14 +42,18 @@
         <v-window-item value="option-2">
           <v-card flat>
             <v-card-text>
-              <p><Followers :currentUserID="currentUserID"></Followers></p>
+              <p>
+                <FollowersCard :currentUserID="currentUserID"></FollowersCard>
+              </p>
             </v-card-text>
           </v-card>
         </v-window-item>
         <v-window-item value="option-3">
           <v-card flat>
             <v-card-text>
-              <p><Following :currentUserID="currentUserID"></Following></p>
+              <p>
+                <FollowingCard :currentUserID="currentUserID"></FollowingCard>
+              </p>
             </v-card-text>
           </v-card>
         </v-window-item>
@@ -77,22 +81,20 @@
 </template>
 
 <script>
-//Pour les pictogrammes
-//https://pictogrammers.com/library/mdi/
 import { reactive, toRefs, onMounted, ref } from "vue";
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import UsersFavorite from "../components/users/UsersFavorite.vue";
 import UsersList from "../components/users/UsersList.vue";
-import Followers from "../components/users/follow/Followers.vue";
-import Following from "../components/users/follow/Following.vue";
+import FollowersCard from "../components/users/follow/FollowersCard.vue";
+import FollowingCard from "../components/users/follow/FollowingCard.vue";
 import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
 
 export default {
   components: {
     UsersVisitedRestaurants,
     UsersFavorite,
-    Followers,
-    Following,
+    FollowersCard,
+    FollowingCard,
     UsersList,
   },
   props: {
@@ -147,30 +149,3 @@ export default {
   },
 };
 </script>
-
-<!-- <style scoped>
-.v-container {
-  background: white;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  padding: 20px;
-  border: 3px solid #000;
-  box-shadow: 10px 15px 0 black;
-}
-.v-btn {
-  background: white;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  border: 3px solid #000;
-  box-shadow: 5px 10px 0 black;
-}
-
-@media (max-width: 800px) {
-  .v-card-item {
-    font-size: 15px;
-  }
-
-  .v-card-title {
-    font-size: 18px;
-    font-weight: bold;
-  }
-}
-</style> -->

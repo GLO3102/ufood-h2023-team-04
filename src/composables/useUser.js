@@ -59,9 +59,9 @@ export const getUserFavoriteLists = async (userID) => {
   }
 };
 
-export const getUserInfoFollowers = async () => {
+export const getUserInfoFollowers = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${ID}`);
+    const response = await fetch(`${ENDPOINT}/users/${userID}`);
     const data = await response.json();
     return data.followers;
   } catch (error) {

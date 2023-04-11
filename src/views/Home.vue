@@ -17,7 +17,7 @@
       </button>
     </div>
     <div>
-      <HomeGoogleMap :restaurants="json" v-if="!showMap" />
+      <HomeGoogleMap :restaurants="resoFiltered" v-if="!showMap" />
     </div>
     <Restaurants
       :restaurants="displayedRestaurants"

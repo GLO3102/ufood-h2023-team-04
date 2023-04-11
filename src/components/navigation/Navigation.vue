@@ -13,7 +13,7 @@
           <v-btn @click="loggedIn = false" v-if="loggedIn === true"
             ><router-link :to="'/'">log out </router-link>
           </v-btn>
-          <v-btn v-if="loggedIn">
+          <v-btn v-if="loggedIn === true">
             <router-link
               :to="{
                 name: 'User',

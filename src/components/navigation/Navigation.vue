@@ -85,7 +85,6 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import ConnectionPopUp from "@/components/ConnectionPopUp.vue";
 import Cookies from "js.cookie";
 import { el } from "vuetify/locale";
 

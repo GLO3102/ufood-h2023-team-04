@@ -1,5 +1,4 @@
 import Cookies from "js.cookie";
-import { getEmailAndPassword } from "@/components/ConnectionPopUp.vue";
 
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
 const API_ENDPOINT_SECURE = "https://ufoodapi.herokuapp.com/";
@@ -118,14 +117,19 @@ export const getListefavori = async function (idListe) {
 };
 
 export const logIn = async function (email, password) {
-  const res = await fetch("https://ufoodapi.herokuapp.com/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email: email, password: password }),
-  });
-  const response = await res.json();
-  const token = { token: response.token, id: response.id };
-  Cookies.set("connectionToken", token);
+  try {
+    const res = await fetch("https://ufoodapi.herokuapp.com/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    });
+    const response = await res.json();
+    const token = { token: response.token, id: response.id };
+    Cookies.set("connectionToken", token);
+    return true;
+  } catch (err) {
+    console.log("erreur :" + err.message);
+  }
 };

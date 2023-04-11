@@ -7,7 +7,18 @@
         label="password"
         :rules="rules"
       ></v-text-field>
-      <v-btn type="submit" @click="connection" block class="mt-2">Submit</v-btn>
+
+      <v-btn type="submit" @click="connection" block class="mt-2">
+        <router-link
+          v-if="(response = true)"
+          :to="{
+            name: 'User',
+            params: { currentUserID: '604cc220ef6fa10004dc0179' },
+          }"
+        >
+          submit
+        </router-link>
+      </v-btn>
     </v-form>
   </v-sheet>
 </template>

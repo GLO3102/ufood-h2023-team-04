@@ -24,6 +24,7 @@
 
 <script setup>
 import { ref } from "vue";
+import Cookies from "js.cookie";
 
 import {
   getUserInfoFollowing,
@@ -31,11 +32,12 @@ import {
 } from "../../../composables/useUser";
 
 const userInfos = ref([]);
-
-defineProps({ id: Object });
+const token = Cookies.get("connectionToken");
 
 const getInfos = async () => {
-  userInfos.value = await getUserInfoFollowing();
+  console.log(token.id);
+  userInfos.value = await getUserInfoFollowing(token.id);
+  console.log(userInfos.value);
 };
 
 const handleDeleteFollower = async (id) => {

@@ -47,15 +47,16 @@
 <script setup>
 import { ref } from "vue";
 
-import { getUserVisits } from "../../api/users";
+import { getUserVisits, followUser } from "../../composables/useUser";
 import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
-import { followUser } from "../../composables/useUser";
+import Cookies from "js.cookie";
 
 const props = defineProps({
   id: Object,
 });
 
 const visits = ref([]);
+const token = Cookies.get("connectionToken");
 
 const handleFollowUser = async (id) => {
   await followUser(id);
@@ -64,13 +65,13 @@ const handleFollowUser = async (id) => {
   //userInfos.value = userInfos.value.filter((userInfo) => userInfo.id !== id);
 };
 
-const getVisits = async (id) => {
-  const response = await getUserVisits(id);
+const getVisits = async (token, id) => {
+  const response = await getUserVisits(token, id);
   visits.value = response.slice(0, 3);
   visits.value.forEach(async (visit) => {
-    const name = await getRestaurantsNameByID(visit.restaurant_id);
+    const name = await getRestaurantsNameByID(token.token, visit.restaurant_id);
     visit["name"] = name;
   });
 };
-getVisits(props.id.id);
+getVisits(token.token, props.id.id);
 </script>

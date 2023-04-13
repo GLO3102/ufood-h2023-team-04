@@ -16,12 +16,14 @@ import UserCard from "./UserCard";
 
 import { ref } from "vue";
 
-import { getAllUsersInfo } from "../../api/users";
+import { getAllUsersInfo } from "../../composables/useUser";
+import Cookies from "js.cookie";
 
 const userInfos = ref([]);
+const token = Cookies.get("connectionToken");
 
 const getUserInfo = async () => {
-  userInfos.value = await getAllUsersInfo();
+  userInfos.value = await getAllUsersInfo(token.token);
 };
 
 getUserInfo();

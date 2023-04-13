@@ -24,15 +24,17 @@ import { ref } from "vue";
 import ModalVisitedReadOnly from "../users/ModalVisitedReadOnly.vue";
 
 import RestaurantUserInformations from "./RestaurantUserInformations.vue";
-import { getUserVisits } from "../../api/users";
+import { getUserVisits } from "../../composables/useUser";
 import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
+import Cookies from "js.cookie";
 
 const visits = ref([]);
+const token = Cookies.get("connectionToken");
 
-const props = defineProps({ id: Object, currentUserID: String });
+//const props = defineProps({ id: Object, currentUserID: String });
 
-const getVisits = async (currentUserID) => {
-  const data = await getUserVisits(currentUserID);
+const getVisits = async (token, userID) => {
+  const data = await getUserVisits(token, userID);
   visits.value = data;
   visits.value.forEach(async (visit) => {
     const name = await getRestaurantsNameByID(visit.restaurant_id);
@@ -40,7 +42,7 @@ const getVisits = async (currentUserID) => {
   });
 };
 
-getVisits(props.currentUserID);
+getVisits(token.token, token.id);
 </script>
 
 <!-- const getVisits = async (userInfos) => {

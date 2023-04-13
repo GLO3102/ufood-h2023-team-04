@@ -34,7 +34,7 @@
           <v-card flat>
             <v-card-text>
               <p>
-                <UsersFavorite :currentUserID="currentUserID"></UsersFavorite>
+                <UsersFavorite></UsersFavorite>
               </p>
             </v-card-text>
           </v-card>
@@ -43,7 +43,7 @@
           <v-card flat>
             <v-card-text>
               <p>
-                <FollowersCard :currentUserID="currentUserID"></FollowersCard>
+                <FollowersCard :token="token"></FollowersCard>
               </p>
             </v-card-text>
           </v-card>
@@ -52,7 +52,7 @@
           <v-card flat>
             <v-card-text>
               <p>
-                <FollowingCard :currentUserID="currentUserID"></FollowingCard>
+                <FollowingCard :token="token"></FollowingCard>
               </p>
             </v-card-text>
           </v-card>
@@ -61,9 +61,7 @@
           <v-card flat>
             <v-card-text>
               <p>
-                <UsersVisitedRestaurants
-                  :currentUserID="currentUserID"
-                ></UsersVisitedRestaurants>
+                <UsersVisitedRestaurants></UsersVisitedRestaurants>
               </p>
             </v-card-text>
           </v-card>
@@ -71,7 +69,7 @@
         <v-window-item value="option-5">
           <v-card flat>
             <v-card-text>
-              <p><UsersList :currentUserID="currentUserID"></UsersList></p>
+              <p><UsersList :token="token"></UsersList></p>
             </v-card-text>
           </v-card>
         </v-window-item>
@@ -87,7 +85,8 @@ import UsersFavorite from "../components/users/UsersFavorite.vue";
 import UsersList from "../components/users/UsersList.vue";
 import FollowersCard from "../components/users/follow/FollowersCard.vue";
 import FollowingCard from "../components/users/follow/FollowingCard.vue";
-import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
+import { getVisitedRestaurant } from "../api/users.js";
+import { getUserInfo } from "../composables/useUser";
 import Cookies from "js.cookie";
 
 export default {
@@ -99,8 +98,8 @@ export default {
     UsersList,
   },
   props: {
-    currentUserID: {
-      type: String,
+    token: {
+      type: Object,
     },
   },
   setup(props) {
@@ -150,12 +149,13 @@ export default {
   },
   async created() {
     const token = Cookies.get("connectionToken");
-    console.log(token.value);
+    //console.log(token.id);
     this.user = await getUserInfo(token.id);
+    //console.log(this.user);
 
     //Valide si visitedRestaurantData est undefined
     const visitedRestaurantData = await getVisitedRestaurant(token.id);
-    console.log(visitedRestaurantData);
+    //console.log(visitedRestaurantData);
     if (visitedRestaurantData && visitedRestaurantData.total) {
       state.score = visitedRestaurantData.total;
     }

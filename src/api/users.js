@@ -22,7 +22,7 @@ export const getVisitedRestaurant = async (userID) => {
   }
 };
 
-export const getUserInfo = async (userID) => {
+/* export const getUserInfo = async (userID) => {
   try {
     const response = await fetch(`${ENDPOINT}/users/${userID}`);
     const data = await response.json();
@@ -31,9 +31,9 @@ export const getUserInfo = async (userID) => {
     console.error(error);
     return [];
   }
-};
+}; */
 
-export const getAllUsersInfo = async () => {
+/* export const getAllUsersInfo = async () => {
   try {
     const response = await fetch(`${ENDPOINT}/users?limit=40`);
     const data = await response.json();
@@ -42,9 +42,9 @@ export const getAllUsersInfo = async () => {
     console.error("can't do SHIT", error);
     return [];
   }
-};
+}; */
 
-export const getUserVisits = async (userId) => {
+/* export const getUserVisits = async (userId) => {
   try {
     const response = await fetch(
       `${ENDPOINT}/users/${userId}/restaurants/visits?limit=500`
@@ -55,7 +55,7 @@ export const getUserVisits = async (userId) => {
     console.error("Erreur recherche visit", error);
     return [];
   }
-};
+}; */
 
 export const getUserFavoriteLists = async (userID) => {
   try {

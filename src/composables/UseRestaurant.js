@@ -1,4 +1,5 @@
 import Cookies from "js.cookie";
+import { ENDPOINT_SECURE } from "./API_ENDPOINT";
 
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
 const API_ENDPOINT_SECURE = "https://ufoodapi.herokuapp.com/";
@@ -56,7 +57,7 @@ export const postReview = async function (comment, rating, date, restaurantId) {
 };
 
 export const getVisitedRestaurentsByUser = async function () {
-  const token = Cookies.get("ConnectionToken");
+  const token = Cookies.get("connectionToken");
   const res = await fetch(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
     method: "GET",
     headers: {
@@ -127,5 +128,29 @@ export const logIn = async function (email, password) {
     Cookies.set("connectionToken", token);
   } catch (err) {
     console.log("erreur :" + err.message);
+  }
+};
+
+export const getRestaurantsNameByID = async (token, restoId) => {
+  try {
+    if (restoId.length !== 24) {
+      throw new Error("Invalid restaurant ID length. Must be 6 characters.");
+    } else {
+      const response = await fetch(
+        `${ENDPOINT_SECURE}/restaurants/${restoId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      const data = await response.json();
+      return data.name;
+    }
+  } catch (error) {
+    console.error("Erreur recherche visit, restoID invalide:", restoId);
+    return [];
   }
 };

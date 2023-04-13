@@ -1,5 +1,6 @@
-import { ENDPOINT } from "./API_ENDPOINT";
+import { ENDPOINT, ENDPOINT_SECURE } from "./API_ENDPOINT";
 import { ID } from "./API_ENDPOINT";
+import Cookies from "js.cookie";
 
 export const getVisitedRestaurant = async (userID) => {
   try {
@@ -15,7 +16,15 @@ export const getVisitedRestaurant = async (userID) => {
 
 export const getUserInfo = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${userID}`);
+    const token = Cookies.get("connectionToken");
+    console.log(token.token);
+    const response = await fetch(`${ENDPOINT_SECURE}/users/${userID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token.token,
+      },
+    });
     const data = await response.json();
     return data;
   } catch (error) {
@@ -24,9 +33,15 @@ export const getUserInfo = async (userID) => {
   }
 };
 
-export const getAllUsersInfo = async () => {
+export const getAllUsersInfo = async (token) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users`);
+    const response = await fetch(`${ENDPOINT_SECURE}/users?limit=30`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
     const data = await response.json();
     return data.items;
   } catch (error) {
@@ -35,10 +50,17 @@ export const getAllUsersInfo = async () => {
   }
 };
 
-export const getUserVisits = async () => {
+export const getUserVisits = async (token, userID) => {
   try {
     const response = await fetch(
-      `${ENDPOINT}/users/${ID}/restaurants/visits?limit=15`
+      `${ENDPOINT_SECURE}/users/${userID}/restaurants/visits?limit=30`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
     );
     const data = await response.json();
     return data.items;
@@ -61,7 +83,7 @@ export const getUserFavoriteLists = async (userID) => {
 
 export const getUserInfoFollowers = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${userID}`);
+    const response = await fetch(`${ENDPOINT_SECURE}/users/${userID}`);
     const data = await response.json();
     return data.followers;
   } catch (error) {
@@ -70,9 +92,16 @@ export const getUserInfoFollowers = async (userID) => {
   }
 };
 
-export const getUserInfoFollowing = async () => {
+export const getUserInfoFollowing = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${ID}`);
+    const token = Cookies.get("connectionToken");
+    const response = await fetch(`${ENDPOINT_SECURE}/users/${userID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token.token,
+      },
+    });
     const data = await response.json();
     return data.following;
   } catch (error) {
@@ -81,6 +110,16 @@ export const getUserInfoFollowing = async () => {
   }
 };
 
+/* const token = Cookies.get("connectionToken");
+    console.log(token.token);
+    const response = await fetch(`${ENDPOINT_SECURE}/users/${userID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token.token,
+      },
+    });
+ */
 //* Va falloir tester quand je vais avoir le token
 export const deleteFollower = async (ID) => {
   try {

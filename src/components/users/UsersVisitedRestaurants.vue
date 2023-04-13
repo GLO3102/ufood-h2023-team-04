@@ -35,10 +35,8 @@ const getVisits = async (currentUserID) => {
   const data = await getUserVisits(currentUserID);
   visits.value = data;
   visits.value.forEach(async (visit) => {
-    console.log(visits.value);
     const name = await getRestaurantsNameByID(visit.restaurant_id);
     visit["name"] = name;
-    console.log(visits.value);
   });
 };
 

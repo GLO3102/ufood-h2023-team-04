@@ -88,6 +88,7 @@ import UsersList from "../components/users/UsersList.vue";
 import FollowersCard from "../components/users/follow/FollowersCard.vue";
 import FollowingCard from "../components/users/follow/FollowingCard.vue";
 import { getUserInfo, getVisitedRestaurant } from "../api/users.js";
+import Cookies from "js.cookie";
 
 export default {
   components: {
@@ -146,6 +147,12 @@ export default {
       tab,
       options,
     };
+  },
+  async created() {
+    const token = Cookies.get("connectionToken");
+    console.log(token.value);
+    this.user = await getUserInfo(token.id);
+    this.score = (await getVisitedRestaurant(token.id)).total;
   },
 };
 </script>

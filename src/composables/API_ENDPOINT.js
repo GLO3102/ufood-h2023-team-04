@@ -1,4 +1,5 @@
 export const ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
+export const ENDPOINT_SECURE = "https://ufoodapi.herokuapp.com";
 
 export const ID = "634b0183dae040956403888c";
 

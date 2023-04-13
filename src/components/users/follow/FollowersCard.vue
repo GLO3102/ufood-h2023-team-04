@@ -54,11 +54,8 @@ const getInfos = async (currentUserID) => {
   userInfos.value = data;
   userInfos.value.forEach(async (userInfo) => {
     const followerVisitsInfo = await getUserVisits(userInfo.id);
-    console.log(followerVisitsInfo);
     userInfo["test32"] = followerVisitsInfo.slice(0, 3);
   });
-  console.log(userInfos.value);
-  console.log(visits.value);
 };
 getInfos(props.currentUserID);
 

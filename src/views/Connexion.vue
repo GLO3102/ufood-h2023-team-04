@@ -26,7 +26,7 @@
 <script setup>
 import { ref } from "vue";
 
-import { logIn } from "@/composable/UseRestaurant";
+import { logIn } from "@/composables/UseRestaurant";
 
 const email = ref(null);
 const password = ref(null);
@@ -34,8 +34,9 @@ const response = ref(null);
 const token = ref(null);
 
 const connection = async () => {
+  console.log(email.value);
+  console.log(password.value);
   response.value = await logIn(email.value, password.value);
-  console.log(response.value);
 };
 </script>
 

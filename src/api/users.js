@@ -1,10 +1,19 @@
-import { ENDPOINT } from "../composables/API_ENDPOINT";
+import { ENDPOINT, ENDPOINT_SECURE } from "../composables/API_ENDPOINT";
 import { ID } from "../composables/API_ENDPOINT";
+import Cookies from "js.cookie";
 
 export const getVisitedRestaurant = async (userID) => {
   try {
+    const token = Cookies.get("connectionToken");
     const response = await fetch(
-      `${ENDPOINT}/users/${userID}/restaurants/visits`
+      `${ENDPOINT_SECURE}/users/${userID}/restaurants/visits`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token.token,
+        },
+      }
     );
     const data = await response.json();
     return data;

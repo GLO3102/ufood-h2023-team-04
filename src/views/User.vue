@@ -137,10 +137,10 @@ export default {
       },
     ];
 
-    onMounted(async () => {
+    /*  onMounted(async () => {
       state.user = await getUserInfo(props.currentUserID);
       state.score = (await getVisitedRestaurant(props.currentUserID)).total;
-    });
+    }); */
 
     return {
       ...toRefs(state),
@@ -152,7 +152,18 @@ export default {
     const token = Cookies.get("connectionToken");
     console.log(token.value);
     this.user = await getUserInfo(token.id);
-    this.score = (await getVisitedRestaurant(token.id)).total;
+
+    //Valide si visitedRestaurantData est undefined
+    const visitedRestaurantData = await getVisitedRestaurant(token.id);
+    console.log(visitedRestaurantData);
+    if (visitedRestaurantData && visitedRestaurantData.total) {
+      state.score = visitedRestaurantData.total;
+    }
+    /* this.score = await getVisitedRestaurant(token.id);
+    console.log(this.score); */
   },
+
+  //state.user = await getUserInfo(props.currentUserID);
+  //state.score = (await getVisitedRestaurant(props.currentUserID)).total;
 };
 </script>

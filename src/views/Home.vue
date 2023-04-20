@@ -1,5 +1,6 @@
 <template>
   <div>
+    <UserSearch v-if="isConnected"></UserSearch>
     <FilterRestaurants
       @filtering="restaurantsFiltered"
       v-if="isloaded"
@@ -33,6 +34,7 @@ import { ref, computed, watch } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
 import UserSearch from "@/components/home/UserSearch.vue";
+import Cookies from "js.cookie";
 
 const json = ref(null);
 const isloaded = ref(false);
@@ -42,7 +44,22 @@ const currentPage = ref(1);
 const numPages = ref(1);
 let idsOfVisitedResto = ref(null);
 let visitedRestoFormate = ref(null);
+const isConnected = ref(false);
+
+function checkIfConnected() {
+  try {
+    const tokenId = Cookies.get("connectionToken");
+    if (tokenId === null) {
+      isConnected.value = false;
+    } else {
+      isConnected.value = true;
+    }
+  } catch {
+    isConnected.value = false;
+  }
+}
 const fetchData = async () => {
+  checkIfConnected();
   const data = await getRestaurants();
   json.value = data.items;
   isloaded.value = true;

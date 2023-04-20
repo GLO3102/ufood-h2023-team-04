@@ -9,15 +9,7 @@
       ></v-text-field>
 
       <v-btn type="submit" @click="connection" block class="mt-2">
-        <router-link
-          v-if="(response = true)"
-          :to="{
-            name: 'User',
-            params: { currentUserID: '604cc220ef6fa10004dc0179' },
-          }"
-        >
-          submit
-        </router-link>
+        submit
       </v-btn>
     </v-form>
   </v-sheet>
@@ -30,11 +22,14 @@ import { logIn } from "@/composable/UseRestaurant";
 
 const email = ref(null);
 const password = ref(null);
-const response = ref(null);
+let response = ref(null);
 const token = ref(null);
 
 const connection = async () => {
   response.value = await logIn(email.value, password.value);
+  if (response.value === true) {
+    window.location.href = "http://localhost:8081/";
+  }
 };
 </script>
 

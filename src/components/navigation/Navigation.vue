@@ -10,7 +10,7 @@
           <v-btn v-if="loggedIn === false"
             ><router-link :to="'/register'">Sign In</router-link></v-btn
           >
-          <v-btn @click="loggedIn = false" v-if="loggedIn === true"
+          <v-btn @click="logOut()" v-if="loggedIn === true"
             ><router-link :to="'/'">log out </router-link>
           </v-btn>
           <v-btn v-if="loggedIn === true">
@@ -107,6 +107,7 @@ const fetch = () => {
 const logOut = () => {
   Cookies.remove("connectionToken", { path: "/" });
   loggedIn.value = false;
+  location.reload();
 };
 fetch();
 </script>

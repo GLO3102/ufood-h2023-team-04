@@ -19,16 +19,29 @@
 import { ref } from "vue";
 import { getUsers } from "@/composable/UseRestaurant";
 import ResultOfUserSearch from "@/components/home/ResultOfUserSearch.vue";
+import Cookies from "js.cookie";
 const listeOfAllUsers = ref(null);
 const searchValue = ref(null);
 const filteredList = ref(null);
 const searchMode = ref(false);
 async function fetch() {
-  listeOfAllUsers.value = (await getUsers()).items;
+  if (checkIfConnected()) {
+    listeOfAllUsers.value = (await getUsers()).items;
+  }
 }
 
 function clear() {
   searchMode.value = false;
+}
+
+function checkIfConnected() {
+  try {
+    const tokenId = Cookies.get("connectionToken");
+    if (tokenId === null) return false;
+  } catch {
+    return false;
+  }
+  return true;
 }
 
 function filter(input) {

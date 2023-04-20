@@ -32,6 +32,7 @@ import {
 import { ref, computed, watch } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
+import UserSearch from "@/components/home/UserSearch.vue";
 
 const json = ref(null);
 const isloaded = ref(false);
@@ -68,6 +69,7 @@ watch(resoFiltered, () => {
 const displayedRestaurants = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
   const end = start + itemsPerPage;
+  console.log(resoFiltered.value);
   return resoFiltered.value.slice(start, end);
 });
 

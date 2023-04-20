@@ -133,3 +133,17 @@ export const logIn = async function (email, password) {
     console.log("erreur :" + err.message);
   }
 };
+export async function getUsers() {
+  const token = Cookies.get("connectionToken");
+  console.log(token);
+  const res = await fetch("https://ufoodapi.herokuapp.com/users", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: token.token,
+    },
+  });
+
+  const response = await res.json();
+  return response;
+}

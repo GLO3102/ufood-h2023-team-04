@@ -43,7 +43,7 @@ import {
   getRestaurants,
   getVisitedRestaurentsByUser,
 } from "@/composables/UseRestaurant";
-import { ref, computed, watch, toRaw } from "vue";
+import { ref, computed, watch, toRaw, nextTick } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
 import HomeGoogleMap from "../components/home/HomeGoogleMap.vue";
@@ -88,8 +88,16 @@ const restaurantsFiltered = (filteredRestaurants) => {
   currentPage.value = 1;
 };
 
-watch(resoFiltered, () => {
+watch(resoFiltered, async () => {
   currentPage.value = 1;
+  if(!showMap.value){
+    // Disable the map
+    showMap.value = !showMap.value;
+    // Wait 1 tick
+    await nextTick();
+    // Turns the map back on
+    showMap.value = !showMap.value;
+  }
 });
 
 const displayedRestaurants = computed(() => {

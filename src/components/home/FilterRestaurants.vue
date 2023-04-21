@@ -19,11 +19,13 @@
         </v-btn>
       </v-card-item>
       <v-card-item v-show="expanded">
-        <v-text-field
-          type="text"
-          placeholder="Restaurant's name"
+        <v-autocomplete
           v-model="searchValue"
-        />
+          :items="getAllRestaurantNames(restaurants)"
+          label="Restaurant's name"
+          placeholder="Search for a restaurant"
+          @change="filteredRestaurants"
+        ></v-autocomplete>
         <v-select
           label="Chosen genre"
           v-model="genreValue"
@@ -106,6 +108,13 @@ const getMaxPrice = function (restaurants) {
     }
   });
   return maxPrice;
+};
+const getAllRestaurantNames = function (restaurants) {
+  let restaurantNames = [];
+  restaurants.forEach((restaurant) => {
+    restaurantNames.push(restaurant.name);
+  });
+  return restaurantNames;
 };
 
 const filter = function (restaurants) {

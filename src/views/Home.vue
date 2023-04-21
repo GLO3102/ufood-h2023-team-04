@@ -7,25 +7,23 @@
       class="mt-10"
     />
     <div style="display: flex; justify-content: center; align-items: center">
-      <button
+      <v-button
         class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-elevated bg-white-accent-1 m-10"
-        @click="showMap = !showMap"
+        @click="toggleMap"
       >
         <span class="v-btn__overlay"></span>
         <span class="v-btn__underlay"></span>
         <span class="v-btn__content">Toggle Map</span>
-      </button>
+      </v-button>
     </div>
-    <div>
-      <HomeGoogleMap :restaurants="resoFiltered" v-if="!showMap" />
-    </div>
+    <HomeGoogleMap :restaurants="resoFiltered" v-if="showMap" />
     <Restaurants
       :restaurants="displayedRestaurants"
       :VisitedRestaurant="visitedRestoFormate"
-      v-if="isloaded"
+      v-if="!showMap"
     />
     <Pagination
-      v-if="isloaded"
+      v-if="!showMap"
       :items="resoFiltered"
       :num-pages="numPages"
       :current-page="currentPage"
@@ -43,12 +41,12 @@ import {
   getRestaurants,
   getVisitedRestaurentsByUser,
 } from "@/composables/UseRestaurant";
-import { ref, computed, watch, toRaw } from "vue";
+import { ref, computed, watch, toRaw, nextTick } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
 import HomeGoogleMap from "../components/home/HomeGoogleMap.vue";
 
-const showMap = ref(true);
+const showMap = ref(false);
 const json = ref(null);
 const isloaded = ref(false);
 const resoFiltered = ref(null);
@@ -57,7 +55,7 @@ const currentPage = ref(1);
 const numPages = ref(1);
 let idsOfVisitedResto = ref(null);
 let visitedRestoFormate = ref(null);
-const markers = ref([]);
+const locations = ref([]);
 
 const fetchData = async () => {
   const data = await getRestaurants();
@@ -88,8 +86,17 @@ const restaurantsFiltered = (filteredRestaurants) => {
   currentPage.value = 1;
 };
 
-watch(resoFiltered, () => {
+const toggleMap = () => {
+  showMap.value = !showMap.value;
+};
+
+watch(resoFiltered, async () => {
   currentPage.value = 1;
+  if(!showMap.value){
+    showMap.value = !showMap.value;
+    await nextTick();
+    showMap.value = !showMap.value;
+  }
 });
 
 const displayedRestaurants = computed(() => {

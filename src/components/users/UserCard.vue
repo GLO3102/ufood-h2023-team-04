@@ -16,7 +16,7 @@
               class="ma-2"
               color="black"
               icon="mdi-account-plus-outline"
-              @click="handleFollowUser(id.id)"
+              @click="handleFollowUser(token, id.id)"
             ></v-btn>
           </template>
         </v-toolbar>
@@ -57,9 +57,11 @@ const props = defineProps({
 
 const visits = ref([]);
 const token = Cookies.get("connectionToken");
+console.log(token);
 
-const handleFollowUser = async (id) => {
-  await followUser(id);
+const handleFollowUser = async (token, id) => {
+  await followUser(token.token, id);
+  console.log(token.token);
   console.log(id);
   //Doit vérifier cette ligne
   //userInfos.value = userInfos.value.filter((userInfo) => userInfo.id !== id);

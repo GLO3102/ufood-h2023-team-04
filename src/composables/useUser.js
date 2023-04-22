@@ -137,14 +137,15 @@ export const deleteFollower = async (ID) => {
 };
 
 //* Va falloir tester quand je vais avoir le token
-export const followUser = async (userFollowID) => {
+export const followUser = async (token, userFollowID) => {
   try {
-    const req = new Request(`${ENDPOINT}/follow/`, {
+    const req = new Request(`${ENDPOINT_SECURE}/follow`, {
       method: "POST",
       headers: {
-        authorization: "${TOKEN}",
-        body: JSON.stringify({ id: "userFollowID" }),
+        "Content-Type": "application/json",
+        Authorization: token,
       },
+      body: { id: userFollowID },
     });
     await fetch(req);
   } catch {

@@ -40,7 +40,6 @@ const getInfos = async () => {
 
 const handleDeleteFollower = async (id) => {
   await deleteFollower(token.token, id);
-  console.log(id);
   userInfos.value = userInfos.value.filter((userInfo) => userInfo.id !== id);
 };
 getInfos();

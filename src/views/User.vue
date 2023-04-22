@@ -149,18 +149,14 @@ export default {
   },
   async created() {
     const token = Cookies.get("connectionToken");
-    //console.log(token.id);
     this.user = await getUserInfo(token.id);
-    console.log(this.user);
 
     //Valide si visitedRestaurantData est undefined
     const visitedRestaurantData = await getVisitedRestaurant(token.id);
-    //console.log(visitedRestaurantData);
+
     if (visitedRestaurantData && visitedRestaurantData.total) {
       state.score = visitedRestaurantData.total;
     }
-    /* this.score = await getVisitedRestaurant(token.id);
-    console.log(this.score); */
   },
 
   //state.user = await getUserInfo(props.currentUserID);

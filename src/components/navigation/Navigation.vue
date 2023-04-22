@@ -97,7 +97,6 @@ const fetch = () => {
   } catch (e) {
     loggedIn.value = false;
   }
-  console.log(token);
   if (token !== null) {
     loggedIn.value = true;
   } else {

@@ -17,7 +17,6 @@ export const getVisitedRestaurant = async (userID) => {
 export const getUserInfo = async (userID) => {
   try {
     const token = Cookies.get("connectionToken");
-    console.log(token.token);
     const response = await fetch(`${ENDPOINT_SECURE}/users/${userID}`, {
       method: "GET",
       headers: {
@@ -124,7 +123,6 @@ export const deleteFollower = async (token, userUnfollowID) => {
         Authorization: token,
       },
     });
-    console.log(ID);
     await fetch(req);
   } catch (error) {
     console.error("Ne supprime pas le follower");

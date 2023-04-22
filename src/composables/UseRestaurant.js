@@ -1,140 +1,156 @@
-import { ENDPOINT } from "@/composables/API_ENDPOINT";
-import { id } from "vuetify/locale";
+import Cookies from "js.cookie";
+import { ENDPOINT_SECURE } from "./API_ENDPOINT";
 
 const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
+const API_ENDPOINT_SECURE = "https://ufoodapi.herokuapp.com/";
 const User = "604cc220ef6fa10004dc0179";
 
+let email = "";
+let password = "";
+let response = "";
+let token = "";
+let idUser = "";
+
 export const getRestaurant = async function (id) {
-  try {
-    const req = new Request(`${API_ENDPOINT}/restaurants/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const res = await fetch(req);
-    if (!res.ok) throw new Error("Failed to fetch restaurant data");
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+  const req = new Request(`${API_ENDPOINT}/restaurants/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const res = await fetch(req);
+  return res.json();
 };
 
 export const getRestaurants = async function () {
-  try {
-    const req = new Request(`${API_ENDPOINT}/restaurants?limit=1000`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const res = await fetch(req);
-    if (!res.ok) throw new Error("Failed to fetch restaurants data");
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+  const req = new Request(`${API_ENDPOINT}/restaurants?limit=1000`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const res = await fetch(req);
+  return res.json();
 };
 
 export const postReview = async function (comment, rating, date, restaurantId) {
-  if (!rating) {
-    console.error("Select a rating");
-    window.alert("Rating cannot be empty");
-    return null;
-  }
+  const token = Cookies.get("ConnectionToken");
+  const req = new Request(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      restaurant_id: restaurantId,
+      comment: comment,
+      rating: rating,
+      date: date,
+    }),
+  });
 
-  try {
-    const req = new Request(
-      `${API_ENDPOINT}/users/${User}/restaurants/visits`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          restaurant_id: restaurantId,
-          comment: comment,
-          rating: rating,
-          date: date,
-        }),
-      }
-    );
-
-    const res = await fetch(req);
-    if (!res.ok) throw new Error("Failed to post review");
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return null;
+  const res = await fetch(req);
+  if (!res.ok) {
+    window.alert("get gud scrub!");
   }
+  console.log("SUCCESS!");
+  return res.json();
 };
 
 export const getVisitedRestaurentsByUser = async function () {
-  try {
-    const res = await fetch(
-      `${API_ENDPOINT}/users/${User}/restaurants/visits`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const token = Cookies.get("connectionToken");
+  const res = await fetch(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
 
-    if (!res.ok) throw new Error("Failed to fetch visited restaurants data");
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+  return res.json();
 };
 
 export const getUserFavorites = async function (id) {
-  try {
-    const req = new Request(`${API_ENDPOINT}/users/${id}/favorites`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const res = await fetch(req);
-    if (!res.ok) throw new Error("Failed to fetch user favorites data");
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+  const token = Cookies.get("connectionToken");
+  const req = new Request(`${API_ENDPOINT_SECURE}users/${id}/favorites`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: token.token,
+    },
+  });
+  const res = await fetch(req);
+  return res.json();
 };
 
 export const addToFavorites = async (listID, restoID) => {
   try {
-    const request = new Request(`${ENDPOINT}/favorites/${listID}/restaurants`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: restoID }),
-    });
+    // const token = Cookies.get("ConnectionToken");
+    // console.log("token =" + token);
+    const request = new Request(
+      `${API_ENDPOINT_SECURE}/favorites/${listID}/restaurants`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: token,
+        },
+        body: JSON.stringify({ id: restoID }),
+      }
+    );
     await fetch(request);
   } catch (error) {
     console.error(error);
   }
 };
 export const getListefavori = async function (idListe) {
+  const req = new Request(`${API_ENDPOINT}/favorites/${idListe}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      // Authorization: token,
+    },
+  });
+  const res = await fetch(req);
+  return res.json();
+};
+
+export const logIn = async function (email, password) {
   try {
-    const req = new Request(`${API_ENDPOINT}/favorites/${idListe}`, {
-      method: "GET",
+    const res = await fetch("https://ufoodapi.herokuapp.com/login", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ email: email, password: password }),
     });
-    const res = await fetch(req);
-    if (!res.ok) throw new Error("Failed to fetch favorite list data");
-    return res.json();
+    const response = await res.json();
+    const token = { token: response.token, id: response.id };
+    Cookies.set("connectionToken", token);
+  } catch (err) {
+    console.log("erreur :" + err.message);
+  }
+};
+
+export const getRestaurantsNameByID = async (token, restoId) => {
+  try {
+    if (restoId.length !== 24) {
+      throw new Error("Invalid restaurant ID length. Must be 6 characters.");
+    } else {
+      const response = await fetch(
+        `${ENDPOINT_SECURE}/restaurants/${restoId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      const data = await response.json();
+      return data.name;
+    }
   } catch (error) {
-    console.error(error);
-    return null;
+    console.error("Erreur recherche visit, restoID invalide:", restoId);
+    return [];
   }
 };

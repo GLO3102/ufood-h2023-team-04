@@ -6,6 +6,19 @@
       :restaurants="json"
       class="mt-10"
     />
+    <div style="display: flex; justify-content: center; align-items: center">
+      <button
+        class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-elevated bg-white-accent-1 m-10"
+        @click="showMap = !showMap"
+      >
+        <span class="v-btn__overlay"></span>
+        <span class="v-btn__underlay"></span>
+        <span class="v-btn__content">Toggle Map</span>
+      </button>
+    </div>
+    <div v-if="!showMap">
+      <HomeGoogleMap v-if="isloaded" />
+    </div>
     <Restaurants
       :restaurants="displayedRestaurants"
       :VisitedRestaurant="visitedRestoFormate"
@@ -23,16 +36,18 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import Restaurants from "@/components/home/Restaurants.vue";
 import {
   getRestaurant,
   getRestaurants,
-  getVisitedRestaurentsByUser,
+  getVisitedRestaurentsByUser
 } from "@/composables/UseRestaurant";
 import { ref, computed, watch } from "vue";
 import FilterRestaurants from "@/components/home/FilterRestaurants.vue";
 import Pagination from "@/components/home/Pagination.vue";
-
+import HomeGoogleMap from "../components/home/HomeGoogleMap.vue";
+const showMap = ref(true);
 const json = ref(null);
 const isloaded = ref(false);
 const resoFiltered = ref(null);
@@ -41,40 +56,34 @@ const currentPage = ref(1);
 const numPages = ref(1);
 let idsOfVisitedResto = ref(null);
 let visitedRestoFormate = ref(null);
+const mapVisible = computed(() => !showMap.value);
 const fetchData = async () => {
   const data = await getRestaurants();
   json.value = data.items;
   isloaded.value = true;
   resoFiltered.value = json.value;
   numPages.value = Math.ceil(json.value.length / itemsPerPage);
-
   const info = await getVisitedRestaurentsByUser();
   idsOfVisitedResto.value = info.items;
   visitedRestoFormate.value = await formatRestaurents(idsOfVisitedResto.value);
   checkVisitedResto(resoFiltered.value);
 };
-
 const emits = defineEmits(["update:currentPage"]);
-
 const restaurantsFiltered = (filteredRestaurants) => {
   resoFiltered.value = filteredRestaurants;
   currentPage.value = 1;
 };
-
 watch(resoFiltered, () => {
   currentPage.value = 1;
 });
-
 const displayedRestaurants = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
   const end = start + itemsPerPage;
   return resoFiltered.value.slice(start, end);
 });
-
 const changePage = (page) => {
   currentPage.value = page;
 };
-
 const checkVisitedResto = function (AllRestos) {
   for (const restaurant of AllRestos) {
     for (const element of visitedRestoFormate.value) {
@@ -84,13 +93,11 @@ const checkVisitedResto = function (AllRestos) {
     }
   }
 };
-
 const nextPage = () => {
   if (currentPage.value < numPages.value) {
     currentPage.value = currentPage.value + 1;
   }
 };
-
 const formatRestaurents = async function (visitedResto) {
   const listeDeRestoFormate = [];
   for (const element of visitedResto) {
@@ -98,13 +105,11 @@ const formatRestaurents = async function (visitedResto) {
   }
   return listeDeRestoFormate;
 };
-
 const previousPage = () => {
   if (currentPage.value > 1) {
     currentPage.value = currentPage.value - 1;
   }
 };
-
 fetchData();
 </script>
 

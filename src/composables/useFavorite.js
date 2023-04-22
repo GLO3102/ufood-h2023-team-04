@@ -64,11 +64,6 @@ export const deleteList = async (id) => {
 };
 
 export const postAddRestoInList = async (listID, restoID) => {
-  if (!restoID) {
-    console.error("Select a restaurant");
-    window.alert("Restaurant cannot be empty");
-    return null;
-  }
   try {
     const request = new Request(`${ENDPOINT}/favorites/${listID}/restaurants`, {
       method: "POST",

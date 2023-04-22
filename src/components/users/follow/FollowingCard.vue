@@ -35,9 +35,7 @@ const userInfos = ref([]);
 const token = Cookies.get("connectionToken");
 
 const getInfos = async () => {
-  console.log(token.id);
   userInfos.value = await getUserInfoFollowing(token.token, token.id);
-  console.log(userInfos.value);
 };
 
 const handleDeleteFollower = async (id) => {

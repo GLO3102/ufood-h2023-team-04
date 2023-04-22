@@ -81,9 +81,15 @@ export const getUserFavoriteLists = async (userID) => {
   }
 };
 
-export const getUserInfoFollowers = async (userID) => {
+export const getUserInfoFollowers = async (token, userID) => {
   try {
-    const response = await fetch(`${ENDPOINT_SECURE}/users/${userID}`);
+    const response = await fetch(`${ENDPOINT_SECURE}/users/${userID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
     const data = await response.json();
     return data.followers;
   } catch (error) {

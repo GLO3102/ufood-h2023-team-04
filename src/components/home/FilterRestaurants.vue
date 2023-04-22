@@ -134,6 +134,7 @@ const filter = function (restaurants) {
       (restaurant) => restaurant.price_range <= priceValue.value
     );
   }
+  emit("filtering", filtered);
   return filtered;
 };
 </script>

@@ -92,14 +92,13 @@ export const getUserInfoFollowers = async (userID) => {
   }
 };
 
-export const getUserInfoFollowing = async (userID) => {
+export const getUserInfoFollowing = async (token, userID) => {
   try {
-    const token = Cookies.get("connectionToken");
     const response = await fetch(`${ENDPOINT_SECURE}/users/${userID}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token.token,
+        Authorization: token,
       },
     });
     const data = await response.json();
@@ -110,23 +109,13 @@ export const getUserInfoFollowing = async (userID) => {
   }
 };
 
-/* const token = Cookies.get("connectionToken");
-    console.log(token.token);
-    const response = await fetch(`${ENDPOINT_SECURE}/users/${userID}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token.token,
-      },
-    });
- */
-//* Va falloir tester quand je vais avoir le token
-export const deleteFollower = async (ID) => {
+export const deleteFollower = async (token, userUnfollowID) => {
   try {
-    const req = new Request(`${ENDPOINT}/follow/${ID}`, {
+    const req = new Request(`${ENDPOINT_SECURE}/follow/${userUnfollowID}`, {
       method: "DELETE",
       headers: {
-        authorization: "${TOKEN}",
+        "Content-Type": "application/json",
+        Authorization: token,
       },
     });
     console.log(ID);
@@ -136,7 +125,6 @@ export const deleteFollower = async (ID) => {
   }
 };
 
-//* Va falloir tester quand je vais avoir le token
 export const followUser = async (token, userFollowID) => {
   try {
     const req = new Request(`${ENDPOINT_SECURE}/follow`, {
@@ -145,7 +133,7 @@ export const followUser = async (token, userFollowID) => {
         "Content-Type": "application/json",
         Authorization: token,
       },
-      body: { id: userFollowID },
+      body: JSON.stringify({ id: userFollowID }),
     });
     await fetch(req);
   } catch {

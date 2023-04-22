@@ -36,12 +36,12 @@ const token = Cookies.get("connectionToken");
 
 const getInfos = async () => {
   console.log(token.id);
-  userInfos.value = await getUserInfoFollowing(token.id);
+  userInfos.value = await getUserInfoFollowing(token.token, token.id);
   console.log(userInfos.value);
 };
 
 const handleDeleteFollower = async (id) => {
-  await deleteFollower(id);
+  await deleteFollower(token.token, id);
   console.log(id);
   userInfos.value = userInfos.value.filter((userInfo) => userInfo.id !== id);
 };

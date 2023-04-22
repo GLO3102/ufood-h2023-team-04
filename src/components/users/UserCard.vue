@@ -61,8 +61,6 @@ console.log(token);
 
 const handleFollowUser = async (token, id) => {
   await followUser(token.token, id);
-  console.log(token.token);
-  console.log(id);
   //Doit vérifier cette ligne
   //userInfos.value = userInfos.value.filter((userInfo) => userInfo.id !== id);
 };

@@ -22,6 +22,9 @@ const restoId = ref(null);
 const route = useRoute();
 
 const fetchData = async () => {
+  if (route.params.id === undefined) {
+    return;
+  }
   const data = await getRestaurant(route.params.id);
   opening_hours.value = data.opening_hours;
   pictures.value = data.pictures;

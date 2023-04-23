@@ -34,7 +34,7 @@ export const getRestaurants = async function () {
 };
 
 export const postReview = async function (comment, rating, date, restaurantId) {
-  const token = Cookies.get("ConnectionToken");
+  const token = Cookies.get("connectionToken");
   const req = new Request(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
     method: "POST",
     headers: {
@@ -84,7 +84,7 @@ export const getUserFavorites = async function (id) {
 
 export const addToFavorites = async (listID, restoID) => {
   try {
-    // const token = Cookies.get("ConnectionToken");
+    // const token = Cookies.get("connectionToken");
     // console.log("token =" + token);
     const request = new Request(
       `${API_ENDPOINT_SECURE}/favorites/${listID}/restaurants`,

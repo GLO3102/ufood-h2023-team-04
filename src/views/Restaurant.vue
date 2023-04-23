@@ -7,6 +7,9 @@ import { getRestaurant } from "@/composables/UseRestaurant";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import AddToFavorite from "@/components/restaurant/AddToFavorite.vue";
+import Suggestions from "@/components/restaurant/Suggestions.vue";
+import { getAllRestaurants } from "@/composables/useRestaurantsForUser";
+import { getRestaurants } from "@/composable/UseRestaurant";
 
 const opening_hours = ref(null);
 const pictures = ref();
@@ -20,6 +23,8 @@ let isLoaded = ref(false);
 const restoId = ref(null);
 
 const route = useRoute();
+const listeAllRestos = ref(null);
+const listeRestoFiltered = ref(null);
 
 const fetchData = async () => {
   const data = await getRestaurant(route.params.id);
@@ -32,6 +37,23 @@ const fetchData = async () => {
   rating.value = data.rating;
   genres.value = data.genres;
   isLoaded.value = true;
+  const allRestos = (await getRestaurants()).items;
+  listeRestoFiltered.value = filter(allRestos);
+};
+
+const filter = function (restaurants) {
+  let filtered;
+  if (genres.value !== "any") {
+    filtered = restaurants.filter((restaurant) =>
+      restaurant.genres.includes(genres.value)
+    );
+  }
+  if (price_range.value !== 0) {
+    filtered = restaurants.filter(
+      (restaurant) => restaurant.price_range === price_range.value
+    );
+  }
+  return filtered;
 };
 
 fetchData();
@@ -58,6 +80,7 @@ fetchData();
         />
         <GoogleMap v-if="isLoaded" :address="address" class="mt-10" />
         <AddToFavorite v-if="isLoaded" class="mt-10 mb-5"></AddToFavorite>
+        <Suggestions :filtered-resto="listeRestoFiltered"></Suggestions>
       </v-col>
     </v-row>
   </v-container>

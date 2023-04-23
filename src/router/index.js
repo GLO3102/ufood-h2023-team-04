@@ -7,6 +7,9 @@ import Connexion from "@/views/Connexion.vue";
 
 const routes = [
   {
+    path: "/login/google",
+  },
+  {
     path: "/",
     name: "Home",
     component: Home,

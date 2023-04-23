@@ -11,6 +11,7 @@
         <tr v-for="(user, index) in listeOfAllUsers" :key="index">
           <td>{{ user.name }}</td>
           <td>{{ user.rating }}</td>
+          <td><href> Go to profile </href></td>
         </tr>
       </tbody>
     </v-table>

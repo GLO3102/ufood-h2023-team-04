@@ -117,6 +117,7 @@ export const getListefavori = async function (idListe) {
 };
 
 export const logIn = async function (email, password) {
+  debugger;
   try {
     const res = await fetch("https://ufoodapi.herokuapp.com/login", {
       method: "POST",

@@ -31,6 +31,7 @@ async function fetch() {
 }
 
 function clear() {
+  searchValue.value = "";
   searchMode.value = false;
 }
 

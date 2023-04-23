@@ -4,14 +4,12 @@
       <v-toolbar :elevation="0" color="white">
         <v-toolbar-title>RestoCheker</v-toolbar-title>
         <v-toolbar-items class="hidden-xs-only"
-          ><v-btn>
-            <router-link :to="'/'">Home</router-link>
-          </v-btn>
-          <v-btn v-if="loggedIn === false"
+          ><v-btn @click="goHome"> home </v-btn>
+          <v-btn @click="goToSignIn()" v-if="loggedIn === false"
             ><router-link :to="'/register'">Sign In</router-link></v-btn
           >
           <v-btn @click="logOut()" v-if="loggedIn === true"
-            ><router-link :to="'/'">log out </router-link>
+            ><router-link :to="'/connexion'">log out </router-link>
           </v-btn>
           <v-btn v-if="loggedIn === true">
             <router-link
@@ -24,7 +22,7 @@
             </router-link>
           </v-btn>
           <v-btn v-if="loggedIn === false"
-            ><router-link :to="'/connexion'">Register</router-link></v-btn
+            ><router-link :to="'/connexion'">log In</router-link></v-btn
           >
         </v-toolbar-items>
       </v-toolbar>
@@ -46,7 +44,7 @@
               >
               <v-list-item-title>
                 <v-layout v-if="loggedIn === false"
-                  ><router-link :to="'/register'"
+                  ><router-link :to="'/connexion'"
                     >Sign In</router-link
                   ></v-layout
                 ></v-list-item-title
@@ -72,7 +70,7 @@
               <v-list-item-title>
                 <v-layout v-if="loggedIn === false"
                   ><router-link :to="'/connexion'"
-                    >Register</router-link
+                    >Log In</router-link
                   ></v-layout
                 ></v-list-item-title
               >
@@ -87,6 +85,9 @@
 import { ref } from "vue";
 import Cookies from "js.cookie";
 import { el } from "vuetify/locale";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 let loggedIn = ref(false);
 let searchIsOpen = ref(false);
@@ -103,12 +104,25 @@ const fetch = () => {
     loggedIn.value = false;
   }
 };
-
-const logOut = () => {
-  Cookies.remove("connectionToken", { path: "/" });
-  loggedIn.value = false;
-  location.reload();
+function goToSignIn() {
+  router.push("/register");
+}
+const logOut = async () => {
+  try {
+    Cookies.remove("connectionToken", { path: "/" });
+    const res = await fetch("https://ufoodapi.herokuapp.com/logout", {
+      method: "POST",
+    });
+    loggedIn.value = false;
+    await router.push("/connexion");
+  } catch (e) {
+    console.log(e.message);
+  }
 };
+
+function goHome() {
+  router.push("/");
+}
 fetch();
 </script>
 

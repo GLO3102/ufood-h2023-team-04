@@ -61,7 +61,7 @@ const token = Cookies.get("connectionToken");
 const handleFollowUser = async (token, id) => {
   await followUser(token.token, id);
   //Doit vérifier cette ligne
-  userInfos.value = userInfos.value.filter((userInfo) => userInfo.id !== id);
+  //userInfos.value = userInfos.value.filter((userInfo) => userInfo.id !== id);
 };
 
 const getVisits = async (token, id) => {

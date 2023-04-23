@@ -8,6 +8,7 @@ import { ref, nextTick, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import AddToFavorite from "@/components/restaurant/AddToFavorite.vue";
 import RestaurantSuggestion from "../components/restaurant/RestaurantSuggestion.vue";
+import Loading from "../components/navigation/Loading.vue";
 
 const opening_hours = ref(null);
 const pictures = ref();
@@ -53,6 +54,7 @@ fetchData();
 
 <template>
   <v-container class="justify-center mt-2">
+    <Loading :is-loading="!isLoaded"></Loading>
     <v-row>
       <v-col>
         <RestaurantInformations

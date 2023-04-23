@@ -1,41 +1,45 @@
 <template>
-  <div v-if="isloaded">
-    <FilterRestaurants
-      @filtering="restaurantsFiltered"
-      v-if="isloaded"
-      :restaurants="json"
-      class="mt-10"
-    />
-    <div style="display: flex; justify-content: center; align-items: center">
-      <v-btn
-        class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-elevated bg-white-accent-1 m-10"
-        @click="toggleMap"
-      >
-        <span class="v-btn__overlay"></span>
-        <span class="v-btn__underlay"></span>
-        <span class="v-btn__content">Toggle Map</span>
-      </v-btn>
+  <div>
+    <Loading :is-loading="!isloaded" />
+    <div v-if="isloaded">
+      <FilterRestaurants
+        @filtering="restaurantsFiltered"
+        v-if="isloaded"
+        :restaurants="json"
+        class="mt-10"
+      />
+      <div style="display: flex; justify-content: center; align-items: center">
+        <v-btn
+          class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-elevated bg-white-accent-1 m-10"
+          @click="toggleMap"
+        >
+          <span class="v-btn__overlay"></span>
+          <span class="v-btn__underlay"></span>
+          <span class="v-btn__content">Toggle Map</span>
+        </v-btn>
+      </div>
+      <HomeGoogleMap :restaurants="resoFiltered" v-if="showMap" />
+      <Restaurants
+        :restaurants="displayedRestaurants"
+        :VisitedRestaurant="visitedRestoFormate"
+        v-if="!showMap"
+      />
+      <Pagination
+        v-if="!showMap"
+        :items="resoFiltered"
+        :num-pages="numPages"
+        :current-page="currentPage"
+        :on-update-current-page="(page) => (currentPage = page)"
+        @update:currentPage="changePage"
+      />
     </div>
-    <HomeGoogleMap :restaurants="resoFiltered" v-if="showMap" />
-    <Restaurants
-      :restaurants="displayedRestaurants"
-      :VisitedRestaurant="visitedRestoFormate"
-      v-if="!showMap"
-    />
-    <Pagination
-      v-if="!showMap"
-      :items="resoFiltered"
-      :num-pages="numPages"
-      :current-page="currentPage"
-      :on-update-current-page="(page) => (currentPage = page)"
-      @update:currentPage="changePage"
-    />
   </div>
 </template>
 
 <script setup>
 /* eslint-disable */
 import Restaurants from "@/components/home/Restaurants.vue";
+import Loading from "../components/navigation/Loading.vue";
 import {
   getRestaurant,
   getRestaurants,

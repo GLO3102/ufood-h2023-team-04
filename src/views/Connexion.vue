@@ -8,6 +8,7 @@ import {
   passwordRules,
   validateRuleSet,
 } from "@/composables/formRules.js";
+import FacebookLogin from "@/components/navigation/FacebookLogin";
 
 const email = ref(null);
 const password = ref(null);

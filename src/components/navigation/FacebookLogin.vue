@@ -44,7 +44,7 @@ const props = defineProps({
   <div>
     <fb:login-button
       scope="public_profile,email"
-      onlogin="checkLoginState()"
+      @click="checkLoginState()"
     ></fb:login-button>
   </div>
 </template>

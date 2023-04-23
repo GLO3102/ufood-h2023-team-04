@@ -36,6 +36,7 @@ onMounted(async () => {
       const id = restos.id;
       const rating = restos.rating.toFixed(1);
       const priceRange = restos.price_range;
+      const genreList = restos.genres;
       locations.push([
         coordinates,
         names,
@@ -44,6 +45,7 @@ onMounted(async () => {
         id,
         rating,
         priceRange,
+        genreList,
       ]);
     }
   };
@@ -76,7 +78,7 @@ onMounted(async () => {
         marker.addListener("mouseover", () => {
           if (!isOpen) {
             infoWindow.setContent(
-              `<div class="infowindow-content" style="min-width : 400px;"><div class="infowindow-img" style="max-width :250px;"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p><p>Rating: ${location[5]}/5</p><p>Price :${location[6]}</p><div><button id="button" class="go-to-resto-button">Go to Page</button></div></div></div>`
+              `<div class="infowindow-content" style="min-width : 400px;"><div class="infowindow-img" style="max-width :250px;"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p><p><b>Rating : </b> ${location[5]}/5</p><p><b>Price : </b>${location[6]}</p><p><b>Genres : </b>${location[7]}</p><div><button id="button" class="go-to-resto-button">Go to Page</button></div></div></div>`
             );
             infoWindow.open(map, marker);
           }
@@ -127,6 +129,7 @@ onMounted(async () => {
 .infowindow-text {
   width: 90%;
   flex-grow: 1;
+  font-size: 15px;
 }
 
 .infowindow-text h2 {
@@ -136,6 +139,7 @@ onMounted(async () => {
 
 .infowindow-text p {
   margin: 0;
+  margin-top: 5px;
 }
 
 .go-to-resto-button {

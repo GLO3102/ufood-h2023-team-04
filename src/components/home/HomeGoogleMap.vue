@@ -44,7 +44,7 @@ onMounted(async () => {
         zoom: 11,
         center: userLocation.value,
       });
-      console.log(userLocation); // This will log the user's current latitude and longitude
+      console.log(userLocation);
       const markers = [];
       locations.forEach((location, i) => {
         const marker = new google.maps.Marker({
@@ -53,11 +53,30 @@ onMounted(async () => {
           map: map,
         });
         markers.push(marker);
+        const infoWindow = new google.maps.InfoWindow();
+        let isOpen = false;
+        marker.addListener("mouseover", () => {
+          if (!isOpen) {
+            infoWindow.setContent(
+              `<div class="infowindow-content" style="min-width : 400px;"><div class="infowindow-img" style="max-width :250px;"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`
+            );
+            infoWindow.open(map, marker);
+          }
+        });
+
+        marker.addListener("mouseout", () => {
+          if (!isOpen) {
+            infoWindow.close();
+          }
+        });
         marker.addListener("click", () => {
-          const infoWindow = new google.maps.InfoWindow({
-            content: `<div class="infowindow-content"><div class="infowindow-img"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`,
-          });
-          infoWindow.open(map, marker);
+          if (isOpen) {
+            infoWindow.close();
+            isOpen = false;
+          } else {
+            infoWindow.open(map, marker);
+            isOpen = true;
+          }
         });
       });
     });

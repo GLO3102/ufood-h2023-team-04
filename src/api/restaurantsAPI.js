@@ -18,7 +18,6 @@ export const getRestaurantsNameByID = async (restoId) => {
       return data.name;
     }
   } catch (error) {
-    console.error("Erreur recherche visit, restoID invalide:", restoId);
     return [];
   }
 };

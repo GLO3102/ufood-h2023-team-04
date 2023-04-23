@@ -25,6 +25,7 @@ export const passwordRules = [
     "Password must contain at least one uppercase letter.",
   (value) =>
     (value && /\d/.test(value)) || "Password must contain at least one number.",
+  (value) => (value && !/\s/.test(value)) || "Password cannot contain spaces.",
 ];
 
 export const validateRuleSet = (value, ruleSet) => {

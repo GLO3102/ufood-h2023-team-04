@@ -43,7 +43,7 @@
           <v-card flat>
             <v-card-text>
               <p>
-                <FollowersCard :token="token"></FollowersCard>
+                <FollowersCard></FollowersCard>
               </p>
             </v-card-text>
           </v-card>
@@ -52,7 +52,7 @@
           <v-card flat>
             <v-card-text>
               <p>
-                <FollowingCard :token="token"></FollowingCard>
+                <FollowingCard></FollowingCard>
               </p>
             </v-card-text>
           </v-card>
@@ -69,7 +69,7 @@
         <v-window-item value="option-5">
           <v-card flat>
             <v-card-text>
-              <p><UsersList :token="token"></UsersList></p>
+              <p><UsersList></UsersList></p>
             </v-card-text>
           </v-card>
         </v-window-item>
@@ -96,11 +96,6 @@ export default {
     FollowersCard,
     FollowingCard,
     UsersList,
-  },
-  props: {
-    token: {
-      type: Object,
-    },
   },
   setup(props) {
     const state = reactive({
@@ -136,10 +131,15 @@ export default {
       },
     ];
 
-    /*  onMounted(async () => {
-      state.user = await getUserInfo(props.currentUserID);
-      state.score = (await getVisitedRestaurant(props.currentUserID)).total;
-    }); */
+    onMounted(async () => {
+      const token = Cookies.get("connectionToken");
+      state.user = await getUserInfo(token.id);
+
+      const visitedRestaurantData = await getVisitedRestaurant(token.id);
+      if (visitedRestaurantData && visitedRestaurantData.total) {
+        state.score = visitedRestaurantData.total;
+      }
+    });
 
     return {
       ...toRefs(state),
@@ -147,19 +147,5 @@ export default {
       options,
     };
   },
-  async created() {
-    const token = Cookies.get("connectionToken");
-    this.user = await getUserInfo(token.id);
-
-    //Valide si visitedRestaurantData est undefined
-    const visitedRestaurantData = await getVisitedRestaurant(token.id);
-
-    if (visitedRestaurantData && visitedRestaurantData.total) {
-      state.score = visitedRestaurantData.total;
-    }
-  },
-
-  //state.user = await getUserInfo(props.currentUserID);
-  //state.score = (await getVisitedRestaurant(props.currentUserID)).total;
 };
 </script>

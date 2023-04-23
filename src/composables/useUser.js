@@ -52,7 +52,6 @@ export const getAllUsersInfo = async (token) => {
     const data = await response.json();
     return data.items;
   } catch (error) {
-    console.error("can't do SHIT", error);
     return [];
   }
 };
@@ -72,7 +71,6 @@ export const getUserVisits = async (token, userID) => {
     const data = await response.json();
     return data.items;
   } catch (error) {
-    console.error("Erreur recherche visit", error);
     return [];
   }
 };

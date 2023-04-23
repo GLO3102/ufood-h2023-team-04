@@ -32,7 +32,7 @@
             >
               <div class="mb-4">
                 <div class="font-weight-normal">
-                  <strong> {{ visit.name }} </strong>
+                  {{ visit.name }}
                 </div>
                 <div>{{ visit.comment }}</div>
               </div>
@@ -68,7 +68,7 @@ const getVisits = async (token, id) => {
   const response = await getUserVisits(token, id);
   visits.value = response.slice(0, 3);
   visits.value.forEach(async (visit) => {
-    const name = await getRestaurantsNameByID(token.token, visit.restaurant_id);
+    const name = await getRestaurantsNameByID(visit.restaurant_id);
     visit["name"] = name;
   });
 };

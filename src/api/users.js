@@ -1,4 +1,4 @@
-import { ENDPOINT, ENDPOINT_SECURE } from "../composables/API_ENDPOINT";
+import { ENDPOINT_SECURE } from "../composables/API_ENDPOINT";
 import { ID } from "../composables/API_ENDPOINT";
 import Cookies from "js.cookie";
 
@@ -59,7 +59,14 @@ export const getVisitedRestaurant = async (userID) => {
 
 export const getUserFavoriteLists = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${userID}/favorites`);
+    const token = Cookies.get("connectionToken").token;
+    const req = new Request(`${ENDPOINT_SECURE}/users/${userID}/favorites`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+      },
+    });
+    const response = await fetch(req);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -70,9 +77,17 @@ export const getUserFavoriteLists = async (userID) => {
 
 export const getVisitInformation = async (visitID) => {
   try {
-    const response = await fetch(
-      `${ENDPOINT}/users/${ID}/restaurants/visits/${visitID}`
+    const token = Cookies.get("connectionToken").token;
+    const req = new Request(
+      `${ENDPOINT_SECURE}/users/${ID}/restaurants/visits/${visitID}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      }
     );
+    const response = await fetch(req);
     const data = await response.json();
     return data.items;
   } catch (error) {

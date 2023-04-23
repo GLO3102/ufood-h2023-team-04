@@ -1,8 +1,6 @@
 import Cookies from "js.cookie";
 import { ENDPOINT_SECURE } from "./API_ENDPOINT";
 
-//const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
-
 let email = "";
 let password = "";
 let response = "";
@@ -124,7 +122,6 @@ export const getListefavori = async function (idListe) {
 };
 
 export const logIn = async function (email, password) {
-  let response;
   try {
     const formData = new URLSearchParams();
     formData.append("email", email);

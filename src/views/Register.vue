@@ -1,6 +1,9 @@
 <script setup>
 import { ref, reactive } from "vue";
 import { signUp } from "@/composables/useUserSession";
+import { logIn } from "@/composables/UseRestaurant";
+import Cookies from "js.cookie";
+import { router } from "@/router";
 import {
   passwordRules,
   nameRules,
@@ -36,6 +39,9 @@ const submit = async () => {
     alert.show = true;
     alert.type = "success";
     alert.message = "Successfully signed up!";
+    await logIn(email.value, password.value);
+    const user_id = Cookies.get("connectionToken").id;
+    router.push({ name: "User", params: { currentUserID: user_id } });
   } catch (error) {
     alert.show = true;
     alert.type = "error";

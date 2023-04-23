@@ -88,18 +88,22 @@ const logOut = () => {
 };
 
 const goToHome = () => {
+  fetch();
   router.push({ name: "Home" });
 };
 
 const goToSignIn = () => {
+  fetch();
   router.push({ name: "Connexion" });
 };
 
 const goToRegister = () => {
+  fetch();
   router.push({ name: "Register" });
 };
 
 const goToUserProfile = () => {
+  fetch();
   router.push({
     name: "User",
     params: { currentUserID: user_id },

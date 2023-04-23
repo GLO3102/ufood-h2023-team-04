@@ -20,6 +20,23 @@ export const getRestaurant = async function (id) {
   return res.json();
 };
 
+export const getRestaurantByGenres = async (genres) => {
+  const genre_query = genres.join(",");
+  const token = Cookies.get("connectionToken").token;
+  const req = new Request(
+    `${ENDPOINT_SECURE}/restaurants?limit=4&genres=${genre_query}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const res = await fetch(req);
+  return await res.json();
+};
+
 export const getRestaurants = async function () {
   const token = Cookies.get("connectionToken").token;
   const req = new Request(`${ENDPOINT_SECURE}/restaurants?limit=1000`, {

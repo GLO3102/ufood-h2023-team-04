@@ -4,9 +4,10 @@ import RestaurantInformations from "@/components/restaurant/RestaurantInformatio
 import RestaurantImages from "@/components/restaurant/RestaurantImages.vue";
 import GoogleMap from "@/components/restaurant/GoogleMap.vue";
 import { getRestaurant } from "@/composables/UseRestaurant";
-import { ref } from "vue";
+import { ref, nextTick, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import AddToFavorite from "@/components/restaurant/AddToFavorite.vue";
+import RestaurantSuggestion from "../components/restaurant/RestaurantSuggestion.vue";
 
 const opening_hours = ref(null);
 const pictures = ref();
@@ -33,6 +34,17 @@ const fetchData = async () => {
   isLoaded.value = true;
 };
 
+watchEffect(() => {
+  fetchData();
+  window.scrollTo(0, 0);
+});
+
+const reload = async () => {
+  isLoaded.value = !isLoaded.value;
+  await nextTick();
+  await fetchData();
+};
+
 fetchData();
 </script>
 
@@ -57,6 +69,13 @@ fetchData();
         />
         <GoogleMap v-if="isLoaded" :address="address" class="mt-10" />
         <AddToFavorite v-if="isLoaded" class="mt-10 mb-5"></AddToFavorite>
+        <RestaurantSuggestion
+          :genres="genres"
+          :name="name"
+          v-if="isLoaded"
+          class="mt-10 mb-5"
+          @reload="reload()"
+        ></RestaurantSuggestion>
       </v-col>
     </v-row>
   </v-container>

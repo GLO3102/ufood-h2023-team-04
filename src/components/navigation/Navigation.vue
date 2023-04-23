@@ -5,13 +5,15 @@
         <v-toolbar-title>RestoCheker</v-toolbar-title>
         <v-toolbar-items class="hidden-xs-only"
           ><v-btn>
-            <router-link :to="'/'">Home</router-link>
+            <router-link :to="{ name: 'Home' }">Home</router-link>
           </v-btn>
           <v-btn v-if="loggedIn === false"
-            ><router-link :to="'/register'">Sign In</router-link></v-btn
+            ><router-link :to="{ name: 'Connexion' }"
+              >Sign In</router-link
+            ></v-btn
           >
           <v-btn @click="loggedIn = false" v-if="loggedIn === true"
-            ><router-link :to="'/'">log out </router-link>
+            ><router-link :to="{ name: 'Home' }">log out </router-link>
           </v-btn>
           <v-btn v-if="loggedIn === true">
             <router-link
@@ -24,7 +26,9 @@
             </router-link>
           </v-btn>
           <v-btn v-if="loggedIn === false"
-            ><router-link :to="'/connexion'">Register</router-link></v-btn
+            ><router-link :to="{ name: 'Register' }"
+              >Register</router-link
+            ></v-btn
           >
         </v-toolbar-items>
       </v-toolbar>
@@ -41,12 +45,12 @@
             <v-list-item>
               <v-list-item-title>
                 <v-layout>
-                  <router-link :to="'/'">Home</router-link>
+                  <router-link :to="{ name: 'Home' }">Home</router-link>
                 </v-layout></v-list-item-title
               >
               <v-list-item-title>
                 <v-layout v-if="loggedIn === false"
-                  ><router-link :to="'/register'"
+                  ><router-link :to="{ name: 'Connexion' }"
                     >Sign In</router-link
                   ></v-layout
                 ></v-list-item-title
@@ -66,12 +70,12 @@
               >
               <v-list-item-title>
                 <v-layout @click="logOut" v-if="loggedIn === true">
-                  <router-link :to="'/'">log out </router-link>
+                  <router-link :to="{ name: 'Home' }">log out </router-link>
                 </v-layout></v-list-item-title
               >
               <v-list-item-title>
                 <v-layout v-if="loggedIn === false"
-                  ><router-link :to="'/connexion'"
+                  ><router-link :to="{ name: 'Register' }"
                     >Register</router-link
                   ></v-layout
                 ></v-list-item-title

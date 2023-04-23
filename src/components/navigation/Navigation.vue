@@ -16,7 +16,6 @@
         </v-toolbar-items>
       </v-toolbar>
     </div>
-
     <div class="hidden-lg-and-up">
       <v-toolbar :elevation="0" color="white">
         <v-toolbar-title>RestoCheker</v-toolbar-title>

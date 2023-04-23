@@ -64,6 +64,7 @@ const connection = async () => {
 
       <v-btn type="submit" block class="mt-2"> submit </v-btn>
     </v-form>
+    <FacebookLogin />
   </v-sheet>
 </template>
 

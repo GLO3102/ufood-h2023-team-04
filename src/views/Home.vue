@@ -78,22 +78,22 @@ const fetchData = async () => {
   checkVisitedResto(resoFiltered.value);
 };
 const emits = defineEmits(["update:currentPage"]);
-const restaurantsFiltered = (filteredRestaurants) => {
+const restaurantsFiltered = async (filteredRestaurants) => {
   resoFiltered.value = filteredRestaurants;
   currentPage.value = 1;
+  if (showMap.value) {
+    showMap.value = !showMap.value;
+    await nextTick();
+    showMap.value = !showMap.value;
+  }
 };
 
 const toggleMap = () => {
   showMap.value = !showMap.value;
 };
 
-watch(resoFiltered, async () => {
+watch(resoFiltered, () => {
   currentPage.value = 1;
-  if(!showMap.value){
-    showMap.value = !showMap.value;
-    await nextTick();
-    showMap.value = !showMap.value;
-  }
 });
 const displayedRestaurants = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;

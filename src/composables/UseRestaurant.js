@@ -80,7 +80,7 @@ export const getVisitedRestaurentsByUser = async function () {
 
 export const getUserFavorites = async function (id) {
   const token = Cookies.get("connectionToken").token;
-  const req = new Request(`${ENDPOINT_SECURE}users/${id}/favorites`, {
+  const req = new Request(`${ENDPOINT_SECURE}/users/${id}/favorites`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

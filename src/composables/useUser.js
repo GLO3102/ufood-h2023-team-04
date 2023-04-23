@@ -79,7 +79,7 @@ export const getUserVisits = async (token, userID) => {
 
 export const getUserFavoriteLists = async (userID) => {
   try {
-    const token = Cookies.get("connectionToken");
+    const token = Cookies.get("connectionToken").token;
     const req = new Request(`${ENDPOINT_SECURE}/users/${userID}/favorites`, {
       method: "GET",
       headers: {

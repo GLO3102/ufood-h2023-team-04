@@ -82,7 +82,6 @@ const submit = async () => {
       alert.show = true;
       alert.type = "success";
       alert.message = "Successfully signed up!";
-      console.log(response);
     } catch (error) {
       alert.show = true;
       alert.type = "error";

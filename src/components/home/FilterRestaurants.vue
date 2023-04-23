@@ -24,7 +24,6 @@
           :items="getAllRestaurantNames(restaurants)"
           label="Restaurant's name"
           placeholder="Search for a restaurant"
-          @change="filteredRestaurants"
         ></v-autocomplete>
         <v-select
           label="Chosen genre"

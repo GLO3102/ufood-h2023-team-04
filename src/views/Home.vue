@@ -7,14 +7,14 @@
       class="mt-10"
     />
     <div style="display: flex; justify-content: center; align-items: center">
-      <v-button
+      <v-btn
         class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-elevated bg-white-accent-1 m-10"
         @click="toggleMap"
       >
         <span class="v-btn__overlay"></span>
         <span class="v-btn__underlay"></span>
         <span class="v-btn__content">Toggle Map</span>
-      </v-button>
+      </v-btn>
     </div>
     <HomeGoogleMap :restaurants="resoFiltered" v-if="showMap" />
     <Restaurants

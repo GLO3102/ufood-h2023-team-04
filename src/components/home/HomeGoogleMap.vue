@@ -20,7 +20,6 @@ onMounted(async () => {
   const locations = [];
   const extractInfo = () => {
     const restaurants = toRaw(props.restaurants);
-    console.log(restaurants);
     for (let i = 0; i < restaurants.length; i++) {
       const restos = restaurants[i];
       const names = restos.name;
@@ -29,7 +28,6 @@ onMounted(async () => {
       const photos = restos.pictures;
       locations.push([coordinates, names, addresses, photos]);
     }
-    console.log(locations);
   };
 
   watchEffect(() => {

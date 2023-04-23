@@ -181,7 +181,6 @@ export default {
   },
   async created() {
     const token = Cookies.get("connectionToken");
-    //console.log(token);
     this.user = await getUserInfo(token.id);
     this.lists = (await getUserFavoriteLists(token.id)).items;
     if (this.lists.length > 0) {

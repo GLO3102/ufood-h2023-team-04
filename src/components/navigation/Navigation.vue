@@ -70,7 +70,6 @@ const fetch = () => {
   let token;
   try {
     token = Cookies.get("connectionToken");
-    console.log(token);
   } catch (e) {
     loggedIn.value = false;
   }

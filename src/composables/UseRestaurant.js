@@ -124,21 +124,36 @@ export const getListefavori = async function (idListe) {
 };
 
 export const logIn = async function (email, password) {
+  let response;
   try {
+    const formData = new URLSearchParams();
+    formData.append("email", email);
+    formData.append("password", password);
     const res = await fetch(`${ENDPOINT_SECURE}/login`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: JSON.stringify({ email: email, password: password }),
+      body: formData,
     });
-    const response = await res.json();
-    const token = { token: response.token, id: response.id };
-    Cookies.set("connectionToken", token);
-    return true;
+    const contentType = res.headers.get("content-type");
+    let data;
+    if (contentType && contentType.includes("application/json")) {
+      data = await res.json();
+    } else {
+      data = await res.text();
+    }
+    if (res.ok) {
+      const token = { token: data.token, id: data.id };
+      Cookies.set("connectionToken", token);
+    } else {
+      console.error("Error:", data);
+      throw new Error(
+        data.message || "An error occurred during the login process."
+      );
+    }
   } catch (err) {
-    console.log("erreur :" + err.message);
-    return false;
+    throw new Error("Invalid credentials");
   }
 };
 

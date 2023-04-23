@@ -10,10 +10,17 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import { onMounted, ref, defineProps, watchEffect, toRaw } from "vue";
 const props = defineProps({
   restaurants: Object,
 });
+const router = useRouter();
+
+const goToRestaurantPage = async function (id) {
+  await router.push(`/restaurant/${id}`);
+  return true;
+};
 
 onMounted(async () => {
   const userLocation = ref(null);
@@ -26,7 +33,18 @@ onMounted(async () => {
       const addresses = restos.address;
       const coordinates = restos.location.coordinates;
       const photos = restos.pictures;
-      locations.push([coordinates, names, addresses, photos]);
+      const id = restos.id;
+      const rating = restos.rating.toFixed(1);
+      const priceRange = restos.price_range;
+      locations.push([
+        coordinates,
+        names,
+        addresses,
+        photos,
+        id,
+        rating,
+        priceRange,
+      ]);
     }
   };
 
@@ -58,10 +76,16 @@ onMounted(async () => {
         marker.addListener("mouseover", () => {
           if (!isOpen) {
             infoWindow.setContent(
-              `<div class="infowindow-content" style="min-width : 400px;"><div class="infowindow-img" style="max-width :250px;"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p></div></div>`
+              `<div class="infowindow-content" style="min-width : 400px;"><div class="infowindow-img" style="max-width :250px;"><img src=${location[3][0]}></div><div class="infowindow-text"><h2>${location[1]}</h2><p>${location[2]}</p><p>Rating: ${location[5]}/5</p><p>Price :${location[6]}</p><div><button id="button" class="go-to-resto-button">Go to Page</button></div></div></div>`
             );
             infoWindow.open(map, marker);
           }
+          infoWindow.addListener("domready", () => {
+            const goToRestaurantBtn = document.getElementById("button");
+            goToRestaurantBtn.addEventListener("click", () => {
+              goToRestaurantPage(location[4]);
+            });
+          });
         });
 
         marker.addListener("mouseout", () => {
@@ -112,5 +136,32 @@ onMounted(async () => {
 
 .infowindow-text p {
   margin: 0;
+}
+
+.go-to-resto-button {
+  background-color: #f5f5f5;
+  color: #424242;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out,
+    transform 0.2s ease-out;
+}
+.go-to-resto-button:hover {
+  background-color: #eee;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+.go-to-resto-button:active {
+  background-color: #ddd;
+  box-shadow: none;
+  transform: translateY(1px);
 }
 </style>

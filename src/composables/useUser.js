@@ -1,12 +1,20 @@
-import { ENDPOINT, ENDPOINT_SECURE } from "./API_ENDPOINT";
+import { ENDPOINT_SECURE } from "./API_ENDPOINT";
 import { ID } from "./API_ENDPOINT";
 import Cookies from "js.cookie";
 
 export const getVisitedRestaurant = async (userID) => {
   try {
-    const response = await fetch(
-      `${ENDPOINT}/users/${userID}/restaurants/visits`
+    const token = Cookies.get("connectionToken");
+    const req = new Request(
+      `${ENDPOINT_SECURE}/users/${userID}/restaurants/visits`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      }
     );
+    const response = await fetch(req);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -71,7 +79,14 @@ export const getUserVisits = async (token, userID) => {
 
 export const getUserFavoriteLists = async (userID) => {
   try {
-    const response = await fetch(`${ENDPOINT}/users/${userID}/favorites`);
+    const token = Cookies.get("connectionToken");
+    const req = new Request(`${ENDPOINT_SECURE}/users/${userID}/favorites`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+      },
+    });
+    const response = await fetch(req);
     const data = await response.json();
     return data;
   } catch (error) {

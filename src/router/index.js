@@ -12,6 +12,14 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    beforeEnter: (to, from, next) => {
+      const token = Cookies.get("connectionToken");
+      if (!token) {
+        next({ name: "Connexion" });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/register",

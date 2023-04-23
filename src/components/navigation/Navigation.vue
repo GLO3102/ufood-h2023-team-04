@@ -4,31 +4,14 @@
       <v-toolbar :elevation="0" color="white">
         <v-toolbar-title>RestoCheker</v-toolbar-title>
         <v-toolbar-items class="hidden-xs-only"
-          ><v-btn>
-            <router-link :to="{ name: 'Home' }">Home</router-link>
+          ><v-btn @click="goToHome"> Home </v-btn>
+          <v-btn v-if="loggedIn === false" @click="goToSignIn">Sign In</v-btn>
+          <v-btn @click="logOut" v-if="loggedIn === true"> log out </v-btn>
+          <v-btn v-if="loggedIn === true" @click="goToUserProfile">
+            User Profile
           </v-btn>
-          <v-btn v-if="loggedIn === false"
-            ><router-link :to="{ name: 'Connexion' }"
-              >Sign In</router-link
-            ></v-btn
-          >
-          <v-btn @click="loggedIn = false" v-if="loggedIn === true"
-            ><router-link :to="{ name: 'Home' }">log out </router-link>
-          </v-btn>
-          <v-btn v-if="loggedIn === true">
-            <router-link
-              :to="{
-                name: 'User',
-                params: { currentUserID: '634b0183dae040956403888c' },
-              }"
-            >
-              User Profile
-            </router-link>
-          </v-btn>
-          <v-btn v-if="loggedIn === false"
-            ><router-link :to="{ name: 'Register' }"
-              >Register</router-link
-            ></v-btn
+          <v-btn v-if="loggedIn === false" @click="goToRegister">
+            Register</v-btn
           >
         </v-toolbar-items>
       </v-toolbar>
@@ -44,41 +27,27 @@
           <v-list class="reponsiveMenu">
             <v-list-item>
               <v-list-item-title>
-                <v-layout>
-                  <router-link :to="{ name: 'Home' }">Home</router-link>
+                <v-layout @click="goToHome"> Home </v-layout></v-list-item-title
+              >
+              <v-list-item-title>
+                <v-layout v-if="loggedIn === false" @click="goToSignIn"
+                  >Sign In
                 </v-layout></v-list-item-title
               >
               <v-list-item-title>
-                <v-layout v-if="loggedIn === false"
-                  ><router-link :to="{ name: 'Connexion' }"
-                    >Sign In</router-link
-                  ></v-layout
-                ></v-list-item-title
-              >
-              <v-list-item-title>
-                <v-layout>
-                  <router-link
-                    v-if="loggedIn"
-                    :to="{
-                      name: 'User',
-                      params: { currentUserID: '604cc220ef6fa10004dc0179' },
-                    }"
-                  >
-                    User Profile
-                  </router-link>
+                <v-layout @click="goToUserProfile" v-if="loggedIn">
+                  User Profile
                 </v-layout></v-list-item-title
               >
               <v-list-item-title>
                 <v-layout @click="logOut" v-if="loggedIn === true">
-                  <router-link :to="{ name: 'Home' }">log out </router-link>
+                  Log Out
                 </v-layout></v-list-item-title
               >
               <v-list-item-title>
-                <v-layout v-if="loggedIn === false"
-                  ><router-link :to="{ name: 'Register' }"
-                    >Register</router-link
-                  ></v-layout
-                ></v-list-item-title
+                <v-layout v-if="loggedIn === false" @click="goToRegister">
+                  Register
+                </v-layout></v-list-item-title
               >
             </v-list-item>
           </v-list>
@@ -88,21 +57,26 @@
   </v-container>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 import Cookies from "js.cookie";
 import { el } from "vuetify/locale";
+import { useRoute } from "vue-router";
+import { router } from "@/router";
 
 let loggedIn = ref(false);
 let searchIsOpen = ref(false);
+let user_id = ref(null);
 const fetch = () => {
   let token;
   try {
     token = Cookies.get("connectionToken");
+    console.log(token);
   } catch (e) {
     loggedIn.value = false;
   }
   if (token !== null) {
     loggedIn.value = true;
+    user_id = token.id;
   } else {
     loggedIn.value = false;
   }
@@ -111,6 +85,26 @@ const fetch = () => {
 const logOut = () => {
   Cookies.remove("connectionToken", { path: "/" });
   loggedIn.value = false;
+  router.push({ name: "Connexion" });
+};
+
+const goToHome = () => {
+  router.push({ name: "Home" });
+};
+
+const goToSignIn = () => {
+  router.push({ name: "Connexion" });
+};
+
+const goToRegister = () => {
+  router.push({ name: "Register" });
+};
+
+const goToUserProfile = () => {
+  router.push({
+    name: "User",
+    params: { currentUserID: user_id },
+  });
 };
 fetch();
 </script>

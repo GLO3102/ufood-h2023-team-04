@@ -1,16 +1,8 @@
-import { ENDPOINT_SECURE } from "./API_ENDPOINT";
-import Cookies from "js.cookie";
+import { ENDPOINT } from "./API_ENDPOINT";
 
 export const getRestaurantsNameByID = async (restoId) => {
   try {
-    const token = Cookies.get("connectionToken").token;
-    const req = new Request(`${ENDPOINT_SECURE}/restaurants/${restoId}`, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    });
-    const response = await fetch(req);
+    const response = await fetch(`${ENDPOINT}/restaurants/${restoId}`);
     const data = await response.json();
     return data.name;
   } catch (error) {
@@ -21,14 +13,7 @@ export const getRestaurantsNameByID = async (restoId) => {
 
 export const getAllRestaurants = async () => {
   try {
-    const token = Cookies.get("connectionToken").token;
-    const req = new Request(`${ENDPOINT_SECURE}/restaurants?limit=9999`, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    });
-    const response = await fetch(req);
+    const response = await fetch(`${ENDPOINT}/restaurants?limit=9999`);
     const data = await response.json();
     return data.items;
   } catch (error) {

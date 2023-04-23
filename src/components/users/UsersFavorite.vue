@@ -101,7 +101,6 @@ import {
 } from "../../composables/useFavorite";
 import { getRestaurantsNameByID } from "../../composables/useRestaurantsForUser";
 import UsersModalFavoriteVue from "./UsersModalFavorite.vue";
-import Cookies from "js.cookie";
 
 export default {
   data: () => ({
@@ -117,7 +116,7 @@ export default {
     UsersModalFavoriteVue,
   },
   props: {
-    token: {
+    currentUserID: {
       type: String,
     },
   },
@@ -180,9 +179,8 @@ export default {
     },
   },
   async created() {
-    const token = Cookies.get("connectionToken");
-    this.user = await getUserInfo(token.id);
-    this.lists = (await getUserFavoriteLists(token.id)).items;
+    this.user = await getUserInfo(this.currentUserID);
+    this.lists = (await getUserFavoriteLists(this.user.id)).items;
     if (this.lists.length > 0) {
       this.selectedListID = this.lists[0].id;
       this.selectedListName = this.lists[0].name;

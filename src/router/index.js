@@ -4,8 +4,6 @@ import Restaurant from "@/views/Restaurant.vue";
 import User from "@/views/User";
 import Register from "@/views/Register.vue";
 import Connexion from "@/views/Connexion.vue";
-import NotFound from "@/views/NotFound.vue";
-import Cookies from "js.cookie";
 
 const routes = [
   {
@@ -15,14 +13,6 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    beforeEnter: (to, from, next) => {
-      const token = Cookies.get("connectionToken");
-      if (!token) {
-        next({ name: "Connexion" });
-      } else {
-        next();
-      }
-    },
   },
   {
     path: "/register",
@@ -45,22 +35,6 @@ const routes = [
     component: User,
     props: (route) => {
       return { currentUserID: route.params.currentUserID };
-    },
-    beforeEnter: (to, from, next) => {
-      const token = Cookies.get("connectionToken");
-      if (!token) {
-        next({ name: "Connexion" });
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "/:catchAll(.*)",
-    name: "NotFound",
-    component: NotFound,
-    beforeEnter: (to, from, next) => {
-      next({ name: "Home" });
     },
   },
 ];

@@ -38,7 +38,9 @@
           <v-list class="reponsiveMenu">
             <v-list-item>
               <v-list-item-title>
-                <v-layout @click="goToHome"> Home </v-layout></v-list-item-title
+                <v-layout>
+                  <router-link :to="'/'">Home</router-link>
+                </v-layout></v-list-item-title
               >
               <v-list-item-title>
                 <v-layout v-if="loggedIn === false"
@@ -48,13 +50,21 @@
                 ></v-list-item-title
               >
               <v-list-item-title>
-                <v-layout @click="goToUserProfile" v-if="loggedIn">
-                  User Profile
+                <v-layout>
+                  <router-link
+                    v-if="loggedIn"
+                    :to="{
+                      name: 'User',
+                      params: { currentUserID: '604cc220ef6fa10004dc0179' },
+                    }"
+                  >
+                    User Profile
+                  </router-link>
                 </v-layout></v-list-item-title
               >
               <v-list-item-title>
                 <v-layout @click="logOut" v-if="loggedIn === true">
-                  Log Out
+                  <router-link :to="'/'">log out </router-link>
                 </v-layout></v-list-item-title
               >
               <v-list-item-title>
@@ -72,18 +82,15 @@
   </v-container>
 </template>
 <script setup>
-import { ref, onMounted, watchEffect } from "vue";
+import { ref } from "vue";
 import Cookies from "js.cookie";
 import { el } from "vuetify/locale";
 import { useRouter } from "vue-router";
-import { useRoute } from "vue-router";
-import { router } from "@/router";
 
 const router = useRouter();
 
 let loggedIn = ref(false);
 let searchIsOpen = ref(false);
-let user_id = ref(null);
 const fetch = () => {
   let token;
   try {
@@ -93,7 +100,6 @@ const fetch = () => {
   }
   if (token !== null) {
     loggedIn.value = true;
-    user_id = token.id;
   } else {
     loggedIn.value = false;
   }
@@ -117,34 +123,6 @@ const logOut = async () => {
 function goHome() {
   router.push("/");
 }
-const logOut = () => {
-  Cookies.remove("connectionToken", { path: "/" });
-  loggedIn.value = false;
-  router.push({ name: "Connexion" });
-};
-
-const goToHome = () => {
-  fetch();
-  router.push({ name: "Home" });
-};
-
-const goToSignIn = () => {
-  fetch();
-  router.push({ name: "Connexion" });
-};
-
-const goToRegister = () => {
-  fetch();
-  router.push({ name: "Register" });
-};
-
-const goToUserProfile = () => {
-  fetch();
-  router.push({
-    name: "User",
-    params: { currentUserID: user_id },
-  });
-};
 fetch();
 </script>
 

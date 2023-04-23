@@ -1,56 +1,3 @@
-<script setup>
-import { ref, reactive } from "vue";
-import { signUp } from "@/composables/useUserSession";
-import { logIn } from "@/composables/UseRestaurant";
-import Cookies from "js.cookie";
-import { router } from "@/router";
-import {
-  passwordRules,
-  nameRules,
-  emailRules,
-  validateRuleSet,
-} from "@/composables/formRules.js";
-
-const name = ref(null);
-const email = ref(null);
-const password = ref(null);
-const _nameRules = nameRules;
-const _emailRules = emailRules;
-const _passwordRules = passwordRules;
-
-// Add alert state
-const alert = reactive({
-  show: false,
-  message: "",
-  type: "",
-});
-
-const submit = async () => {
-  if (
-    !validateRuleSet(name.value, nameRules) ||
-    !validateRuleSet(email.value, emailRules) ||
-    !validateRuleSet(password.value, passwordRules)
-  ) {
-    return;
-  }
-
-  try {
-    await signUp(name.value, email.value, password.value);
-    alert.show = true;
-    alert.type = "success";
-    alert.message = "Successfully signed up!";
-    await logIn(email.value, password.value);
-    const user_id = Cookies.get("connectionToken").id;
-    router.push({ name: "User", params: { currentUserID: user_id } });
-  } catch (error) {
-    alert.show = true;
-    alert.type = "error";
-    alert.message =
-      error.message || "An error occurred during the signUp process.";
-  }
-};
-</script>
-
 <template>
   <v-sheet width="300" class="mx-auto mt-5">
     <h2 class="text-center mb-4">SignUp</h2>
@@ -62,20 +9,20 @@ const submit = async () => {
       <v-text-field
         v-model="name"
         label="Name"
-        :rules="_nameRules"
+        :rules="nameRules"
         required
       ></v-text-field>
       <v-text-field
         v-model="email"
         label="Email"
-        :rules="_emailRules"
+        :rules="emailRules"
         required
         type="email"
       ></v-text-field>
       <v-text-field
         v-model="password"
         label="Password"
-        :rules="_passwordRules"
+        :rules="passwordRules"
         required
         type="password"
       ></v-text-field>
@@ -83,3 +30,65 @@ const submit = async () => {
     </v-form>
   </v-sheet>
 </template>
+
+<script setup>
+import { ref, reactive } from "vue";
+import { signUp } from "@/composables/useUserSession";
+
+const name = ref(null);
+const email = ref(null);
+const password = ref(null);
+
+// Add alert state
+const alert = reactive({
+  show: false,
+  message: "",
+  type: "",
+});
+
+const nameRules = [
+  (value) => !!value || "This field is required.",
+  (value) =>
+    (value && value.length >= 3) || "Name must be at least 3 characters long.",
+];
+
+const emailRules = [
+  (value) => !!value || "This field is required.",
+  (value) => {
+    const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
+    return (
+      (value && emailRegex.test(value)) ||
+      "Email must be in the format a.b@c.d or a@b.c"
+    );
+  },
+];
+
+const passwordRules = [
+  (value) => !!value || "This field is required.",
+  (value) =>
+    (value && value.length >= 10) ||
+    "Password must be at least 10 characters long.",
+  (value) =>
+    (value && /[A-Z]/.test(value)) ||
+    "Password must contain at least one uppercase letter.",
+  (value) =>
+    (value && /\d/.test(value)) || "Password must contain at least one number.",
+];
+
+const submit = async () => {
+  if (name.value && email.value && password.value) {
+    try {
+      const response = await signUp(name.value, email.value, password.value);
+      alert.show = true;
+      alert.type = "success";
+      alert.message = "Successfully signed up!";
+      console.log(response);
+    } catch (error) {
+      alert.show = true;
+      alert.type = "error";
+      alert.message =
+        error.message || "An error occurred during the signUp process.";
+    }
+  }
+};
+</script>

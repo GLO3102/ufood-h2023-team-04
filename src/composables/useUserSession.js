@@ -1,4 +1,4 @@
-import { ENDPOINT_SECURE } from "./API_ENDPOINT";
+const API_ENDPOINT = "https://ufoodapi.herokuapp.com";
 
 export const signUp = async function (name, email, password) {
   try {
@@ -7,7 +7,7 @@ export const signUp = async function (name, email, password) {
     formData.append("email", email);
     formData.append("password", password);
 
-    const req = new Request(`${ENDPOINT_SECURE}/signup`, {
+    const req = new Request(`${API_ENDPOINT}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -22,6 +22,7 @@ export const signUp = async function (name, email, password) {
       const data = await res.json();
 
       if (res.ok) {
+        console.log("ez");
         return data;
       } else {
         console.error("Error:", data);
@@ -33,6 +34,7 @@ export const signUp = async function (name, email, password) {
       const text = await res.text();
 
       if (res.ok) {
+        console.log("ez");
         return text;
       } else {
         console.error("Error:", text);

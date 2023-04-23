@@ -29,7 +29,6 @@
 </template>
 
 <script setup>
-import { ID } from "../../composables/API_ENDPOINT";
 import {
   addToFavorites,
   getListefavori,
@@ -52,14 +51,9 @@ const fetch = async () => {
   if (token.id === null || token.token === null) {
     isLoaded.value = false;
   } else {
-    try {
-      ListesDeRestofavorites.value = (await getUserFavorites(token.id)).items;
-      NomFavoriteList.value = ListesDeRestofavorites.value[0].name;
-      isLoaded.value = true;
-    } catch (e) {
-      // TODO handle this
-      console.log("No favorite list available");
-    }
+    ListesDeRestofavorites.value = (await getUserFavorites(token.id)).items;
+    NomFavoriteList.value = ListesDeRestofavorites.value[0].name;
+    isLoaded.value = true;
   }
 };
 const onSelectItem = () => {

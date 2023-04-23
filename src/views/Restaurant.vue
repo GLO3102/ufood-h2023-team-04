@@ -21,6 +21,7 @@ const rating = ref(null);
 const genres = ref(null);
 let isLoaded = ref(false);
 const restoId = ref(null);
+
 const route = useRoute();
 const listeAllRestos = ref(null);
 const listeRestoFiltered = ref(null);

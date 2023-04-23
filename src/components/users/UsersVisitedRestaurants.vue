@@ -1,77 +1,42 @@
 <template>
   <div>
-    <v-container class="bg-surface-variant">
-      <v-row no-gutters>
-        <v-col v-for="visit in visits" :key="visit">
-          <v-sheet class="pa-4 ma-6"
-            ><RestaurantUserInformations
-              :name="visit.name"
-              :comment="visit.comment"
-              :rating="visit.rating"
-              :date="visit.date" />
-            <ModalVisitedReadOnly :id="visit"></ModalVisitedReadOnly
-          ></v-sheet>
-        </v-col>
-
-        <v-responsive width="100%"></v-responsive>
-      </v-row>
-    </v-container>
+    <div class="w-full">
+      <h3 class="font-medium text-gray-900 text-left px-6">Recent visits</h3>
+      <div
+        class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm"
+      >
+        <a
+          href="#"
+          class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
+          v-for="visit in visits"
+          :key="visit"
+        >
+          {{ visit.name + " - " + visit.rating + " Stars"
+          }}<ModalVisitedReadOnly :id="visit" />
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import ModalVisitedReadOnly from "../users/ModalVisitedReadOnly.vue";
 
-import RestaurantUserInformations from "./RestaurantUserInformations.vue";
-import { getUserVisits } from "../../composables/useUser";
+import { getUserVisits } from "../../api/users";
 import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
-import Cookies from "js.cookie";
 
 const visits = ref([]);
-const token = Cookies.get("connectionToken");
 
-//const props = defineProps({ id: Object, currentUserID: String });
+defineProps({ id: Object });
 
-const getVisits = async (token, userID) => {
-  const data = await getUserVisits(token, userID);
-  visits.value = data;
+const getVisits = async () => {
+  visits.value = await getUserVisits();
   visits.value.forEach(async (visit) => {
     const name = await getRestaurantsNameByID(visit.restaurant_id);
     visit["name"] = name;
   });
 };
 
-getVisits(token.token, token.id);
+getVisits();
 </script>
-
-<!-- const getVisits = async (userInfos) => {
-  userInfos.value.forEach(async (userInfos) => {
-    const followerVisitsInfo = await getUserVisits(userInfos.id);
-    visits.value = followerVisitsInfo.slice(0, 3);
-    console.log(visits.value);
-  });
-}; -->
-
-<!-- const getInfos = async () => {
-  userInfos.value = await getUserInfoFollowers();
-  userInfos.value.forEach(async (userInfo) => {
-    const data = await getUserVisits(userInfo.id);
-    visits.value = data;
-    console.log(visits.value);
-  });
-  console.log(userInfos.value);
-  console.log(visits.value);
-};
-getInfos(userInfos); -->
-
-<!-- const getInfos = async (userInfos) => {
-  userInfos.value = await getUserInfoFollowers();
-  userInfos.value.forEach(async (userInfo) => {
-    const followerVisitsInfo = await getUserVisits(userInfo.id);
-    console.log(followerVisitsInfo);
-    userInfo["followerVisitsInfo"] = followerVisitsInfo.slice(0, 3);
-  });
-  console.log(userInfos.value);
-};
-getInfos(userInfos); -->

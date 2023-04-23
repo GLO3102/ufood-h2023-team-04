@@ -1,18 +1,10 @@
 /* eslint-disable */
-import { ENDPOINT_SECURE } from "./API_ENDPOINT";
+import { ENDPOINT } from "./API_ENDPOINT";
 import { ID } from "./API_ENDPOINT";
-import Cookies from "js.cookie";
 
 export const getFavoriteById = async (id) => {
   try {
-    const token = Cookies.get("connectionToken").token;
-    const req = new Request(`${ENDPOINT_SECURE}/favorites/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    });
-    const response = await fetch(req);
+    const response = await fetch(`${ENDPOINT}/favorites/${id}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -28,11 +20,9 @@ export const postNewList = async (payload) => {
     return null;
   }
   try {
-    const token = Cookies.get("connectionToken").token;
-    const request = new Request(`${ENDPOINT_SECURE}/favorites`, {
+    const request = new Request(`${ENDPOINT}/favorites`, {
       method: "POST",
       headers: {
-        Authorization: token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
@@ -48,11 +38,9 @@ export const postNewList = async (payload) => {
 
 export const putList = async (payload, id) => {
   try {
-    const token = Cookies.get("connectionToken").token;
-    const request = new Request(`${ENDPOINT_SECURE}/favorites/${id}`, {
+    const request = new Request(`${ENDPOINT}/favorites/${id}`, {
       method: "PUT",
       headers: {
-        Authorization: token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
@@ -66,12 +54,8 @@ export const putList = async (payload, id) => {
 
 export const deleteList = async (id) => {
   try {
-    const token = Cookies.get("connectionToken").token;
-    const request = new Request(`${ENDPOINT_SECURE}/favorites/${id}`, {
+    const request = new Request(`${ENDPOINT}/favorites/${id}`, {
       method: "DELETE",
-      headers: {
-        Authorization: token,
-      },
     });
     await fetch(request);
   } catch (error) {
@@ -80,19 +64,19 @@ export const deleteList = async (id) => {
 };
 
 export const postAddRestoInList = async (listID, restoID) => {
+  if (!restoID) {
+    console.error("Select a restaurant");
+    window.alert("Restaurant cannot be empty");
+    return null;
+  }
   try {
-    const token = Cookies.get("connectionToken").token;
-    const request = new Request(
-      `${ENDPOINT_SECURE}/favorites/${listID}/restaurants`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: restoID }),
-      }
-    );
+    const request = new Request(`${ENDPOINT}/favorites/${listID}/restaurants`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: restoID }),
+    });
     await fetch(request);
   } catch (error) {
     console.error(error);
@@ -101,14 +85,10 @@ export const postAddRestoInList = async (listID, restoID) => {
 
 export const deleteRestoFromList = async (listID, restoID) => {
   try {
-    const token = Cookies.get("connectionToken").token;
     const request = new Request(
-      `${ENDPOINT_SECURE}/favorites/${listID}/restaurants/${restoID}`,
+      `${ENDPOINT}/favorites/${listID}/restaurants/${restoID}`,
       {
         method: "DELETE",
-        headers: {
-          Authorization: token,
-        },
       }
     );
     await fetch(request);

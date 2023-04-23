@@ -1,9 +1,7 @@
 import Cookies from "js.cookie";
 import { ENDPOINT_SECURE } from "./API_ENDPOINT";
 
-const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
-const API_ENDPOINT_SECURE = "https://ufoodapi.herokuapp.com/";
-const User = "604cc220ef6fa10004dc0179";
+//const API_ENDPOINT = "https://ufoodapi.herokuapp.com/unsecure";
 
 let email = "";
 let password = "";
@@ -12,9 +10,11 @@ let token = "";
 let idUser = "";
 
 export const getRestaurant = async function (id) {
-  const req = new Request(`${API_ENDPOINT}/restaurants/${id}`, {
+  const token = Cookies.get("connectionToken").token;
+  const req = new Request(`${ENDPOINT_SECURE}/restaurants/${id}`, {
     method: "GET",
     headers: {
+      Authorization: token,
       "Content-Type": "application/json",
     },
   });
@@ -23,9 +23,11 @@ export const getRestaurant = async function (id) {
 };
 
 export const getRestaurants = async function () {
-  const req = new Request(`${API_ENDPOINT}/restaurants?limit=1000`, {
+  const token = Cookies.get("connectionToken").token;
+  const req = new Request(`${ENDPOINT_SECURE}/restaurants?limit=1000`, {
     method: "GET",
     headers: {
+      Authorization: token,
       "Content-Type": "application/json",
     },
   });
@@ -34,19 +36,23 @@ export const getRestaurants = async function () {
 };
 
 export const postReview = async function (comment, rating, date, restaurantId) {
-  const token = Cookies.get("connectionToken");
-  const req = new Request(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      restaurant_id: restaurantId,
-      comment: comment,
-      rating: rating,
-      date: date,
-    }),
-  });
+  const cookie = Cookies.get("connectionToken");
+  const req = new Request(
+    `${ENDPOINT_SECURE}/users/${cookie.id}/restaurants/visits`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: cookie.token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        restaurant_id: restaurantId,
+        comment: comment,
+        rating: rating,
+        date: date,
+      }),
+    }
+  );
 
   const res = await fetch(req);
   if (!res.ok) {
@@ -57,25 +63,28 @@ export const postReview = async function (comment, rating, date, restaurantId) {
 };
 
 export const getVisitedRestaurentsByUser = async function () {
-  const token = Cookies.get("connectionToken");
-  const res = await fetch(`${API_ENDPOINT}/users/${User}/restaurants/visits`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token,
-    },
-  });
+  const cookie = Cookies.get("connectionToken");
+  const res = await fetch(
+    `${ENDPOINT_SECURE}/users/${cookie.id}/restaurants/visits`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cookie.token,
+      },
+    }
+  );
 
   return res.json();
 };
 
 export const getUserFavorites = async function (id) {
-  const token = Cookies.get("connectionToken");
-  const req = new Request(`${API_ENDPOINT_SECURE}users/${id}/favorites`, {
+  const token = Cookies.get("connectionToken").token;
+  const req = new Request(`${ENDPOINT_SECURE}users/${id}/favorites`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: token.token,
+      authorization: token,
     },
   });
   const res = await fetch(req);
@@ -84,15 +93,14 @@ export const getUserFavorites = async function (id) {
 
 export const addToFavorites = async (listID, restoID) => {
   try {
-    // const token = Cookies.get("connectionToken");
-    // console.log("token =" + token);
+    const token = Cookies.get("connectionToken").token;
     const request = new Request(
-      `${API_ENDPOINT_SECURE}/favorites/${listID}/restaurants`,
+      `${ENDPOINT_SECURE}/favorites/${listID}/restaurants`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: token,
+          Authorization: token,
         },
         body: JSON.stringify({ id: restoID }),
       }
@@ -103,11 +111,12 @@ export const addToFavorites = async (listID, restoID) => {
   }
 };
 export const getListefavori = async function (idListe) {
-  const req = new Request(`${API_ENDPOINT}/favorites/${idListe}`, {
+  const token = Cookies.get("connectionToken").token;
+  const req = new Request(`${ENDPOINT_SECURE}/favorites/${idListe}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      // Authorization: token,
+      Authorization: token,
     },
   });
   const res = await fetch(req);
@@ -116,7 +125,7 @@ export const getListefavori = async function (idListe) {
 
 export const logIn = async function (email, password) {
   try {
-    const res = await fetch("https://ufoodapi.herokuapp.com/login", {
+    const res = await fetch(`${ENDPOINT_SECURE}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -126,8 +135,10 @@ export const logIn = async function (email, password) {
     const response = await res.json();
     const token = { token: response.token, id: response.id };
     Cookies.set("connectionToken", token);
+    return true;
   } catch (err) {
     console.log("erreur :" + err.message);
+    return false;
   }
 };
 

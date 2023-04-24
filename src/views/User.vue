@@ -80,13 +80,15 @@
 
 <script>
 import { reactive, toRefs, onMounted, ref } from "vue";
+import { getVisitedRestaurant } from "../composables/useUser";
+import { getUserInfo } from "../composables/useUser";
+
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import UsersFavorite from "../components/users/UsersFavorite.vue";
 import UsersList from "../components/users/UsersList.vue";
 import FollowersCard from "../components/users/follow/FollowersCard.vue";
 import FollowingCard from "../components/users/follow/FollowingCard.vue";
-import { getVisitedRestaurant } from "../api/users.js";
-import { getUserInfo } from "../composables/useUser";
+
 import Cookies from "js.cookie";
 
 export default {

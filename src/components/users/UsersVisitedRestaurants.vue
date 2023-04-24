@@ -25,7 +25,7 @@ import ModalVisitedReadOnly from "../users/ModalVisitedReadOnly.vue";
 
 import RestaurantUserInformations from "./RestaurantUserInformations.vue";
 import { getUserVisits } from "../../composables/useUser";
-import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
+import { getRestaurantsNameByID } from "../../composables/UseRestaurant";
 import Cookies from "js.cookie";
 
 const visits = ref([]);

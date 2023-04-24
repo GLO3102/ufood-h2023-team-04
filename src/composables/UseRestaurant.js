@@ -171,26 +171,23 @@ export const logIn = async function (email, password) {
   }
 };
 
-export const getRestaurantsNameByID = async (token, restoId) => {
+export const getRestaurantsNameByID = async (restoId) => {
   try {
     if (restoId.length !== 24) {
       throw new Error("Invalid restaurant ID length. Must be 6 characters.");
     } else {
-      const response = await fetch(
-        `${ENDPOINT_SECURE}/restaurants/${restoId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const token = Cookies.get("connectionToken").token;
+      const req = new Request(`${ENDPOINT_SECURE}/restaurants/${restoId}`, {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      });
+      const response = await fetch(req);
       const data = await response.json();
       return data.name;
     }
   } catch (error) {
-    console.error("Erreur recherche visit, restoID invalide:", restoId);
     return [];
   }
 };

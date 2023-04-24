@@ -32,7 +32,7 @@
             >
               <div class="mb-4">
                 <div class="font-weight-normal">
-                  <strong> {{ visit.name }} </strong>
+                  {{ visit.name }}
                 </div>
                 <div>{{ visit.comment }}</div>
               </div>
@@ -46,9 +46,9 @@
 
 <script setup>
 import { ref } from "vue";
-
 import { getUserVisits, followUser } from "../../composables/useUser";
-import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
+import { getRestaurantsNameByID } from "../../composables/UseRestaurant";
+
 import Cookies from "js.cookie";
 
 const props = defineProps({
@@ -68,7 +68,7 @@ const getVisits = async (token, id) => {
   const response = await getUserVisits(token, id);
   visits.value = response.slice(0, 3);
   visits.value.forEach(async (visit) => {
-    const name = await getRestaurantsNameByID(token.token, visit.restaurant_id);
+    const name = await getRestaurantsNameByID(visit.restaurant_id);
     visit["name"] = name;
   });
 };

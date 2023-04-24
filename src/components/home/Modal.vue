@@ -136,7 +136,7 @@
 </style>
 
 <script setup>
-import { defineProps, defineEmits, reactive, ref } from "vue";
+import { ref } from "vue";
 import { postReview, getRestaurant } from "@/composables/UseRestaurant";
 
 defineProps({

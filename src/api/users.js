@@ -1,8 +1,7 @@
 import { ENDPOINT_SECURE } from "../composables/API_ENDPOINT";
-import { ID } from "../composables/API_ENDPOINT";
 import Cookies from "js.cookie";
 
-export const getVisitedRestaurant = async (userID) => {
+/* export const getVisitedRestaurant = async (userID) => {
   try {
     const token = Cookies.get("connectionToken");
     const response = await fetch(
@@ -20,7 +19,7 @@ export const getVisitedRestaurant = async (userID) => {
   } catch (error) {
     console.error(error);
   }
-};
+}; */
 
 /* export const getUserInfo = async (userID) => {
   try {
@@ -75,7 +74,7 @@ export const getUserFavoriteLists = async (userID) => {
   }
 };
 
-export const getVisitInformation = async (visitID) => {
+/* export const getVisitInformation = async (visitID) => {
   try {
     const token = Cookies.get("connectionToken").token;
     const req = new Request(
@@ -93,4 +92,4 @@ export const getVisitInformation = async (visitID) => {
   } catch (error) {
     return [];
   }
-};
+}; */

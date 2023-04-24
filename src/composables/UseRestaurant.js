@@ -73,7 +73,6 @@ export const postReview = async function (comment, rating, date, restaurantId) {
   if (!res.ok) {
     window.alert("get gud scrub!");
   }
-  console.log("SUCCESS!");
   return res.json();
 };
 

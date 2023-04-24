@@ -48,34 +48,3 @@ const getVisits = async (token, userID) => {
 
 getVisits(token.token, token.id);
 </script>
-
-<!-- const getVisits = async (userInfos) => {
-  userInfos.value.forEach(async (userInfos) => {
-    const followerVisitsInfo = await getUserVisits(userInfos.id);
-    visits.value = followerVisitsInfo.slice(0, 3);
-    console.log(visits.value);
-  });
-}; -->
-
-<!-- const getInfos = async () => {
-  userInfos.value = await getUserInfoFollowers();
-  userInfos.value.forEach(async (userInfo) => {
-    const data = await getUserVisits(userInfo.id);
-    visits.value = data;
-    console.log(visits.value);
-  });
-  console.log(userInfos.value);
-  console.log(visits.value);
-};
-getInfos(userInfos); -->
-
-<!-- const getInfos = async (userInfos) => {
-  userInfos.value = await getUserInfoFollowers();
-  userInfos.value.forEach(async (userInfo) => {
-    const followerVisitsInfo = await getUserVisits(userInfo.id);
-    console.log(followerVisitsInfo);
-    userInfo["followerVisitsInfo"] = followerVisitsInfo.slice(0, 3);
-  });
-  console.log(userInfos.value);
-};
-getInfos(userInfos); -->

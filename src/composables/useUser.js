@@ -154,9 +154,7 @@ export const followUser = async (token, userFollowID) => {
       body: JSON.stringify({ id: userFollowID }),
     });
     await fetch(req);
-  } catch {
-    console.log("Ne peut pas follow le user");
-  }
+  } catch {}
 };
 
 export const searchUser = async (query) => {

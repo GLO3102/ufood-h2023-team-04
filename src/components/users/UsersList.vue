@@ -33,20 +33,5 @@ const getUserInfo = async () => {
   isLoaded.value = true;
 };
 
-/* const getUserInfo = async () => {
-  const allUserInfos = await getAllUsersInfo(token.token);
-  const followingUserIds = getUserInfoFollowing(token.token, token.id).then(
-    (result) => result.map((user) => user.id)
-  );
-  if (!Array.isArray(followingUserIds)) {
-    throw new Error("getUserInfoFollowing did not return an array");
-  }
-  console.log(followingUserIds);
-  const filteredUserInfos = allUserInfos.filter(
-    (userInfo) => !followingUserIds.includes(userInfo.id)
-  );
-  userInfos.value = filteredUserInfos;
-}; */
-
 getUserInfo();
 </script>

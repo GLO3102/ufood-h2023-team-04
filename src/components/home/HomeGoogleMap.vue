@@ -64,7 +64,6 @@ onMounted(async () => {
         zoom: 11,
         center: userLocation.value,
       });
-      console.log(userLocation);
       const markers = [];
       locations.forEach((location, i) => {
         const marker = new google.maps.Marker({

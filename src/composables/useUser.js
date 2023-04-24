@@ -158,3 +158,20 @@ export const followUser = async (token, userFollowID) => {
     console.log("Ne peut pas follow le user");
   }
 };
+
+export const searchUser = async (query) => {
+  try {
+    const token = Cookies.get("connectionToken").token;
+    const req = new Request(`${ENDPOINT_SECURE}/users?limit=1000&q=${query}`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+      },
+    });
+    const resp = await fetch(req);
+    return resp.json();
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};

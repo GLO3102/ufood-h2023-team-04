@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card v-if="isLoaded">
     <v-toolbar color="red">
       <v-toolbar-title class="d-flex flex-row">
         <v-card-item> {{ user.name }} </v-card-item>
@@ -8,19 +8,19 @@
     </v-toolbar>
     <div class="d-flex flex-row">
       <v-tabs v-model="tab" direction="vertical" color="red">
-        <v-tab value="option-1">
+        <v-tab value="option-1" @click="reload">
           <v-icon start> mdi-star</v-icon>
           Favorites
         </v-tab>
-        <v-tab value="option-2">
+        <v-tab value="option-2" @click="reload">
           <v-icon start>mdi-account-star </v-icon>
           Followers
         </v-tab>
-        <v-tab value="option-3">
+        <v-tab value="option-3" @click="reload">
           <v-icon start>mdi-account-plus-outline </v-icon>
           Following
         </v-tab>
-        <v-tab value="option-4">
+        <v-tab value="option-4" @click="reload">
           <v-icon start> mdi-history </v-icon>
           Recent visits
         </v-tab>
@@ -28,7 +28,7 @@
           <v-icon start> mdi-account-box-multiple-outline </v-icon>
           Users List
         </v-tab>
-        <v-tab value="option-6">
+        <v-tab value="option-6" @click="reload">
           <v-icon start> mdi-account-question </v-icon>
           Search Users
         </v-tab>
@@ -112,6 +112,19 @@ export default {
     UsersList,
     UserSearch,
   },
+  data() {
+    return {
+      isLoaded: true,
+    };
+  },
+  methods: {
+    async reload() {
+      this.isLoaded = false;
+      this.$nextTick(() => {
+        this.isLoaded = true;
+      });
+    },
+  },
   setup(props) {
     const state = reactive({
       user: {},
@@ -160,7 +173,6 @@ export default {
         state.score = visitedRestaurantData.total;
       }
     });
-
     return {
       ...toRefs(state),
       tab,

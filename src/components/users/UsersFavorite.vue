@@ -6,13 +6,16 @@
       @addedRestaurent="addRestoInList"
     ></UsersModalFavoriteVue>
     <div class="w-full">
+      <v-alert v-if="alert.show" :type="alert.type" class="mb-4">
+        {{ alert.message }}
+      </v-alert>
       <div class="flex">
         <h3
           class="font-medium text-gray-900 text-left px-6 py-2 border-t flex-1"
         >
           Favorite restaurants
         </h3>
-        <div class="relative inline-block flex">
+        <div class="relative inline-block">
           <input
             type="text"
             class="border border-gray-400 py-2 px-3 rounded-md"
@@ -53,7 +56,7 @@
         class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm"
       >
         <div
-          class="w-full text-gray-600 py-4 pl-6 pr-3 block flex"
+          class="w-full text-gray-600 py-4 pl-6 pr-3 block"
           v-for="val of selectedFavList"
           :key="val.id"
         >
@@ -112,6 +115,7 @@ export default {
     showDropdown: false,
     selectedFavList: [],
     showModal: false,
+    alert: { show: false, message: "", type: "" },
   }),
   components: {
     UsersModalFavoriteVue,
@@ -142,21 +146,60 @@ export default {
     },
     async addList() {
       let payload = { name: this.selectedListName, owner: this.user.email };
+      if (this.selectedListName === "" || this.selectedListName === null) {
+        this.alert.show = true;
+        this.alert.type = "error";
+        this.alert.message = "List name cannot be empty!";
+        setTimeout(() => {
+          this.alert.show = false;
+        }, 5000);
+        return;
+      }
       const data = await postNewList(payload);
       if (data) {
         this.lists = (await getUserFavoriteLists(this.user.id)).items;
         this.selectedListID = data.id;
         this.selectedListName = data.name;
         await this.changeSelectedListRestos();
+        this.alert.show = true;
+        this.alert.type = "success";
+        this.alert.message = "List created!";
+        setTimeout(() => {
+          this.alert.show = false;
+        }, 5000);
       }
     },
     async modifyList() {
       let payload = { name: this.selectedListName, owner: this.user.email };
+      if (this.selectedListName === "" || this.selectedListName === null) {
+        this.alert.show = true;
+        this.alert.type = "error";
+        this.alert.message = "List name cannot be empty";
+        setTimeout(() => {
+          this.alert.show = false;
+        }, 5000);
+        return;
+      }
       await putList(payload, this.selectedListID);
       this.lists = (await getUserFavoriteLists(this.user.id)).items;
       await this.changeSelectedListRestos();
+      this.alert.show = true;
+      this.alert.type = "success";
+      this.alert.message = "List modified!";
+      setTimeout(() => {
+        this.alert.show = false;
+      }, 5000);
     },
     async deleteList() {
+      if (this.selectedListID === null || this.selectedListID === "") {
+        this.alert.show = true;
+        this.alert.type = "error";
+        this.alert.message = "Cannot delete!";
+        setTimeout(() => {
+          this.alert.show = false;
+        }, 5000);
+        return;
+      }
       await deleteList(this.selectedListID);
       this.lists = (await getUserFavoriteLists(this.user.id)).items;
       if (this.lists.length > 0) {
@@ -166,6 +209,12 @@ export default {
       } else {
         this.selectedListID = null;
         this.selectedListName = null;
+        this.alert.show = true;
+        this.alert.type = "success";
+        this.alert.message = "List deleted!";
+        setTimeout(() => {
+          this.alert.show = false;
+        }, 5000);
       }
     },
     async addRestoInList(id) {

@@ -50,6 +50,9 @@
         >
       </v-card-item>
       <v-card-item v-show="expanded">
+        <v-alert v-if="alert.show" :type="alert.type" class="mb-4">
+          {{ alert.message }}
+        </v-alert>
         <v-btn
           @click="emit('filtering', filter(restaurants))"
           class="bg-amber-accent-1 m-2"
@@ -63,9 +66,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 const expanded = ref(false);
 
+const alert = reactive({
+  show: false,
+  message: "",
+  type: "",
+});
 const toggleExpand = () => {
   expanded.value = !expanded.value;
 };

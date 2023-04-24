@@ -39,6 +39,9 @@
               </select>
             </div>
             <slot />
+            <v-alert v-if="alert.show" :type="alert.type" class="mb-4">
+              {{ alert.message }}
+            </v-alert>
           </div>
           <div class="modal-footer">
             <button
@@ -136,13 +139,18 @@
 </style>
 
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { postReview, getRestaurant } from "@/composables/UseRestaurant";
 
 defineProps({
   modalActive: Boolean,
   id: String,
   name: String,
+});
+const alert = reactive({
+  show: false,
+  message: "",
+  type: "",
 });
 
 const emit = defineEmits(["close"]);
@@ -156,7 +164,17 @@ const rating = ref("");
 const date = ref("");
 
 async function submitReview(id) {
-  await postReview(comment.value, rating.value, date.value, id);
-  close();
+  if (rating.value === null || rating.value === "") {
+    alert.show = true;
+    alert.type = "error";
+    alert.message = "Select a Rating";
+    setTimeout(() => {
+      this.alert.show = false;
+    }, 5000);
+    return;
+  } else {
+    await postReview(comment.value, rating.value, date.value, id);
+    close();
+  }
 }
 </script>

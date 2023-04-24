@@ -68,12 +68,7 @@ export const postReview = async function (comment, rating, date, restaurantId) {
       }),
     }
   );
-
   const res = await fetch(req);
-  if (!res.ok) {
-    window.alert("get gud scrub!");
-  }
-  console.log("SUCCESS!");
   return res.json();
 };
 

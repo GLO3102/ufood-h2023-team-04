@@ -5,7 +5,7 @@
       <div
         class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm"
       >
-        <p v-if="userInfos.length === 0">Nobody follows you</p>
+        <p v-if="userInfos.length === 0 && isLoaded">Nobody follows you</p>
         <a
           href="#"
           class="w-full text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"

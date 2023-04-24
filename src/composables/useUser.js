@@ -18,9 +18,7 @@ export const getVisitedRestaurant = async (userID) => {
     const response = await fetch(req);
     const data = await response.json();
     return data;
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {}
 };
 
 export const getUserInfo = async (userID) => {
@@ -36,7 +34,6 @@ export const getUserInfo = async (userID) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(error);
     return [];
   }
 };
@@ -89,7 +86,6 @@ export const getUserFavoriteLists = async (userID) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(error);
     return {};
   }
 };
@@ -106,7 +102,6 @@ export const getUserInfoFollowers = async (token, userID) => {
     const data = await response.json();
     return data.followers;
   } catch (error) {
-    console.error(error);
     return [];
   }
 };
@@ -123,7 +118,6 @@ export const getUserInfoFollowing = async (token, userID) => {
     const data = await response.json();
     return data.following;
   } catch (error) {
-    console.error(error);
     return [];
   }
 };
@@ -138,9 +132,7 @@ export const deleteFollower = async (token, userUnfollowID) => {
       },
     });
     await fetch(req);
-  } catch (error) {
-    console.error("Ne supprime pas le follower");
-  }
+  } catch (error) {}
 };
 
 export const followUser = async (token, userFollowID) => {
@@ -169,7 +161,6 @@ export const searchUser = async (query) => {
     const resp = await fetch(req);
     return resp.json();
   } catch (error) {
-    console.error(error);
     return [];
   }
 };

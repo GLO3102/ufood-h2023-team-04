@@ -16,14 +16,12 @@ export const getFavoriteById = async (id) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(error);
     return [];
   }
 };
 
 export const postNewList = async (payload) => {
   if (!payload.name) {
-    console.error("Select a name");
     window.alert("Name cannot be empty");
     return null;
   }
@@ -41,7 +39,6 @@ export const postNewList = async (payload) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(error);
     return [];
   }
 };
@@ -59,7 +56,6 @@ export const putList = async (payload, id) => {
     });
     await fetch(request);
   } catch (error) {
-    console.error(error);
     return [];
   }
 };
@@ -74,9 +70,7 @@ export const deleteList = async (id) => {
       },
     });
     await fetch(request);
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {}
 };
 
 export const postAddRestoInList = async (listID, restoID) => {
@@ -94,9 +88,7 @@ export const postAddRestoInList = async (listID, restoID) => {
       }
     );
     await fetch(request);
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {}
 };
 
 export const deleteRestoFromList = async (listID, restoID) => {
@@ -112,7 +104,5 @@ export const deleteRestoFromList = async (listID, restoID) => {
       }
     );
     await fetch(request);
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {}
 };

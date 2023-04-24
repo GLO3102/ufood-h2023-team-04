@@ -24,7 +24,6 @@ export const signUp = async function (name, email, password) {
       if (res.ok) {
         return data;
       } else {
-        console.error("Error:", data);
         throw new Error(
           data.message || "An error occurred during the signUp process."
         );
@@ -35,12 +34,10 @@ export const signUp = async function (name, email, password) {
       if (res.ok) {
         return text;
       } else {
-        console.error("Error:", text);
         throw new Error(text || "An error occurred during the signUp process.");
       }
     }
   } catch (error) {
-    console.error("Error:", error);
     throw error;
   }
 };

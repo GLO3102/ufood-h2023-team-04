@@ -14,7 +14,6 @@ export const getRestaurantsNameByID = async (restoId) => {
     const data = await response.json();
     return data.name;
   } catch (error) {
-    console.error("Erreur recherche visit", error);
     return [];
   }
 };
@@ -32,7 +31,6 @@ export const getAllRestaurants = async () => {
     const data = await response.json();
     return data.items;
   } catch (error) {
-    console.error(error);
     return [];
   }
 };

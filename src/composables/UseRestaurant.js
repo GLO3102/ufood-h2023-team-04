@@ -116,9 +116,7 @@ export const addToFavorites = async (listID, restoID) => {
       }
     );
     await fetch(request);
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {}
 };
 export const getListefavori = async function (idListe) {
   const token = Cookies.get("connectionToken").token;
@@ -156,7 +154,6 @@ export const logIn = async function (email, password) {
       const token = { token: data.token, id: data.id };
       Cookies.set("connectionToken", token);
     } else {
-      console.error("Error:", data);
       throw new Error(
         data.message || "An error occurred during the login process."
       );

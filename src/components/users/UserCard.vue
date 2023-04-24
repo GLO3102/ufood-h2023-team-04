@@ -46,9 +46,9 @@
 
 <script setup>
 import { ref } from "vue";
-
 import { getUserVisits, followUser } from "../../composables/useUser";
-import { getRestaurantsNameByID } from "../../api/restaurantsAPI";
+import { getRestaurantsNameByID } from "../../composables/UseRestaurant";
+
 import Cookies from "js.cookie";
 
 const props = defineProps({

@@ -1,5 +1,5 @@
 import { ENDPOINT_SECURE } from "./API_ENDPOINT";
-import { ID } from "./API_ENDPOINT";
+
 import Cookies from "js.cookie";
 
 export const getVisitedRestaurant = async (userID) => {
@@ -10,7 +10,8 @@ export const getVisitedRestaurant = async (userID) => {
       {
         method: "GET",
         headers: {
-          Authorization: token,
+          "Content-Type": "application/json",
+          Authorization: token.token,
         },
       }
     );

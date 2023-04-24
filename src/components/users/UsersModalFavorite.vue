@@ -2,6 +2,9 @@
   <div class="fixed z-10 inset-0 overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen px-4">
       <div class="bg-white rounded-lg shadow-lg px-6 py-4">
+        <v-alert v-if="alert.show" :type="alert.type" class="mb-4">
+          {{ alert.message }}
+        </v-alert>
         <h2 class="text-lg font-medium mb-2">Add a new restaurant</h2>
         <div class="mt-4">
           <label
@@ -48,11 +51,27 @@ export default {
     return {
       restaurantID: "",
       restaurantList: [],
+      alert: { show: false, message: "", type: "" },
     };
   },
   methods: {
     submitNewRestaurant() {
+      if (this.restaurantID === "" || this.restaurantID === null) {
+        this.alert.show = true;
+        this.alert.type = "error";
+        this.alert.message = "Must select a restaurant!";
+        setTimeout(() => {
+          this.alert.show = false;
+        }, 5000);
+        return;
+      }
       this.$emit("addedRestaurent", this.restaurantID);
+      this.alert.show = true;
+      this.alert.type = "success";
+      this.alert.message = "List created!";
+      setTimeout(() => {
+        this.alert.show = false;
+      }, 5000);
       this.closeModal();
     },
     closeModal() {
@@ -61,7 +80,6 @@ export default {
   },
   async created() {
     this.restaurantList = await getAllRestaurants();
-    // https://stackoverflow.com/questions/6712034/sort-array-by-firstname-alphabetically-in-javascript
     this.restaurantList.sort((a, b) => a.name.localeCompare(b.name));
   },
 };

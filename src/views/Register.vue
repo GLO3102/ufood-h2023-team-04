@@ -61,7 +61,6 @@ const _emailRules = emailRules;
 const _passwordRules = passwordRules;
 const _passwordConfirmRules = passwordRules;
 
-// Add alert state
 const alert = reactive({
   show: false,
   message: "",

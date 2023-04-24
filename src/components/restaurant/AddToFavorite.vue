@@ -56,10 +56,7 @@ const fetch = async () => {
       ListesDeRestofavorites.value = (await getUserFavorites(token.id)).items;
       NomFavoriteList.value = ListesDeRestofavorites.value[0].name;
       isLoaded.value = true;
-    } catch (e) {
-      // TODO handle this
-      console.log("No favorite list available");
-    }
+    } catch (e) {}
   }
 };
 const onSelectItem = () => {

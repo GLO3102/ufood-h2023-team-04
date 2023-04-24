@@ -32,7 +32,6 @@ async function filter(input) {
   if (input) {
     searchMode.value = true;
     filteredList.value = (await searchUser(input)).items;
-    console.log(filteredList.value);
   }
 }
 </script>

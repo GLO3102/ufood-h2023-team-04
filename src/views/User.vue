@@ -28,6 +28,10 @@
           <v-icon start> mdi-account-box-multiple-outline </v-icon>
           Users List
         </v-tab>
+        <v-tab value="option-6">
+          <v-icon start> mdi-account-question </v-icon>
+          Search Users
+        </v-tab>
       </v-tabs>
       <v-window v-model="tab">
         <v-window-item value="option-1">
@@ -73,6 +77,13 @@
             </v-card-text>
           </v-card>
         </v-window-item>
+        <v-window-item value="option-6">
+          <v-card flat>
+            <v-card-text>
+              <p><UserSearch></UserSearch></p>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
       </v-window>
     </div>
   </v-card>
@@ -86,6 +97,7 @@ import { getUserInfo } from "../composables/useUser";
 import UsersVisitedRestaurants from "../components/users/UsersVisitedRestaurants.vue";
 import UsersFavorite from "../components/users/UsersFavorite.vue";
 import UsersList from "../components/users/UsersList.vue";
+import UserSearch from "../components/users/search/UserSearch.vue";
 import FollowersCard from "../components/users/follow/FollowersCard.vue";
 import FollowingCard from "../components/users/follow/FollowingCard.vue";
 
@@ -98,6 +110,7 @@ export default {
     FollowersCard,
     FollowingCard,
     UsersList,
+    UserSearch,
   },
   setup(props) {
     const state = reactive({
@@ -130,6 +143,11 @@ export default {
         value: "option-5",
         label: "Option 5",
         icon: "mdi-account-box-multiple-outline",
+      },
+      {
+        value: "option-6",
+        label: "Option 6",
+        icon: "mdi-account-question ",
       },
     ];
 

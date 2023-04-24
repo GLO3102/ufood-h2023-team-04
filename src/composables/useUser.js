@@ -43,7 +43,7 @@ export const getUserInfo = async (userID) => {
 
 export const getAllUsersInfo = async (token) => {
   try {
-    const response = await fetch(`${ENDPOINT_SECURE}/users?limit=30`, {
+    const response = await fetch(`${ENDPOINT_SECURE}/users?limit=1000`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
